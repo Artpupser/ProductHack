@@ -1,7 +1,11 @@
 {
   "name": "ProductHack",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.php",
+  "scripts": {
+    "dev": "php -S localhost:8000 -t src"
+  },
+  "author": "Artpupser, AnyaHandina, annafilimo_ova, Alexey",
   "repository": "https://github.com/Artpupser/ProductHack",
   "license": "MIT"
 }

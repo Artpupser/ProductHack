@@ -12,6 +12,6 @@
         echo "Hello world!";
         ?>
     </h1>
-    <script href="./public/js/index.js"></script>
+    <script src="./public/js/index.js"></script>
 </body>
 </html>
