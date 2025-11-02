@@ -95,6 +95,37 @@ a:hover{color: #5d5d5d;}
 
 # Шаг 4. Разработка BackEnd.
 
+_Проектирование базы данных_
+1. Установка PostgreSQL
+2. Установка менеджера БД DBeaver
+3. Проектирование БД
+4. Создание БД
+
+<img width="337" height="187" alt="image" src="https://github.com/user-attachments/assets/6d1746a8-06b3-4045-ad11-70ede7a9879e" />
+```
+create database WineShop;
+
+create type roles_of_users as enum ('admin', 'customer');
+
+create table users(
+	id int primary key,
+	full_name varchar,
+	email varchar,
+	role roles_of_users
+);
+
+create type statuses as enum ('created', 'sended', 'delivered');
+
+create table orders(
+	id int primary key,
+	user_id int,
+	total_amount int,
+	status statuses,
+	created_at timestamp,
+	constraint usr_id_fk foreign key(user_id) references users(id)
+);
+```
+
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
