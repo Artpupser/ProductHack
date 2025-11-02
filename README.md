@@ -93,6 +93,41 @@ div#idname{background-color: #000;}
 a:hover{color: #5d5d5d;}
 ```
 
+Возможности JavaScript:
+
+```
+console.log("index.js") // Логирование
+document.onload(foo(10))
+
+function foo(variable){ // Общий синтаксис
+    if(variable == 10){
+        alert("The var is 10!");  // Уведомления
+    } 
+    for(var i = 0; i < 10; i++){
+        console.log(variable++);
+    }
+}
+
+// Работа со структурой веб-документа, в данном случае - добавление обработчика событий и изменение отображения элемента
+document.getElementById('residence').addEventListener('change', function() {
+            const otherField = document.getElementById('residence_other_field');
+            if (this.value === 'Другое') {
+                otherField.style.display = 'block';
+            } else {
+                otherField.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const residenceSelect = document.getElementById('residence');
+            const otherField = document.getElementById('residence_other_field');
+            
+            if (residenceSelect.value === 'Другое') {
+                otherField.style.display = 'block';
+            }
+        });
+```
+
 # Шаг 4. Разработка BackEnd.
 
 _Проектирование базы данных_
