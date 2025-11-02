@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+html {
+    user-select: none;
+    overflow-x: hidden;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: black;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+p, h1, a, img, .btn, .p-btn, .b-btn {
+    text-align: center;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    color: #fff;
+}
+
+h1 {
+    font-size: 4em;
+}
