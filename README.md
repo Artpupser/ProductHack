@@ -102,6 +102,7 @@ _Проектирование базы данных_
 4. Создание БД
 
 <img width="337" height="187" alt="image" src="https://github.com/user-attachments/assets/6d1746a8-06b3-4045-ad11-70ede7a9879e" />
+
 ```
 create database WineShop;
 
