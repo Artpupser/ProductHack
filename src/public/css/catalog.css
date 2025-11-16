@@ -1,0 +1,224 @@
+body {
+    background-color: white;
+}
+
+.header {
+    background-image: url('../../assets/haad.png');
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #7E868E;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    max-width: 1920px;
+    height: 100px;
+    color: white;
+    z-index: 100;
+}
+
+.logo {
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    padding: 5px;
+}
+
+.my_font, .wineshop {
+    font-family: "bergamosco-regular", sans-serif;
+}
+
+.wineshop {
+    font-size: 50px;
+}
+
+.profile, .basket {
+    display: block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile {
+    width: 90px;
+    height: 90px;
+}
+
+.basket {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin-top: 130px;
+    flex-wrap: nowrap;
+}
+
+.img_catalog, .img_filter {
+    margin: 100px 70px 0 70px;
+    position: relative;
+    width: 300px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_catalog img, .img_filter img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.img_catalog h1, .img_filter h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 2;
+    margin: 0;
+}
+
+.img_catalog h1 {
+    font-size: 48px;
+}
+
+.img_filter h2 {
+    font-size: 40px;
+}
+
+.searc_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.search_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search {
+    width: 500px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.searc_form img {
+    width: 50px;
+    height: 50px;
+    background-color: #542121;
+    border-radius: 5px;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+button:focus, #search:focus {
+    outline: none;
+}
+
+.catalog-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.img_catalog, .searc_form, .img_filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search_wrapper input[type="search"] {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    background-color: white;
+    width: 1200px;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #2f0809;
+    margin: 50px auto;
+    font-family: "bergamosco-regular", sans-serif;
+}
+
+.card_img {
+    border: 1px solid #2f0809;
+    flex-shrink: 0;
+    margin-right: 20px;
+    width: 300px;
+    height: auto;
+}
+
+.card_content {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card_title {
+    margin-top: 20px;
+    font-size: 50px;
+    color: #542121;
+}
+
+.card_sub {
+    margin-top: 20px;
+    font-size: 30px;
+    color: #542121;
+}
+
+.price_card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 50px;
+    color: #542121;
+}
+
+.btn-card
+{
+    margin-top: 20px;
+}
+
+.btn {
+
+    background-color: #542121; 
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 30px;
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
