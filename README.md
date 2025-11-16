@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# ProductHack
+=======
 # ProductHack
 
 # Шаг 1. Инициализация репозитория на виртуальной машине.
@@ -93,10 +96,87 @@ div#idname{background-color: #000;}
 a:hover{color: #5d5d5d;}
 ```
 
+Возможности JavaScript:
+
+```
+console.log("index.js") // Логирование
+document.onload(foo(10))
+
+function foo(variable){ // Общий синтаксис
+    if(variable == 10){
+        alert("The var is 10!");  // Уведомления
+    } 
+    for(var i = 0; i < 10; i++){
+        console.log(variable++);
+    }
+}
+
+let response = await fetch(url);
+
+if (response.ok) { // если HTTP-статус в диапазоне 200-299
+  // получаем тело ответа (см. про этот метод ниже)
+  let json = await response.json();
+} else {
+  alert("Ошибка HTTP: " + response.status);
+}
+
+// Работа со структурой веб-документа, в данном случае - добавление обработчика событий и изменение отображения элемента
+document.getElementById('residence').addEventListener('change', function() {
+            const otherField = document.getElementById('residence_other_field');
+            if (this.value === 'Другое') {
+                otherField.style.display = 'block';
+            } else {
+                otherField.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const residenceSelect = document.getElementById('residence');
+            const otherField = document.getElementById('residence_other_field');
+            
+            if (residenceSelect.value === 'Другое') {
+                otherField.style.display = 'block';
+            }
+        });
+```
+
 # Шаг 4. Разработка BackEnd.
+
+_Проектирование базы данных_
+1. Установка PostgreSQL
+2. Установка менеджера БД DBeaver
+3. Проектирование БД
+4. Создание БД
+
+<img width="337" height="187" alt="image" src="https://github.com/user-attachments/assets/6d1746a8-06b3-4045-ad11-70ede7a9879e" />
+
+```
+create database WineShop;
+
+create type roles_of_users as enum ('admin', 'customer');
+
+create table users(
+	id int primary key,
+	full_name varchar,
+	email varchar,
+	role roles_of_users
+);
+
+create type statuses as enum ('created', 'sended', 'delivered');
+
+create table orders(
+	id int primary key,
+	user_id int,
+	total_amount int,
+	status statuses,
+	created_at timestamp,
+	constraint usr_id_fk foreign key(user_id) references users(id)
+);
+```
 
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
 
 # Шаг 7. Тестирование проекта.
+>>>>>>> ba86e0d7ceb131a82f5759f491ce560b2ed5bf99

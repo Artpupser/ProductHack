@@ -1,67 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page</title>
-    <link rel="stylesheet" href="./public/css/import.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Винный магазин</title>
+  <link rel="stylesheet" href="./public/css/import.css">
 </head>
 <body>
-    <div class="header">
-        <div class="header-container">
-            <div class="logo">
-                <img src="" alt="logo"/>
+    <script>
+    window.onload = function() {
+    const ok = confirm("Подтвердите, что вам есть 18 лет");
+    if (!ok) {  
+        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
+    }
+};
+</script>
+
+    <header class="header_main">
+        <div class="logo">
+            <img src="./assets/logo.png" alt="Логотип">
+        </div>
+        <p class="wineshop">Винный магазин</p>
+        <div class="place flex-center flex-row">
+            <div class="img-place">
+              <img src="./assets/place.png" alt="Местоположение">
             </div>
-            <p>
-                Винный магазин
-            </p>
-            <div class="place flex-center flex-row">
-                <div class="logo img-btn">
-                    <img src="./assets/place.png" alt="place-image"/>
+            <div class="flex-column">
+              <p class="my_font">г. Санкт-Петербург,</p>
+              <p class="my_font">ул. Куйбышева 31</p>
+            </div>
+        </div>
+        <div class="contacts flex-center flex-row">
+            <a href="#"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
+            <a href="#"><img src="./assets/basket.png" alt="Корзина" class="basket"></a>
+        </div>
+    </header>
+    <main>
+        <div class="background-container">
+            <div class="bg-1">
+                <h1 class="vinishko"  >Винишко на все <br> случаи жизни</h1>
+                <button class="butcat" onclick="window.location.href='./public/html/catalog.html'">Перейти в каталог</button>
+            </div>
+            <div class="bg-2">
+ 
+            <div class="slider">
+                <img class="slider-img" src="./assets/wine_1.jpg" alt="Слайд 1">
+                <img class="slider-img" src="./assets/wine_2.jpg" alt="Слайд 2">
+                <img class="slider-img" src="./assets/wine_3.jpg" alt="Слайд 3">
+                <div class="controls">
+                    <img style="opacity: 1; height: 40px;" class="left controlls" src="./assets/left.jpg" alt="Слева">
+                    <img style="opacity: 1; height: 40px;" class="right controlls" src="./assets/right.jpg" alt="Справа">
                 </div>
-                <div class="flex-column">
-                    <p>г. Рязань,</p>
-                    <p>ул. Щедрена 43</p>
-                </div>
+            </div>
+            <a href="./public/html/catalog.html" class="ssilka" style="color: #800000; ">
+    Перейти в каталог</a>
+
+
 
             </div>
-            <div class="contacts flex-center flex-row">
-                <div class="logo img-btn">
-                    <img src="./assets/phone.png" alt="phone-image"/>
-                </div>
-                <div class="flex-column">
-                    <p class="large-p">8 (xxx) xxx-xx-xx</p>
-                    <p class="basic-p">Ежедневно с 9:00 до 20:00</p>
-                </div>
-            </div>
+            
+           
+
+            <div class="acii"></div>
+            <div class="foot"></div>
         </div>
-    </div>
-    <div class="container">
-        <div class="content hero">
-            <div class="frame flex-column">
-                <div class="flex-row">
-                    <button class="w-btn btn p-15">Вкуснейшие</button>
-                </div>
-                <div class="flex-row">
-                    <h1>Супер крутой текст про вино</h1>
-                </div>
-                <div class="flex-column">
-                    <p>Приготовим за 3 часа в день заказа.</p>
-                    <p>Доставка на авто в холодельнике.</p>
-                </div>
-                <div class="flex-row">
-                    <button class="b-btn btn p-35">Перейти в каталог</button>
-                    <p>9 различных видов на выбор</p>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="sub-content"></div>
-            <div class="sub-content"></div>
-            <div class="sub-content"></div>
-            <div class="sub-content"></div>
-        </div>
-    </div>
-    <div class="footer"></div>
-</body>
-</html>
+    </main>
+
+    <footer class="footer"></footer>
+
+    <script src="./public/js/index.js"></script>
