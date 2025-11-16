@@ -1,3 +1,6 @@
+# env files
+.env
+
 # Yarn Classic
 /node_modules/
 .yarn-integrity

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-
+@import './font.css';
 @import './tags.css';
 @import './btn.css';
 @import './flex.css';
