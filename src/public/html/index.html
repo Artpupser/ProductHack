@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Винный магазин</title>
-  <link rel="stylesheet" href="./public/css/import.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Винный магазин</title>
+    <link rel="stylesheet" href="./public/css/import.css">
 </head>
+
 <body>
     <script>
-    window.onload = function() {
-    const ok = confirm("Подтвердите, что вам есть 18 лет");
-    if (!ok) {  
-        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
-    }
-};
-</script>
+        window.onload = function() {
+            const ok = confirm("Подтвердите, что вам есть 18 лет");
+            if (!ok) {
+                document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
+            }
+        };
+    </script>
 
     <header class="header_main">
         <div class="logo">
@@ -23,43 +25,43 @@
         <p class="wineshop">Винный магазин</p>
         <div class="place flex-center flex-row">
             <div class="img-place">
-              <img src="./assets/place.png" alt="Местоположение">
+                <img src="./assets/place.png" alt="Местоположение">
             </div>
             <div class="flex-column">
-              <p class="my_font">г. Санкт-Петербург,</p>
-              <p class="my_font">ул. Куйбышева 31</p>
+                <p class="my_font">г. Санкт-Петербург,</p>
+                <p class="my_font">ул. Куйбышева 31</p>
             </div>
         </div>
         <div class="contacts flex-center flex-row">
-            <a href="#"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
+            <a href="user.html"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
             <a href="#"><img src="./assets/basket.png" alt="Корзина" class="basket"></a>
         </div>
     </header>
     <main>
         <div class="background-container">
             <div class="bg-1">
-                <h1 class="vinishko"  >Винишко на все <br> случаи жизни</h1>
+                <h1 class="vinishko">Винишко на все <br> случаи жизни</h1>
                 <button class="butcat" onclick="window.location.href='./public/html/catalog.html'">Перейти в каталог</button>
             </div>
             <div class="bg-2">
- 
-            <div class="slider">
-                <img class="slider-img" src="./assets/wine_1.jpg" alt="Слайд 1">
-                <img class="slider-img" src="./assets/wine_2.jpg" alt="Слайд 2">
-                <img class="slider-img" src="./assets/wine_3.jpg" alt="Слайд 3">
-                <div class="controls">
-                    <img style="opacity: 1; height: 40px;" class="left controlls" src="./assets/left.jpg" alt="Слева">
-                    <img style="opacity: 1; height: 40px;" class="right controlls" src="./assets/right.jpg" alt="Справа">
+
+                <div class="slider">
+                    <img class="slider-img" src="./assets/wine_1.jpg" alt="Слайд 1">
+                    <img class="slider-img" src="./assets/wine_2.jpg" alt="Слайд 2">
+                    <img class="slider-img" src="./assets/wine_3.jpg" alt="Слайд 3">
+                    <div class="controls">
+                        <img style="opacity: 1; height: 40px;" class="left controlls" src="./assets/left.jpg" alt="Слева">
+                        <img style="opacity: 1; height: 40px;" class="right controlls" src="./assets/right.jpg" alt="Справа">
+                    </div>
                 </div>
-            </div>
-            <a href="./public/html/catalog.html" class="ssilka" style="color: #800000; ">
+                <a href="./public/html/catalog.html" class="ssilka" style="color: #800000; ">
     Перейти в каталог</a>
 
 
 
             </div>
-            
-           
+
+
 
             <div class="acii"></div>
             <div class="foot"></div>
