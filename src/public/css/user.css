@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #e5e5e5;
+    font-family: Georgia, serif;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+
+/* ЛЕВАЯ ПАНЕЛЬ */
+
+.left-panel {
+    width: 50%;
+    background: #f7f7f7;
+    border-right: 4px solid #2a2a2a;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 34px;
+    margin-bottom: 5px;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    color: #444;
+    margin-right: 5px;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+
+/* Профиль */
+
+.profile-block {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.user-icon {
+    width: 45px;
+    height: 45px;
+    border: 3px solid #7c2c2c;
+    border-radius: 50%;
+}
+
+.profile-info input {
+    width: 260px;
+    font-size: 16px;
+    margin: 3px 0;
+}
+
+button.save-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 1px solid #7c2c2c;
+    background: #fff;
+    cursor: pointer;
+}
+
+
+/* Кликабельные блоки */
+
+.panel-button {
+    display: block;
+    text-decoration: none;
+    border-top: 1px solid #ddd;
+    padding: 14px 0;
+    border-radius: 6px;
+    color: inherit;
+    transition: background 0.25s;
+}
+
+.panel-button:hover {
+    background: rgba(90, 31, 37, 0.05);
+}
+
+.panel-button h3 {
+    margin: 0 0 6px 0;
+    color: #7c2c2c;
+}
+
+.panel-button p {
+    margin: 0;
+}
+
+
+/* Правый блок */
+
+.right-panel {
+    width: 50%;
+    padding: 40px;
+}
+
+.orders-box {
+    border: 3px solid #5e1e22;
+    padding: 25px 40px;
+    height: 90%;
+}
+
+.orders-title {
+    font-size: 32px;
+    color: #5e1e22;
+    margin-bottom: 20px;
+}
+
+.order-details {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.delivery-block input {
+    width: 300px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+button.confirm-delivery {
+    padding: 6px 12px;
+    border: 1px solid #5e1e22;
+    background: #fff;
+    cursor: pointer;
+}
+
+.sum {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.exit {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}

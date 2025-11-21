@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="../css/user.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <!-- ЛЕВАЯ ПАНЕЛЬ -->
+        <aside class="left-panel">
+
+            <h1>Личный кабинет</h1>
+
+            <div class="breadcrumbs">
+                <a href="index.html">Главная</a> /
+                <a href="shop.html">Магазин</a> /
+                <a href="#">Личный кабинет</a>
+            </div>
+
+            <!-- Профиль -->
+            <div class="profile-block">
+                <div class="user-icon"></div>
+
+                <div class="profile-info">
+                    <label>Имя:</label><br>
+                    <input id="username" type="text" value="Петр Петрович Петров"><br>
+
+                    <label>Email:</label><br>
+                    <input id="email" type="text" placeholder="Введите email"><br>
+
+                    <label>Телефон:</label><br>
+                    <input id="phone" type="text" placeholder="Введите телефон"><br>
+
+                    <button class="save-btn" onclick="saveProfile()">Сохранить</button>
+                </div>
+            </div>
+
+            <!-- Скидки / Корзина / Избранное -->
+            <a href="#" class="panel-button">
+                <h3>Ваши скидки:</h3>
+                <p>Осенний сезон — 25%</p>
+            </a>
+
+            <a href="#" class="panel-button">
+                <h3>Корзина:</h3>
+                <p class="muted">Ваша корзина пуста</p>
+            </a>
+
+            <a href="#" class="panel-button">
+                <h3>Избранное:</h3>
+                <p class="muted">Нет</p>
+            </a>
+
+            <hr>
+            <a href="#" class="exit">Выйти</a>
+
+        </aside>
+
+
+
+        <!-- ПРАВАЯ ПАНЕЛЬ -->
+        <main class="right-panel">
+
+            <div class="orders-box">
+
+                <h2 class="orders-title">Заказы:</h2>
+
+                <div class="order-details">
+                    Заказ № <span id="orderNumber"></span><br> Дата: <span id="orderDate">—</span><br><br> Статус: <span id="orderStatus">—</span>
+                </div>
+
+                <!-- Доставка -->
+                <div class="delivery-block">
+                    <label>Адрес доставки:</label><br>
+                    <input id="deliveryAddress" type="text" placeholder="Введите адрес">
+                    <br>
+                    <button class="confirm-delivery" onclick="confirmDelivery()">Подтвердить адрес</button>
+                </div>
+
+                <!-- ТОЛЬКО если есть товары -->
+                <div class="sum" id="orderSumBlock" style="display:none;">
+                    Сумма: <span id="orderSum">0</span>$
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="../js/user.js"></script>
+</body>
+
+</html>
