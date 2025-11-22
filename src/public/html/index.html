@@ -1,6 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Винный магазин</title>
+    <link rel="stylesheet" href="./public/css/import.css">
+</head>
+
 <body>
+    <script>
+        window.onload = function() {
+            const ok = confirm("Подтвердите, что вам есть 18 лет");
+            if (!ok) {
+                document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
+            }
+        };
+    </script>
+
     <header class="header_main">
         <div class="logo">
             <img src="./assets/logo.png" alt="Логотип">
@@ -24,7 +41,11 @@
         <div class="background-container">
             <div class="bg-1">
                 <h1 class="vinishko">Винишко на все <br> случаи жизни</h1>
+<<<<<<< HEAD
                 <button class="butcat" onclick="window.location.href='./catalog'">Перейти в каталог</button>
+=======
+                <button class="butcat" onclick="window.location.href='./public/html/catalog.html'">Перейти в каталог</button>
+>>>>>>> a3e4189 (присоединение пользователя с основным сайтом)
             </div>
             <div class="bg-2">
 
@@ -37,18 +58,31 @@
                         <img style="opacity: 1; height: 40px;" class="right controlls" src="./assets/right.jpg" alt="Справа">
                     </div>
                 </div>
+<<<<<<< HEAD
             </div>
             <a href="./catalog" class="ssilka" style="color: #800000; ">Перейти в каталог</a>
             </div>
+=======
+                <a href="./public/html/catalog.html" class="ssilka" style="color: #800000; ">
+    Перейти в каталог</a>
+
+
+
+            </div>
+
+
+
+>>>>>>> a3e4189 (присоединение пользователя с основным сайтом)
             <div class="acii"></div>
             <div class="foot"></div>
         </div>
     </main>
     <footer class="footer"></footer>
+<<<<<<< HEAD
     <script src="./public/js/index.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
 =======
-</html>
->>>>>>> 649dce0e249186d3fb05d38ef932b6f8b658bd1a
+
+    <script src="./public/js/index.js"></script>
+>>>>>>> a3e4189 (присоединение пользователя с основным сайтом)
