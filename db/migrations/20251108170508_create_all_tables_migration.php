@@ -63,7 +63,7 @@ final class CreateAllTablesMigration extends AbstractMigration
                     ->setName("role_id")
                     ->setType(PostgresAdapter::PHINX_TYPE_SMALL_INTEGER)
                     ->setOptions(["null" => false, "default" => 0])) 
-                ->addForeignKey("role_id", "user_roles", "id", ["delete" => "SET 0","update" => "NO_ACTION"])//role
+                ->addForeignKey("role_id", "user_roles", "id", ["delete" => "CASCADE","update" => "NO_ACTION"])//role
                 ->create();
             }   
         }
