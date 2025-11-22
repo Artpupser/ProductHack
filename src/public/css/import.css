@@ -1,12 +1,9 @@
 @import './font.css';
-<<<<<<< HEAD
 @import './tags.css';
 @import './btn.css';
-=======
-@import './index.css';
-@import './catalog.css';
->>>>>>> 81ddb66785d94ee8d61f3369a45e008fdf75c963
 @import './flex.css';
+@import './index.css';
+@import './catalog.css'
 
 
 

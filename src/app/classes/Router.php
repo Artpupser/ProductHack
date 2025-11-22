@@ -37,17 +37,21 @@ final class Router {
                 }
                 call_user_func($obj);
             } catch (\Throwable $th) {
-                $this->pageHandler("404.php");
-                server_error($th->getMessage());
+                $throw_message = $th->getMessage();
+                $this->errorPageHandler($th->getCode(), $throw_message);
+                server_error($throw_message);
             }
-        } else {
-            $this->pageHandler("404.php");
+            return;
         }
+        $this->errorPageHandler(404, "Page <" . $uri . "> not found");
     }
-    
     //Handlers
+    private function errorPageHandler(int $error_code, string $message = "You catch error") : void {
+        include_once VIEWS_DIR . 'error.php';
+    }
+
     private function pageHandler($path) : void {
-        include VIEWS_DIR . $path;
+        include_once VIEWS_DIR . $path;
     }
 }
 
