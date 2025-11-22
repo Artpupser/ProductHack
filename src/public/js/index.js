@@ -2,6 +2,13 @@ const images = document.querySelectorAll('.slider-img');
 const controlls = document.querySelectorAll('.controlls');
 let imageIndex = 0;
 
+window.onload = function() {
+    const ok = confirm("Подтвердите, что вам есть 18 лет");
+    if (!ok) {  
+        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
+    }
+}
+
 function show(index) {
  images[imageIndex].classList.remove('active');
  images[index].classList.add('active');

@@ -1,5 +1,7 @@
 <?php
 require_once "config.php";
-include PUBLIC_DIR . "/html/index.html";
+$page_title = "Главная страница 🍷";
+include_once VIEWS_DIR . "/head.php";
+include_once PUBLIC_DIR . "/html/index.html";
 
 ?>

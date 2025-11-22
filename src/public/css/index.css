@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .container {
     display: flex;
     flex-direction: column;
@@ -6,25 +5,6 @@
     align-items: center;
     max-width: 1920px;
     width: 100dvw;
-=======
-
-.header_main {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #7E868E;
-  height: 100px;
-  width: 100vw;
-  color: white;
-  z-index: 100;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  max-width: 1920px;
-  width: 100vw;
-  height: 100px;
->>>>>>> 81ddb66785d94ee8d61f3369a45e008fdf75c963
 }
 
 .my_font{
