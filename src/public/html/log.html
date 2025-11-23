@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/log.css">
+    <title>Регистрация и Вход</title>
+    <link rel="stylesheet" href="../css/import.css">
+</head>
+<body class="body_log">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="register-form">
+                <h1>Создать аккаунт</h1>
+                <input type="text" placeholder="Имя" required />
+                <input type="email" placeholder="Электронная почта" required />
+                <input type="password" placeholder="Пароль" required />
+                <button type="submit">Зарегистрироваться</button>
+                <p>Уже есть аккаунт? <a href="#" id="toggle-to-login">Войти</a></p>
+                <a href="#" class="button" id="back-button-register">Назад</a>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="login-form">
+                <h1>Войти</h1>
+                <input type="email" placeholder="Электронная почта" required />
+                <input type="password" placeholder="Пароль" required />
+                <a href="#" class="buttsn" id="login-button">Войти</a>
+                <p>Еще нет аккаунта? <a href="#" id="toggle-to-register">Создать аккаунт</a></p>
+                <a href="#" class="button" id="back-button-login">Назад</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        
+document.addEventListener('DOMContentLoaded', () => {
+    const signInContainer = document.querySelector('.sign-in-container');
+    const signUpContainer = document.querySelector('.sign-up-container');
+    
+    // Показываем форму входа по умолчанию
+    signInContainer.classList.add('active');
+
+    const toggleToLogin = document.getElementById('toggle-to-login');
+    const toggleToRegister = document.getElementById('toggle-to-register');
+
+    toggleToLogin.addEventListener('click', (event) => {
+        event.preventDefault();
+        signInContainer.classList.add('active');
+        signUpContainer.classList.remove('active');
+    });
+
+    toggleToRegister.addEventListener('click', (event) => {
+        event.preventDefault();
+        signUpContainer.classList.add('active');
+        signInContainer.classList.remove('active');
+    });
+});
+        
+    </script>
+</body>
+</html>

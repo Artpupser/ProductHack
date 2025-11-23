@@ -1,0 +1,80 @@
+.body_log {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.form-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background:rgba(84, 33, 33, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background:rgba(84, 33, 33, 1);
+}
+
+a {
+    color: rgba(84, 33, 33, 1);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.sign-in-container,
+.sign-up-container {
+    display: none; /* Скрыть форм для входа и регистрации */
+}
+
+.sign-in-container.active,
+.sign-up-container.active {
+    display: flex; /* Показываем активную форму */
+}
+.button {
+    display: inline-block;
+    padding: 10px;
+    background: rgba(84, 33, 33, 1);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background: rgba(84, 33, 33, 1);
+} 

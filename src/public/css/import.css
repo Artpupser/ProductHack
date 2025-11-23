@@ -1,9 +1,9 @@
 @import './font.css';
-@import './tags.css';
-@import './btn.css';
 @import './flex.css';
 @import './index.css';
-@import './catalog.css'
+@import './catalog.css';
+@import 'user.css';
+@import 'log.css';
 
 
 
