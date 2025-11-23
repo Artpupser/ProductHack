@@ -213,6 +213,27 @@ $sql = "INSERT INTO lab
 $stmt = $this->pdo->prepare($sql);
 $stmt->execute($data); // data содержит все аргументы для транзакции
 ```
+- Прмиер класса
+```
+<?php
+class Database {
+    private $host = "localhost";
+    private $dbname = "postgres";	// ЗАМЕНИТЬ!
+    private $username = "postgres";	// ЗАМЕНИТЬ!
+    private $password = "postgres";	// ЗАМЕНИТЬ!
+    public $pdo;
+
+    public function __construct() {
+        try {
+            $this->pdo = new PDO("pgsql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $e) {
+            die("Ошибка подключения: " . $e->getMessage());
+        }
+    }
+}
+?>
+```
 
 # Шаг 5. Создание SPA.
 
