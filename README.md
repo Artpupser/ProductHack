@@ -174,6 +174,46 @@ create table orders(
 );
 ```
 
+*PHP*
+- Обработка видов (view)
+```
+<!--Условное отображение блока-->
+<?php if ($error): ?>
+	<div class="error"><?php echo $error; ?></div>
+<?php endif; ?>
+
+<!--Цикл с перечислением, для создания однотипных блоков с разными данными-->
+<?php foreach ($residence_options as $option): ?>
+	<option value="<?php echo $option; ?>" 
+		<?php echo ($post_data['residence'] ?? '') === $option ? 'selected' : ''; ?>>
+		<?php echo $option; ?>
+	</option>
+<?php endforeach; ?>
+
+<!--Подключение фрагмента сайта-->
+<?php include 'submissions.php'; //reqiure_once; reqiure?>
+
+
+// Структура страниц видов
+<?php include 'header.php'; //reqiure_once; reqiure?>
+<!--Основное тело сайта-->
+<?php include 'footer.php'; //reqiure_once; reqiure?>
+```
+- Обработка данных из базы
+```
+// Connecting to database
+$pdo = new PDO("pgsql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// SQL transaction
+$sql = "INSERT INTO lab 
+	(residence, english_level, driver_license, position, employment, company_location, created_at) 
+	VALUES (:residence, :english_level, :driver_license, :position, :employment, :company_location, NOW())";
+
+$stmt = $this->pdo->prepare($sql);
+$stmt->execute($data); // data содержит все аргументы для транзакции
+```
+
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
