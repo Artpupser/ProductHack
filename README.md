@@ -235,6 +235,15 @@ class Database {
 ?>
 ```
 
+*APACHE2*
+- Пример локальных правил сайта
+```
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+```
+
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
