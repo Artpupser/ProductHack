@@ -244,6 +244,51 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
 ```
 
+*Golang*
+```
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+type Human struct {
+	age    int
+	name   string
+	weight float64
+}
+
+func main() { // function
+	const SOME_CONST = "lalala"
+
+	variable := "eins\nzwei\ndrei\nvier\nfunf"
+	someList := strings.Split(variable, "\n")
+	var targerArray []string
+	for index, value := range someList {
+		if (index+1)%2 == 1 {
+			targerArray = append(targerArray, value)
+		} else {
+			// TODO
+		}
+	}
+	for _, value := range targerArray {
+		switch value {
+		case "eins":
+			fmt.Println(1)
+		case "drei":
+			fmt.Println(3)
+		case "funf":
+			fmt.Println(5)
+		}
+	}
+}
+
+func sum(a int, b int) int {
+	return a + b
+}
+```
+
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
