@@ -251,17 +251,17 @@ package main
 import (
 	"fmt"
 	"strings"
+	"sync"
 )
 
-type Human struct {
-	age    int
-	name   string
-	weight float64
-}
-
 func main() { // function
-	const SOME_CONST = "lalala"
-
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go printSum(sum(100, 10), &wg)
+	wg.Add(1)
+	go printSum(sum(100, 11), &wg)
+	wg.Add(1)
+	go printSum(sum(10, 1), &wg)
 	variable := "eins\nzwei\ndrei\nvier\nfunf"
 	someList := strings.Split(variable, "\n")
 	var targerArray []string
@@ -282,10 +282,16 @@ func main() { // function
 			fmt.Println(5)
 		}
 	}
+	wg.Wait()
 }
 
 func sum(a int, b int) int {
 	return a + b
+}
+
+func printSum(sum int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Println(sum)
 }
 ```
 
