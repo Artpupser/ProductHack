@@ -207,14 +207,31 @@ button:focus, #search:focus {
     gap: 20px;            
 }
 .card_img {
-    border: none;
-    flex-shrink: 0;
-    width: 25%;           
-    max-width: 300px;     
-    height: auto;
+    position: relative;
+    width: 25%;
+    max-width: 300px;
     border-radius: 10px;
-    box-shadow: 5px 5px 15px #2f0809;
+    overflow: hidden;             
+    flex-shrink: 0;
 }
+
+.card_img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.card_img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 5px 5px 10px rgba(47, 8, 9, 0.9);
+    pointer-events: none;
+}
+
+
 
 .card_content {
     flex: 1;
@@ -288,5 +305,41 @@ button:focus, #search:focus {
     }
     .card_sub {
         text-align: center;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .wineshop {
+        font-size: 40px !important;
+        font-family: "bergamosco-light", sans-serif;
+    }
+    .flex-column {
+        font-size: 20px !important;
+        font-family: "bergamosco-light", sans-serif;
+    }
+}
+
+@media (max-width: 768px) {
+    .wineshop {
+        font-size: 30px !important;
+        font-family: "bergamosco-light", sans-serif;
+    }
+    .flex-column {
+        font-size: 10px !important;
+        font-family: "bergamosco-light", sans-serif;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .wineshop {
+        font-size: 20px !important;
+        font-family: "bergamosco-light", sans-serif;
+    }
+
+    .flex-column {
+        font-size: 10px !important;
+        font-family: "bergamosco-light", sans-serif;
     }
 }

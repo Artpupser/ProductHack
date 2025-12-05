@@ -3,60 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/log.css">
-    <title>Регистрация и Вход</title>
+    <title>Вход и регистрация | Винный магазин</title>
     <link rel="stylesheet" href="../css/import.css">
 </head>
 <body class="body_log">
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form id="register-form">
-                <h1>Создать аккаунт</h1>
-                <input type="text" placeholder="Имя" required />
-                <input type="email" placeholder="Электронная почта" required />
-                <input type="password" placeholder="Пароль" required />
-                <button type="submit">Зарегистрироваться</button>
-                <p>Уже есть аккаунт? <a href="#" id="toggle-to-login">Войти</a></p>
-                <a href="#" class="button" id="back-button-register">Назад</a>
+    <div class="auth-container">
+        <!-- Форма входа -->
+        <div class="form-container login-form active">
+            <div class="form-header">
+                <h1 class="bergamasco-regular">ВХОД</h1>
+                <a href="#" class="switch-link bergamasco-regular" data-target="register">регистрация</a>
+            </div>
+            <form id="loginForm" action="log.php" method="POST">
+                <input type="hidden" name="action" value="login">
+                <div class="input-group">
+                    <input type="text" id="loginUsername" name="username" required class="bergamasco-regular">
+                    <label for="loginUsername" class="bergamasco-regular">Имя</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" name="password" required class="bergamasco-regular">
+                    <label for="loginPassword" class="bergamasco-regular">Пароль</label>
+                    <span class="toggle-password" data-target="loginPassword">👁️</span>
+                </div>
+                <button type="submit" class="submit-btn bergamasco-regular">ВОЙТИ</button>
+                <a href="#" class="forgot-password bergamasco-regular">забыли пароль?</a>
             </form>
         </div>
-        <div class="form-container sign-in-container">
-            <form id="login-form">
-                <h1>Войти</h1>
-                <input type="email" placeholder="Электронная почта" required />
-                <input type="password" placeholder="Пароль" required />
-                <a href="#" class="buttsn" id="login-button">Войти</a>
-                <p>Еще нет аккаунта? <a href="#" id="toggle-to-register">Создать аккаунт</a></p>
-                <a href="#" class="button" id="back-button-login">Назад</a>
+
+        <!-- Форма регистрации -->
+        <div class="form-container register-form">
+            <div class="form-header">
+                <h1 class="bergamasco-regular">РЕГИСТРАЦИЯ</h1>
+                <a href="#" class="switch-link bergamasco-regular" data-target="login">вход</a>
+            </div>
+            <form id="registerForm" action="log.php" method="POST">
+                <input type="hidden" name="action" value="register">
+                <div class="input-group">
+                    <input type="text" id="registerUsername" name="username" required class="bergamasco-regular">
+                    <label for="registerUsername" class="bergamasco-regular">Имя</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="registerEmail" name="email" required class="bergamasco-regular">
+                    <label for="registerEmail" class="bergamasco-regular">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="registerPassword" name="password" required class="bergamasco-regular">
+                    <label for="registerPassword" class="bergamasco-regular">Пароль</label>
+                    <span class="toggle-password" data-target="registerPassword">👁️</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" name="confirm_password" required class="bergamasco-regular">
+                    <label for="confirmPassword" class="bergamasco-regular">Повторите пароль</label>
+                    <span class="toggle-password" data-target="confirmPassword">👁️</span>
+                </div>
+                <button type="submit" class="submit-btn bergamasco-regular">ЗАРЕГИСТРИРОВАТЬСЯ</button>
             </form>
         </div>
     </div>
-
     <script>
-        
-document.addEventListener('DOMContentLoaded', () => {
-    const signInContainer = document.querySelector('.sign-in-container');
-    const signUpContainer = document.querySelector('.sign-up-container');
+        document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем авторизацию при загрузке страницы
+    checkAuthentication();
+
+    // Переключение между формами
+    const switchLinks = document.querySelectorAll('.switch-link');
+    const loginForm = document.querySelector('.login-form');
+    const registerForm = document.querySelector('.register-form');
     
-    // Показываем форму входа по умолчанию
-    signInContainer.classList.add('active');
-
-    const toggleToLogin = document.getElementById('toggle-to-login');
-    const toggleToRegister = document.getElementById('toggle-to-register');
-
-    toggleToLogin.addEventListener('click', (event) => {
-        event.preventDefault();
-        signInContainer.classList.add('active');
-        signUpContainer.classList.remove('active');
+    switchLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-target');
+            
+            if (target === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            } else if (target === 'register') {
+                registerForm.classList.remove('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+            }
+        });
     });
-
-    toggleToRegister.addEventListener('click', (event) => {
-        event.preventDefault();
-        signUpContainer.classList.add('active');
-        signInContainer.classList.remove('active');
+    
+    // Переключение видимости пароля
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    
+    togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                this.textContent = '👁️';
+            }
+        });
     });
+    
+    // Обработка формы входа
+    const loginFormElement = document.getElementById('loginForm');
+    if (loginFormElement) {
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            submitForm('../PHP/log.php', data, 'login');
+        });
+    }
+    
+    // Обработка формы регистрации
+    const registerFormElement = document.getElementById('registerForm');
+    if (registerFormElement) {
+        registerFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            submitForm('../PHP/log.php', data, 'register');
+        });
+    }
 });
-        
+
+// Функция проверки авторизации
+function checkAuthentication() {
+    fetch('../PHP/auth.php?check=1')
+        .then(response => response.json())
+        .then(data => {
+            if (data.authenticated) {
+                // Если пользователь уже авторизован, перенаправляем
+                const redirectUrl = data.role === 'admin' ? '../HTML/admin.html' : '../HTML/user.html';
+                window.location.href = redirectUrl;
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка проверки авторизации:', error);
+        });
+}
+
+// Функция отправки формы
+function submitForm(url, data, action) {
+    data.action = action;
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert(result.message);
+            if (result.redirect) {
+                window.location.href = result.redirect;
+            }
+        } else {
+            alert(result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при отправке формы');
+    });
+}
     </script>
 </body>
 </html>
