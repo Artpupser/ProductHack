@@ -174,6 +174,127 @@ create table orders(
 );
 ```
 
+*PHP*
+- Обработка видов (view)
+```
+<!--Условное отображение блока-->
+<?php if ($error): ?>
+	<div class="error"><?php echo $error; ?></div>
+<?php endif; ?>
+
+<!--Цикл с перечислением, для создания однотипных блоков с разными данными-->
+<?php foreach ($residence_options as $option): ?>
+	<option value="<?php echo $option; ?>" 
+		<?php echo ($post_data['residence'] ?? '') === $option ? 'selected' : ''; ?>>
+		<?php echo $option; ?>
+	</option>
+<?php endforeach; ?>
+
+<!--Подключение фрагмента сайта-->
+<?php include 'submissions.php'; //reqiure_once; reqiure?>
+
+
+// Структура страниц видов
+<?php include 'header.php'; //reqiure_once; reqiure?>
+<!--Основное тело сайта-->
+<?php include 'footer.php'; //reqiure_once; reqiure?>
+```
+- Обработка данных из базы
+```
+// Connecting to database
+$pdo = new PDO("pgsql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// SQL transaction
+$sql = "INSERT INTO lab 
+	(residence, english_level, driver_license, position, employment, company_location, created_at) 
+	VALUES (:residence, :english_level, :driver_license, :position, :employment, :company_location, NOW())";
+
+$stmt = $this->pdo->prepare($sql);
+$stmt->execute($data); // data содержит все аргументы для транзакции
+```
+- Прмиер класса
+```
+<?php
+class Database {
+    private $host = "localhost";
+    private $dbname = "postgres";	// ЗАМЕНИТЬ!
+    private $username = "postgres";	// ЗАМЕНИТЬ!
+    private $password = "postgres";	// ЗАМЕНИТЬ!
+    public $pdo;
+
+    public function __construct() {
+        try {
+            $this->pdo = new PDO("pgsql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $e) {
+            die("Ошибка подключения: " . $e->getMessage());
+        }
+    }
+}
+?>
+```
+
+*APACHE2*
+- Пример локальных правил сайта
+```
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+```
+
+*Golang*
+```
+package main
+
+import (
+	"fmt"
+	"strings"
+	"sync"
+)
+
+func main() { // function
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go printSum(sum(100, 10), &wg)
+	wg.Add(1)
+	go printSum(sum(100, 11), &wg)
+	wg.Add(1)
+	go printSum(sum(10, 1), &wg)
+	variable := "eins\nzwei\ndrei\nvier\nfunf"
+	someList := strings.Split(variable, "\n")
+	var targerArray []string
+	for index, value := range someList {
+		if (index+1)%2 == 1 {
+			targerArray = append(targerArray, value)
+		} else {
+			// TODO
+		}
+	}
+	for _, value := range targerArray {
+		switch value {
+		case "eins":
+			fmt.Println(1)
+		case "drei":
+			fmt.Println(3)
+		case "funf":
+			fmt.Println(5)
+		}
+	}
+	wg.Wait()
+}
+
+func sum(a int, b int) int {
+	return a + b
+}
+
+func printSum(sum int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Println(sum)
+}
+```
+
 # Шаг 5. Создание SPA.
 
 # Шаг 6. Создание сайта с помощью фреймворка.
