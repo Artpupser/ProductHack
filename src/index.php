@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php 
-require_once "./app/classes/Router.php";
-$router = new Router();
-$router->addFile("/", "main.php");
-$router->addFile("/index", "main.php");
-$router->addFile("/catalog", "catalog.php");
-$router->route($router->requestUri());
-?>
-</html>
+<?php
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+use ProductHack\core\Application;
+
+$app = new Application(__DIR__);
+
+$app->router->get('/', 'main');
+
+$app->router->get('/catalog', 'catalog');
+
+$app->router->post('/users', function() {
+    return 'handling data';
+});
+
+$app->run();
