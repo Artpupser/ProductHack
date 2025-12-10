@@ -2,6 +2,9 @@ body {
     background-color: white;
 }
 
+
+
+
 .header {
     display: flex;
     justify-content: space-around; 
@@ -55,6 +58,7 @@ body {
     margin-left: auto;
     margin-right: 0;
 }
+
 
 
 
@@ -186,10 +190,6 @@ button:focus, #search:focus {
 
 
 
-
-
-
-
 .card {
     position: relative;
     display: flex;
@@ -230,8 +230,6 @@ button:focus, #search:focus {
     box-shadow: inset 5px 5px 10px rgba(47, 8, 9, 0.9);
     pointer-events: none;
 }
-
-
 
 .card_content {
     flex: 1;
@@ -342,4 +340,64 @@ button:focus, #search:focus {
         font-size: 10px !important;
         font-family: "bergamosco-light", sans-serif;
     }
+}
+
+
+
+.footer {
+    background-color: #2f0909;
+    color: #ffffff;
+    font-family: "bergamosco-regular", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    height: 250px;             
+    box-sizing: border-box;
+}
+
+.title_foot {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0;
+
+}
+
+.icon_wine_foot {
+    margin: 10px 0;
+}
+
+.copy {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.menu_foot {
+    display: flex;
+    gap: 40px;
+}
+
+.menu_foot a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu_foot a:hover {
+    opacity: 0.6;
+}
+
+.social {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    font-size: 26px;
+    right: 20px;
+}
+
+.social a {
+    text-decoration: none;
+    color: #ffffff;
 }

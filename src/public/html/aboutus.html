@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About us</title>
+  <link rel="stylesheet" href="../css/import.css">
   <style>
-
     body {
       margin: 0;
       font-family: "bergamosco-regular", sans-serif;
@@ -13,50 +13,68 @@
       color: #000000;
       line-height: 1.6;
     }
-    @font-face {
-    font-family: "bergamosco-regular"; 
-    src: url("../../assets/fonts/BergamascoRegular.ttf"); 
-    }
 
     @font-face {
-        font-family: "bergamosco-light"; 
-        src: url("../../assets/fonts/BergamascoLight.ttf"); 
+      font-family: "bergamosco-regular"; 
+      src: url("../../assets/fonts/BergamascoRegular.ttf"); 
     }
-    header {
-      background: url('https://images.unsplash.com/photo-1524592714635-d77511a4834a?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+    @font-face {
+      font-family: "bergamosco-light"; 
+      src: url("../../assets/fonts/BergamascoLight.ttf"); 
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      padding: 0 1%;
+      background-color: rgba(0,0,0,0.05);
+      border-bottom: 1px solid #7E868E;
+      background-image: url('../../assets/haad.png');
+      z-index: 100;
+      box-sizing: border-box;
+      color: white;
+    }
+    .logo { height: 90%; display: flex; justify-content: center; align-items: center; }
+    .logo img { padding: 5px; }
+    .my_font, .wineshop { font-family: "bergamosco-regular", sans-serif; }
+    .wineshop { font-size: 50px; }
+    .profile, .basket { display: block; cursor: pointer; transition: 0.3s; }
+    .profile { width: 90px; height: 90px; }
+    .basket { width: 100px; height: 100px; margin-left: auto; margin-right: 0; }
+
+    h1 {
+      margin-top: 120px; 
       height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       text-shadow: 0 2px 4px rgba(0,0,0,0.7);
-    }
-
-    header h1 {
       font-size: 3rem;
-      margin: 0;
     }
-    
-    .container {
+    .container_abu {
       width: 90%;
       max-width: 900px;
       margin: 40px auto;
     }
-
-    .section {
+    .section_abu {
       margin-bottom: 40px;
       padding: 20px;
       background: white;
       border-radius: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
-
-    .section h2 {
+    .section_abu h2 {
       margin-top: 0;
       font-size: 1.8rem;
       color: #7a1b1b;
     }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -65,31 +83,39 @@
     }
 
     @media (max-width: 768px) {
-      header h1 { 
-        font-size: 2.2rem; 
+      h1 { font-size: 2.2rem; }
     }
-    }
-
     @media (max-width: 480px) {
-      header { 
-        height: 200px; 
-    }
-      header h1 { 
-        font-size: 1.8rem; 
-    }
-      .container { 
-        width: 95%; 
-    }
+      h1 { height: 200px; font-size: 1.8rem; }
+      .container_abu { width: 95%; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>About us</h1>
-  </header>
 
-  <div class="container">
-    <section class="section">
+  <header class="header">
+      <div class="logo">
+            <a href="http://localhost:8000/"><img src="../../assets/logo.png" alt="Логотип"></a> 
+        </div>
+      <p class="wineshop">Винный магазин</p>
+      <div class="place flex-center flex-row">
+          <div class="img-place">
+              <img src="../../assets/place.png" alt="Местоположение">
+          </div>
+          <div class="flex-column">
+              <p class="my_font">г. Санкт-Петербург,</p>
+              <p class="my_font">ул. Куйбышева 31</p>
+          </div>
+      </div>
+      <div class="contacts flex-center flex-row">
+          <a href="/public/html/user.html"><img src="../../assets/profile.png" alt="Профиль" class="profile"></a>
+          <a href="#"><img src="../../assets/basket.png" alt="Корзина" class="basket"></a>
+      </div>
+  </header> 
+
+  <h1>About us</h1>
+  <div class="container_abu">
+    <section class="section_abu">
       <h2>Наша история</h2>
       <p>
         Добро пожаловать в Винный Магазин — пространство, созданное из любви к изысканному вину.
@@ -98,7 +124,7 @@
       </p>
     </section>
 
-    <section class="section">
+    <section class="section_abu">
       <h2>Наша философия</h2>
       <p>
         Мы верим, что вино — это больше, чем напиток. Это история, эмоция, атмосфера.

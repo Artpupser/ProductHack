@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Контакты</title>
+  <link rel="stylesheet" href="../css/import.css">
   <style>
     body {
       margin: 0;
@@ -23,28 +24,46 @@
       src: url("../../assets/fonts/BergamascoLight.ttf"); 
     }
 
-    header {
-      background: url('https://images.unsplash.com/photo-1510626176961-4b9a6230b44f?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+    .header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      height: 100px;
+      padding: 0 1%;
+      background-color: rgba(0,0,0,0.05);
+      border-bottom: 1px solid #7E868E;
+      background-image: url('../../assets/haad.png');
+      box-sizing: border-box;
+      color: white;
+    }
+
+    .logo { height: 90%; display: flex; justify-content: center; align-items: center; }
+    .logo img { padding: 5px; }
+    .my_font, .wineshop { font-family: "bergamosco-regular", sans-serif; }
+    .wineshop { font-size: 50px; }
+    .profile, .basket { display: block; cursor: pointer; transition: 0.3s; }
+    .profile { width: 90px; height: 90px; }
+    .basket { width: 100px; height: 100px; margin-left: auto; margin-right: 0; }
+
+    h1 {
       height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       text-shadow: 0 2px 4px rgba(0,0,0,0.7);
-    }
-
-    header h1 {
       font-size: 3rem;
       margin: 0;
     }
 
-    .container {
+    .container_con {
       width: 90%;
       max-width: 900px;
       margin: 40px auto;
     }
 
-    .section {
+    .section_con {
       margin-bottom: 40px;
       padding: 20px;
       background: white;
@@ -52,7 +71,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    .section h2 {
+    .section_con h2 {
       margin-top: 0;
       font-size: 1.8rem;
       color: #7a1b1b;
@@ -64,9 +83,7 @@
       gap: 15px;
     }
 
-    .contact-form label {
-      font-weight: bold;
-    }
+    .contact-form label { font-weight: bold; }
 
     .contact-form input,
     .contact-form textarea {
@@ -88,9 +105,7 @@
       transition: background 0.3s;
     }
 
-    .contact-form button:hover {
-      background: #a22b2b;
-    }
+    .contact-form button:hover { background: #a22b2b; }
 
     footer {
       text-align: center;
@@ -98,25 +113,42 @@
       color: #ffffff;
       font-size: 0.9rem;
     }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.2rem; }
+    #message {
+      resize: none; 
     }
+    @media (max-width: 768px) { h1 { font-size: 2.2rem; } }
 
     @media (max-width: 480px) {
-      header { height: 200px; }
-      header h1 { font-size: 1.8rem; }
-      .container { width: 95%; }
+      h1 { height: 200px; font-size: 1.8rem; }
+      .container_con { width: 95%; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Контакты</h1>
+
+  <header class="header">
+      <div class="logo">
+            <a href="http://localhost:8000/"><img src="../../assets/logo.png" alt="Логотип"></a> 
+        </div>
+      <p class="wineshop">Винный магазин</p>
+      <div class="place flex-center flex-row">
+          <div class="img-place">
+              <img src="../../assets/place.png" alt="Местоположение">
+          </div>
+          <div class="flex-column">
+              <p class="my_font">г. Санкт-Петербург,</p>
+              <p class="my_font">ул. Куйбышева 31</p>
+          </div>
+      </div>
+      <div class="contacts flex-center flex-row">
+          <a href="/public/html/user.html"><img src="../../assets/profile.png" alt="Профиль" class="profile"></a>
+          <a href="#"><img src="../../assets/basket.png" alt="Корзина" class="basket"></a>
+      </div>
   </header>
 
-  <div class="container">
-    <section class="section">
+  <h1>Контакты</h1>
+  <div class="container_con">
+    <section class="section_con">
       <h2>Свяжитесь с нами</h2>
       <form class="contact-form">
         <label for="name">Имя</label>
@@ -132,7 +164,7 @@
       </form>
     </section>
 
-    <section class="section">
+    <section class="section_con">
       <h2>Наши контакты</h2>
       <p><strong>Адрес:</strong> ул. Щедрина 43, Рязань</p>
       <p><strong>Телефон:</strong> +7(920)999-46-56</p>
