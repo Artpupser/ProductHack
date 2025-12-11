@@ -1,8 +1,9 @@
 {
-  "name": "ProductHack",
+  "name": "product_hack",
   "version": "1.0.0",
   "main": "src/index.php",
   "scripts": {
+    "dev-migrate": "vendor/bin/phinx migrate -e development && vendor/bin/phinx seed:run",
     "dev": "php -S localhost:8000 -t src"
   },
   "author": "Artpupser, AnyaHandina, annafilimo_ova, Alexey",
