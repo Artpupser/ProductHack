@@ -1,18 +1,8 @@
-
-<script>
-    window.onload = function() {
-    const ok = confirm("Подтвердите, что вам есть 18 лет");
-    if (!ok) {  
-        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
-    }
-};
-</script>
-
 <main>
     <div class="background-container">
         <div class="bg-1">
             <h1 class="vinishko"  >Винишко на все <br> случаи жизни</h1>
-            <button class="butcat" onclick="window.location.href='./public/html/catalog.html'">Перейти в каталог</button>
+            <button class="butcat" onclick="window.location.href='./catalog'">Перейти в каталог</button>
         </div>
         <div class="bg-2">
 

@@ -29,34 +29,43 @@ class Router {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
-        Application::$app->response->setStatusCode(200);
-        if($callback === false) {
-            Application::$app->response->setStatusCode(404);
-            return $this->renderView('error');
+        $this->response->setStatusCode(200);
+        if($callback === false || is_string($callback)) {
+            $this->response->setStatusCode(404);
+            $callback = $this->routes[$method]['*'];
         }
-        if(is_string($callback)) {
-            return $this->renderView($callback);
+        if(is_array($callback)) {
+            $callback[0] = new $callback[0]();
         }
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request);
+
     }
 
-    public function renderView($view) {
-        $layoutContent = $this->layoutContent();
-        $viewContent = $this->viewContent($view);
+
+    public function renderView($view, $params = []) {
+        $layoutContent = $this->layoutContent($params);
+        $viewContent = $this->viewContent($view, $params);
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
     public function renderContent($viewContent) {
-
+        $layoutContent = $this->layoutContent();
+        return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    protected function layoutContent() {
+    protected function layoutContent($params = []) {
+        foreach ($params as $key => $value) { 
+            $$key = $value;
+        }
         ob_start();
         include_once Application::$VIEWS_DIR.'/layouts/workflow.php';
         return ob_get_clean();
     }
 
-    protected function viewContent($view) {
+    protected function viewContent($view, $params = []) {
+        foreach ($params as $key => $value) { 
+            $$key = $value;
+        }
         ob_start();
         include_once Application::$VIEWS_DIR . $view . '.php';
         return ob_get_clean();

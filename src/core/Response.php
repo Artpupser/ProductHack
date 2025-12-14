@@ -13,4 +13,8 @@ class Response
     {
         http_response_code($code);
     }
+    public function getStatusCode() : int
+    {
+        return http_response_code();
+    }
 }
