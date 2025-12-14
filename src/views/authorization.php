@@ -5,7 +5,7 @@
                 <h1 class="bergamasco-regular">ВХОД</h1>
                 <a href="#" class="switch-link bergamasco-regular" data-target="register">регистрация</a>
             </div>
-            <form id="loginForm" method='POST'>
+            <form id="loginForm" action='/login' method='POST'>
                 <input type="hidden" name="action" value="login">
                 <div class="input-group">
                     <input type="text" id="loginUsername" name="username" required class="bergamasco-regular">
@@ -27,7 +27,7 @@
                 <h1 class="bergamasco-regular">РЕГИСТРАЦИЯ</h1>
                 <a href="#" class="switch-link bergamasco-regular" data-target="login">вход</a>
             </div>
-            <form id="registerForm" method='POST'>
+            <form id="registerForm" action='/registration' method='POST'>
                 <input type="hidden" name="action" value="register">
                 <div class="input-group">
                     <input type="text" id="registerUsername" name="username" required class="bergamasco-regular">

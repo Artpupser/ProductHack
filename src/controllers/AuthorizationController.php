@@ -8,14 +8,19 @@ use ProductHack\core\Request;
 
 class AuthorizationController extends Controller
 {
-  public function registration(Request $request) {
-  }
 
-  public function login(Request $request) {
-    return Application::$app->router->renderContent($request->getContentJson());
-  }
+    public function registration(Request $request) {
+                $this->layout="auth_workflow";
+        return Application::$app->router->renderContent($request->getContentJson());
+    }
+
+    public function login(Request $request) {
+                $this->layout="auth_workflow";
+        return Application::$app->router->renderContent($request->getContentJson());
+    }
   
-  public function logout(Request $request) {
-    
-  }
+    public function logout(Request $request) {
+                $this->layout="auth_workflow";
+        return Application::$app->router->renderContent($request->getContentJson());
+    }
 }

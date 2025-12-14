@@ -8,6 +8,8 @@ class Router {
 
     public Request $request;
     public Response $response;
+    public Controller $controller;
+
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
@@ -35,10 +37,10 @@ class Router {
             $callback = $this->routes[$method]['*'];
         }
         if(is_array($callback)) {
-            $callback[0] = new $callback[0]();
+            $this->controller = new $callback[0]();
+            $callback[0] = $this->controller;
         }
         return call_user_func($callback, $this->request);
-
     }
 
 
@@ -58,7 +60,7 @@ class Router {
             $$key = $value;
         }
         ob_start();
-        include_once Application::$VIEWS_DIR.'/layouts/workflow.php';
+        include_once Application::$VIEWS_DIR . '/layouts/' . $this->controller->layout . '.php';
         return ob_get_clean();
     }
 

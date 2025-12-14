@@ -16,6 +16,9 @@ $app->router->get('/aboutus', [PagesController::class, 'aboutus']);
 $app->router->get('/authorization', [PagesController::class, 'authorization']);
 $app->router->get('*', [PagesController::class, 'error']); // Страница ошибки [Ну типа нет]
 
-$app->router->post('/authorization', [AuthorizationController::class, 'login']);
+$app->router->post('/login', [AuthorizationController::class, 'login']);
+$app->router->post('/registration', [AuthorizationController::class, 'registration']);
+$app->router->post('/logout', [AuthorizationController::class, 'logout']);
+
 
 $app->run();

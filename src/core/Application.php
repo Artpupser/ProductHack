@@ -13,15 +13,6 @@ class Application
     public Response $response;
     public Request $request;
 
-    public function errorMessage(int $code) : string {
-        $dict = [
-            404=>"Страница не найдена",
-            400=>"Запрос не верный",
-            403=>"Доступ запрещен",
-        ];
-        return $dict[$code];
-    }
-
     public function __construct($rootPath)
     {
         self::$app = $this;
@@ -36,4 +27,14 @@ class Application
     {
         echo $this->router->resolve();
     }
+
+        public function errorMessage(int $code) : string {
+        $dict = [
+            404=>"Страница не найдена",
+            400=>"Запрос не верный",
+            403=>"Доступ запрещен",
+        ];
+        return $dict[$code];
+    }
+
 }

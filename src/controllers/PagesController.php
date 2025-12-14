@@ -27,6 +27,7 @@ class PagesController extends Controller
     }
 
     public function authorization(Request $request) {
+        $this->layout="auth_workflow";
         return $this->render('authorization', [
             "page_title"=>"🍇 Авторизация пользователя",
         ]);
