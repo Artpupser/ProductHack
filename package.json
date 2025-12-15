@@ -4,10 +4,26 @@
   "main": "src/index.php",
   "scripts": {
     "dev-migrate": "vendor/bin/phinx migrate -e development && vendor/bin/phinx seed:run",
-    "dev": "php -S localhost:8000 -t src",
-    "go_ping": "go run ./src/scripts/ping.go"
+    "dev": "yarn build && php -S localhost:8000 -t dist",
+    "go_ping": "go run ./src/scripts/ping.go",
+    "build": "gulp build"
   },
+  "type": "module",
   "author": "Artpupser, AnyaHandina, annafilimo_ova, Alexey",
   "repository": "https://github.com/Artpupser/ProductHack",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "cssnano": "^7.1.2",
+    "gulp": "^5.0.1",
+    "gulp-cli": "^3.1.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-stylus": "^3.0.1",
+    "gulp-webp": "^5.1.0",
+    "postcss-import": "^16.1.1",
+    "postcss-merge-rules": "^7.0.7",
+    "postcss-nested": "^7.0.2",
+    "postcss-preset-env": "^10.5.0"
+  }
 }
