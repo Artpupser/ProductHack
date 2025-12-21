@@ -9,8 +9,12 @@ import postCssPresetEnv from 'postcss-preset-env';
 import mergeRules from 'postcss-merge-rules';
 
 const paths = {
-    css: {
+    styl: {
         src: './src/public/stylus/main.styl',
+        dist: './dist/public/css'
+    },
+    css: {
+        src: './src/public/css/**/*.css',
         dist: './dist/public/css'
     },
     php: {
@@ -32,7 +36,7 @@ const paths = {
 };
 
 gulp.task('styles', function () {
-    return gulp.src(paths.css.src) 
+    return gulp.src(paths.styl.src) 
         .pipe(stylus()) 
         .pipe(postcss([
             postCssImport(),
@@ -41,8 +45,14 @@ gulp.task('styles', function () {
             autoprefixer(),
             mergeRules(),
             cssnano({preset: 'default'})])) 
+        .pipe(gulp.dest(paths.styl.dist)); 
+});
+
+gulp.task('css', function () {
+    return gulp.src(paths.css.src) 
         .pipe(gulp.dest(paths.css.dist)); 
 });
+
 
 gulp.task('images', function() {
     return gulp
@@ -70,5 +80,5 @@ gulp.task('php', function () {
 
 
 
-gulp.task('build', gulp.series('php','images', 'fonts', 'styles', 'fonts', 'scripts'));
+gulp.task('build', gulp.series('php','images', 'fonts', 'css', 'fonts', 'scripts'));
 gulp.task('default', gulp.series('build'));

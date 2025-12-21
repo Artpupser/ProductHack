@@ -1,3 +1,176 @@
+/* Подтверждение возраста */
+window.onload = function() {
+    const ok = confirm("Подтвердите, что вам есть 18 лет");
+    if (!ok) {  
+        document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
+    }
+};
+
+/* Слайдер */
+const images = document.querySelectorAll('.slider-img');
+const controlls = document.querySelectorAll('.controlls');
+let imageIndex = 0;
+
+function show(index) {
+    images[imageIndex].classList.remove('active');
+    images[index].classList.add('active');
+    imageIndex = index;
+}
+
+controlls.forEach((e) => {
+    e.addEventListener('click', (event) => { 
+        const target = event.target;
+
+        if (target.classList.contains('left')) {
+            let index = imageIndex - 1;
+            if (index < 0) index = images.length - 1;
+            show(index);
+        } else if (target.classList.contains('right')) {
+            let index = imageIndex + 1;
+            if (index >= images.length) index = 0;
+            show(index);
+        }
+    });
+});
+
+show(imageIndex);
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем авторизацию при загрузке страницы
+    checkAuthentication();
+
+    // Переключение между формами
+    const switchLinks = document.querySelectorAll('.switch-link');
+    const loginForm = document.querySelector('.login-form');
+    const registerForm = document.querySelector('.register-form');
+    
+    switchLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-target');
+            
+            if (target === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            } else if (target === 'register') {
+                registerForm.classList.remove('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+            }
+        });
+    });
+    
+    // Переключение видимости пароля
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    
+    togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                this.textContent = '👁️';
+            }
+        });
+    });
+    
+    // Обработка формы входа
+    const loginFormElement = document.getElementById('loginForm');
+    if (loginFormElement) {
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            submitForm('../PHP/log.php', data, 'login');
+        });
+    }
+    
+    // Обработка формы регистрации
+    const registerFormElement = document.getElementById('registerForm');
+    if (registerFormElement) {
+        registerFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            submitForm('../PHP/log.php', data, 'register');
+        });
+    }
+});
+
+// Функция проверки авторизации
+function checkAuthentication() {
+    fetch('../PHP/auth.php?check=1')
+        .then(response => response.json())
+        .then(data => {
+            if (data.authenticated) {
+                // Если пользователь уже авторизован, перенаправляем
+                const redirectUrl = data.role === 'admin' ? '../HTML/admin.html' : '../HTML/user.html';
+                window.location.href = redirectUrl;
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка проверки авторизации:', error);
+        });
+}
+
+// Функция отправки формы
+function submitForm(url, data, action) {
+    data.action = action;
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert(result.message);
+            if (result.redirect) {
+                window.location.href = result.redirect;
+            }
+        } else {
+            alert(result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при отправке формы');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const signInContainer = document.querySelector('.sign-in-container');
+    const signUpContainer = document.querySelector('.sign-up-container');
+    
+    // Показываем форму входа по умолчанию
+    signInContainer.classList.add('active');
+
+    const toggleToLogin = document.getElementById('toggle-to-login');
+    const toggleToRegister = document.getElementById('toggle-to-register');
+
+    toggleToLogin.addEventListener('click', (event) => {
+        event.preventDefault();
+        signInContainer.classList.add('active');
+        signUpContainer.classList.remove('active');
+    });
+
+    toggleToRegister.addEventListener('click', (event) => {
+        event.preventDefault();
+        signUpContainer.classList.add('active');
+        signInContainer.classList.remove('active');
+    });
+});
+
+/* Юзер */
 // JavaScript для личного кабинета пользователя
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1095,3 +1268,22 @@ function saveProfile(e) {
         }, 800);
     }
 }
+
+/* Каталог поиск */
+const searchInput = document.getElementById('search');
+const cards = document.querySelectorAll('.card');
+
+searchInput.addEventListener('input', function() {
+    const query = this.value.trim().toLowerCase();
+
+    cards.forEach(card => {
+        const titleEl = card.querySelector('.card_title');
+        const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+        if (title.includes(query)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
