@@ -14,6 +14,32 @@ class PagesController extends Controller
         ]);
     }
 
+    public function user(Request $request) {
+        return $this->render('user', [
+            "page_title"=>"🍇 Страница пользователя"
+        ]);
+    }
+
+    public function card_product(Request $request) {
+        return $this->render('card_product', [
+            "page_title"=>"🍇 Card product"
+        ]);
+    }
+
+    public function contacts(Request $request) {
+        return $this->render('contacts', [
+            "page_title"=>"🍇 Страница пользователя"
+        ]);
+    }
+
+
+    public function admin(Request $request) {
+        $this->layout="empty_workflow";
+        return $this->render('admin', [
+            "page_title"=>"🛠️ Админ"
+        ]);
+    }
+
     public function main(Request $request) {
         return $this->render('main', [
             "page_title"=>"🍇 Винный магазин",
@@ -27,7 +53,7 @@ class PagesController extends Controller
     }
 
     public function authorization(Request $request) {
-        $this->layout="auth_workflow";
+        $this->layout="empty_workflow";
         return $this->render('authorization', [
             "page_title"=>"🍇 Авторизация пользователя",
         ]);

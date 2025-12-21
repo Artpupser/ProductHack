@@ -11,15 +11,17 @@ class Application
     public static Application $app;
     public Router $router;
     public Response $response;
+    public Database $database;
     public Request $request;
 
-    public function __construct($rootPath)
+    public function __construct($rootPath, array $config)
     {
         self::$app = $this;
         self::$ROOT_DIR = $rootPath;
         self::$VIEWS_DIR = pathCombine([self::$ROOT_DIR, '/views/']);
         $this->request = new Request();
         $this->response = new Response();
+        $this->database = new Database($config['db']);
         $this->router = new Router($this->request, $this->response);
     }
 

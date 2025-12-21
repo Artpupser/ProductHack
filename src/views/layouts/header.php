@@ -13,9 +13,10 @@
         </div>
     </div>
     <div class="contacts flex-center flex-row">
-        <a href="./public/html/user.html"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
+        <a href="./user"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
         <?php if (true): ?>
             <a href="./authorization">Авторизация</a>
+            <a href="./admin">Админ</a>
         <?php else: ?>
             <a href="./authorization"><img src="./assets/basket.png" alt="Корзина" class="basket"></a>
         <?php endif; ?>

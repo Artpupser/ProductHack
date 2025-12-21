@@ -22,7 +22,7 @@ const paths = {
         dist: ['./dist/'],
     },
     images: {
-        src: ['./src/assets/**/*.{png, jpg, jpeg, webp, svg}'],
+        src: ['./src/assets/**/*.{png,jpg,jpeg,webp,svg}'],
         dist: ['./dist/assets/']
     },
     fonts: {

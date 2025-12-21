@@ -10,17 +10,17 @@ class AuthorizationController extends Controller
 {
 
     public function registration(Request $request) {
-        $this->layout="auth_workflow";
+        $this->layout="empty_workflow";
         return Application::$app->router->renderContent($request->getContentJson());
     }
 
     public function login(Request $request) {
-        $this->layout="auth_workflow";
+        $this->layout="empty_workflow";
         return Application::$app->router->renderContent($request->getContentJson());
     }
   
     public function logout(Request $request) {
-        $this->layout="auth_workflow";
+        $this->layout="empty_workflow";
         return Application::$app->router->renderContent($request->getContentJson());
     }
 }
