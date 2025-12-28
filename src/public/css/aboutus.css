@@ -27,7 +27,7 @@ body {
       padding: 0 1%;
       background-color: rgba(0,0,0,0.05);
       border-bottom: 1px solid #7E868E;
-      background-image: url('../../assets/haad.png');
+      background-image: url('../../assets/imgs/header.webp');
       z-index: 100;
       box-sizing: border-box;
       color: white;

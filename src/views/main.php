@@ -11,8 +11,8 @@
             <img class="slider-img" src="../assets/wine_2.jpg" alt="Слайд 2">
             <img class="slider-img" src="../assets/wine_3.jpg" alt="Слайд 3">
             <div class="controls">
-                <img style="opacity: 1; height: 40px;" class="left controlls" src="../assets/left.jpg" alt="Слева">
-                <img style="opacity: 1; height: 40px;" class="right controlls" src="../assets/right.jpg" alt="Справа">
+                <img style="opacity: 1; height: 40px;" class="left controlls" src="../assets/imgs/left_switch_icon.webp" alt="Слева">
+                <img style="opacity: 1; height: 40px;" class="right controlls" src="../assets/imgs/right_switch_icon.webp" alt="Справа">
             </div>
         </div>
         <a href="/catalog" class="ssilka" style="color: #800000; ">
@@ -22,7 +22,7 @@
         
 
         <div class="acii">
-            <img src="../assets/acii.png" alt="">
+            <img src="../assets/imgs/sale_banner.webp" alt="">
         </div>
 
 </main>

@@ -1,9 +1,8 @@
 body {
     background-color: white;
 }
-
-
-
+.body_cat{
+  background-color: white;}
 
 .header {
     display: flex;
@@ -19,7 +18,7 @@ body {
     box-sizing: border-box;      
     color: white;
     z-index: 100;
-    background-image: url('../../assets/haad.png');
+    background-image: url('../../assets/imgs/header.webp');
 }
 
 .logo {

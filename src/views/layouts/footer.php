@@ -2,7 +2,7 @@
             <div class="left_foot">
                 <h2 class="title_foot">Винный магазин</h2>
                 <div class="icon_wine_foot">
-                    <img src="./assets/logo.png" alt="Логотип">
+                    <img src="./assets/imgs/logo_icon.webp" alt="Логотип">
                 </div>
                 <p class="copy">© 2025 Wine Store Rights Reserved.</p>
             </div>
