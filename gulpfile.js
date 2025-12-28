@@ -80,5 +80,5 @@ gulp.task('php', function () {
 
 
 
-gulp.task('build', gulp.series('php','images', 'fonts', 'css', 'fonts', 'scripts'));
+gulp.task('build', gulp.series('php','images', 'fonts', 'styles', 'fonts', 'scripts'));
 gulp.task('default', gulp.series('build'));

@@ -1,7 +1,7 @@
 <header class="header_main">
     <div class="logo">
-        <img src="./assets/logo.png" alt="Логотип">
-    </div>
+            <a href="http://localhost:8000/"><img src="../../assets/logo.png" alt="Логотип"></a> 
+        </div>
     <p class="wineshop">Винный магазин</p>
     <div class="place flex-center flex-row">
         <div class="img-place">
@@ -13,12 +13,11 @@
         </div>
     </div>
     <div class="contacts flex-center flex-row">
-        <a href="./user"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
         <?php if (true): ?>
-            <a href="./authorization">Авторизация</a>
-            <a href="./admin">Админ</a>
+            <a href="./authorization"><img src="./assets/profile.png" alt="Профиль" class="profile"></a>
+            <a href="./admin"><img src="./assets/admin.png" alt="Профиль" class="admin"></a>
         <?php else: ?>
             <a href="./authorization"><img src="./assets/basket.png" alt="Корзина" class="basket"></a>
-        <?php endif; ?>
+        <?php endif; ?> 
     </div>
 </header>

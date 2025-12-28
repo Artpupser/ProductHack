@@ -1,0 +1,49 @@
+.body_product {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+.content_card {
+      display: flex;
+      justify-content: flex-start;  
+      align-items: center;          
+      flex: 1;                      
+      width: 100%;
+      padding-left: 8%;
+      margin-top: 20px;
+      padding-top: 6% ;
+    }
+
+    .wine_card {
+      width: 400px;
+      height: 400px;
+      object-fit: cover; 
+      box-shadow: 5px 5px 15px #542121;
+      border-radius: 15px;
+      margin-right: 20px;           
+    }
+
+    .box_card {
+      box-shadow: 5px 5px 15px #542121;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column; 
+      padding: 20px;
+      background-color: white;
+      height: 400px;
+      width: 50%;
+      font-size: 40px;
+      color:#542121;
+      overflow-y: auto; 
+      font-family: "bergamosco-regular", sans-serif;
+    }
+    
+    .small-text {
+      color:#542121;
+      font-size: 20px; 
+      margin-top: 10px; 
+      font-family: Alice;
+    }
+

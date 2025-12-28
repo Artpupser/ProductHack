@@ -1,4 +1,4 @@
-<h1>About us</h1>
+<h1 class="h1-abu">About us</h1>
 <div class="container_abu">
   <section class="section_abu">
     <h2>Наша история</h2>

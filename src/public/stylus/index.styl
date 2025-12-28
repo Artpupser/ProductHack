@@ -1,10 +1,244 @@
-.text 
-    font-size: 15px
+whiteColor = #fff
+darkRed = #800000
+footerBg = #2f0909
+borderGray = #7E868E
 
-a 
-    @extend .text
-    color: black
+fontRegular = "bergamosco-regular", sans-serif
+fontLight = "bergamosco-light", sans-serif
 
-p
-    @extend .text
-    color: red
+radiusBtn = 20px
+transitionFast = 0.3s
+
+flex(justify = center, align = center, direction = row)
+  display flex
+  flex-direction direction
+  justify-content justify
+  align-items align
+
+text(size = 16px, color = whiteColor, font = fontRegular)
+  font-size size
+  color color
+  font-family font
+
+abs(top = auto, left = auto)
+  position absolute
+  top top
+  left left
+
+btn(bg = darkRed)
+  background-color bg
+  color whiteColor
+  border none
+  border-radius radiusBtn
+  cursor pointer
+  transition all transitionFast
+  &:hover
+    opacity 0.8
+
+*
+  margin 0
+  padding 0
+  box-sizing border-box
+
+body
+  background-color whiteColor
+
+.header_main
+  flex(space-between, center)
+  width 100vw
+  max-width 1920px
+  height 100px
+  padding 0 1%
+  background-color: darkRed
+  border-bottom 1px solid borderGray
+  z-index 100
+  color whiteColor
+  fixed(0, 0)
+
+  .logo
+    height 90%
+    flex()
+    img
+      padding 5px
+
+  .wineshop
+    text(50px, whiteColor, fontLight)
+
+  .user-icons
+    flex(row, flex-start, center)
+    gap 20px
+
+    a
+      display flex
+      align-items center
+
+      img
+        display block
+        width 90px
+        height 90px
+        &.admin
+          width 90px
+          height 90px
+
+.background-container
+  width 100vw
+  position relative
+
+.bg-1,
+.bg-2
+  width 100vw
+  height 100vh
+  background-size cover
+  background-position center
+  background-repeat no-repeat
+  position relative
+
+.bg-1
+  background-image url('../../assets/bg.png')
+
+.bg-2
+  background-image url('../../assets/slider.png')
+  flex()
+
+.acii
+  width 100%
+  height 100%
+  flex()
+  overflow hidden
+
+  img
+    max-width 100%
+    height auto
+
+.vinishko
+  abs(200px, 12%)
+  text(50px)
+  z-index 20
+
+.ssilka
+  position absolute
+  top 80%
+  right 10%
+
+
+.butcat
+  abs(60%, 12%)
+  btn()
+  padding 15px 30px
+  font-family fontRegular
+  z-index 5
+
+.slider
+  width 450px
+  height 550px
+  position relative
+  overflow hidden
+  z-index 10
+
+  &-img
+    position absolute
+    inset 0
+    opacity 0
+    transition opacity .5s
+
+    &.active
+      opacity 1
+
+  img
+    width 100%
+    height 100%
+    object-fit cover
+
+  .controls
+    abs(50%, 0)
+    width 100%
+    flex(space-between)
+    transform translateY(-50%)
+
+  .left,
+  .right
+    width 40px
+    height 40px
+    cursor pointer
+    transition .3s
+
+    &:hover
+      opacity .7
+
+.footer
+  background-color footerBg
+  text()
+  flex(space-between)
+  padding 20px 60px
+  height 250px
+
+  .title_foot
+    font-size 30px
+    line-height 1.2
+
+  .icon_wine_foot
+    margin 10px 0
+
+  .copy
+    font-size 14px
+    opacity .8
+    margin-top 10px
+
+  .menu_foot
+    display flex
+    gap 40px
+
+    a
+      text(16px)
+      text-decoration none
+
+      &:hover
+        opacity .6
+
+  .social
+    margin-top 25px
+    display flex
+    gap 20px
+    font-size 26px
+
+    a
+      text-decoration none
+      color whiteColor
+
+@media (max-width: 1024px)
+  .footer
+    padding 20px 40px
+    height 160px
+
+  .wineshop
+    font-size 40px
+
+@media (max-width: 768px)
+  .footer
+    flex-direction column
+    height auto
+    text-align center
+    gap 25px
+
+  .menu_foot
+    flex-direction column
+    gap 15px
+
+  .social
+    justify-content center
+
+  .wineshop
+    font-size 30px
+
+@media (max-width: 480px)
+  .title_foot
+    font-size 18px
+
+  .menu_foot a
+    font-size 15px
+
+  .social
+    font-size 22px
+
+  .wineshop
+    font-size 20px

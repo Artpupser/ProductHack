@@ -1,0 +1,91 @@
+bgMain        = #542121
+whiteColor   = #fff
+blackColor   = #000
+borderGray   = #7e868e
+accentRed    = #7a1b1b
+
+fontRegular  = "bergamosco-regular", sans-serif
+fontLight    = "bergamosco-light", sans-serif
+
+fontFace(name, path)
+  @font-face
+    font-family name
+    src url(path)
+
+flex(justify = center, align = center)
+  display flex
+  justify-content justify
+  align-items align
+
+text(size = 16px, color = blackColor, font = fontRegular, lh = 1.6)
+  font-size size
+  color color
+  font-family font
+  line-height lh
+
+fixed(top = 0, left = 0)
+  position fixed
+  top top
+  left left
+
+card(bg = whiteColor)
+  background bg
+  border-radius 12px
+  box-shadow 0 2px 10px rgba(0, 0, 0, .08)
+
+fontFace("bergamosco-regular", "../../assets/fonts/BergamascoRegular.ttf")
+fontFace("bergamosco-light", "../../assets/fonts/BergamascoLight.ttf")
+
+*
+  margin 0
+  box-sizing border-box
+
+body
+  text(16px, blackColor)
+  background bgMain
+
+.my_font,
+.wineshop
+  font-family fontRegular
+
+.wineshop
+  font-size 50px
+
+.h1-abu
+  margin-top 120px
+  height 100px
+  flex()
+  text(3rem, whiteColor)
+  text-shadow 0 2px 4px rgba(0, 0, 0, .7)
+
+.container_abu
+  width 90%
+  max-width 900px
+  margin 40px auto
+
+.section_abu
+  margin-bottom 40px
+  padding 20px
+  card()
+
+  h2
+    margin-top 0
+    font-size 1.8rem
+    color accentRed
+
+footer
+  text-align center
+  padding 20px
+  text(0.9rem, whiteColor)
+
+@media (max-width: 768px)
+  h1
+    font-size 2.2rem
+
+@media (max-width: 480px)
+  h1
+    height 200px
+    font-size 1.8rem
+
+  .container_abu
+    width 95%

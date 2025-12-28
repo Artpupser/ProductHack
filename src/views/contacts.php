@@ -1,4 +1,4 @@
-<h1>Контакты</h1>
+<h1 class="h1-con">Контакты</h1>
 <div class="container_con">
   <section class="section_con">
     <h2>Свяжитесь с нами</h2>
