@@ -26,6 +26,7 @@
     </div>
 
 <div class="cards-container">
+    
     <?php 
     use ProductHack\models\ImagesModel;
     

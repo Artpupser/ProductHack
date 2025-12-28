@@ -1,6 +1,6 @@
-<div class="content_card">
-    <img class="wine_card" src="../../assets/wine1.jpg" alt="card" />
-    <div class="box_card">
+<div class="content_card_prod">
+    <img class="wine_card_prod" src="../../assets/wine1.jpg" alt="card" />
+    <div class="box_card_prod">
       Название вина <br>
       Тип: красно, сухое<br>
       Регион: Франция <br>
