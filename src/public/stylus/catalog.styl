@@ -1,262 +1,234 @@
-$white: #fff;
-$dark-red: #542121;
-$border-gray: #ccc;
+$white = #fff
+$dark-red = #542121
+$border-gray = #ccc
 
-$font-regular: "bergamosco-regular", sans-serif;
-$font-light: "bergamosco-light", sans-serif;
+$font-regular = "bergamosco-regular", sans-serif
+$font-light = "bergamosco-light", sans-serif
 
-$shadow-card: 5px 5px 15px #2f0809;
+$shadow-card = 5px 5px 15px #2f0809
 
-@custom-media --desktop (max-width: 1024px);
-@custom-media --tablet (max-width: 768px);
-@custom-media --mobile (max-width: 600px);
-@custom-media --small (max-width: 480px);
+@custom-media --desktop (max-width: 1024px)
+@custom-media --tablet (max-width: 768px)
+@custom-media --mobile (max-width: 600px)
+@custom-media --small (max-width: 480px)
 
-@define-mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-@define-mixin img-box {
-  position: relative;
-  width: 300px;
-  height: 150px;
-  margin: 100px 70px 0;
-  @mixin flex-center;
-}
+flex-center()
+  display flex
+  justify-content center
+  align-items center
 
-@define-mixin img-inner {
-  width: 300px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 10px;
-  position: relative;
-  z-index: 1;
-}
+img-box()
+  position relative
+  width 300px
+  height 150px
+  margin 100px 70px 0
+  flex-center()
 
-@define-mixin abs-center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: $white;
-  z-index: 2;
-}
+img-inner()
+  width 300px
+  height 70px
+  object-fit cover
+  border-radius 10px
+  position relative
+  z-index 1
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+abs-center-text()
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+  color $white
+  z-index 2
 
-.body_cat {
-  background-color: $white;
-}
+*
+  margin 0
+  padding 0
+  box-sizing border-box
 
-.container {
-  @mixin flex-center;
-  gap: 60px;
-  margin-top: 130px;
-  flex-wrap: nowrap;
-}
+.body_cat
+  background-color $white
+
+.container
+  flex-center()
+  gap 60px
+  margin-top 130px
+  flex-wrap nowrap
 
 .img_catalog,
-.img_filter {
-  @mixin img-box;
-  gap: 10px;
+.img_filter
+  img-box()
+  gap 10px
 
-  img {
-    @mixin img-inner;
-  }
-}
+  img
+    img-inner()
 
-.img_filter {
-  right: 40px;
-}
+.img_filter
+  right 40px
 
-.img_catalog h1 {
-  @mixin abs-center-text;
-  font-size: 48px;
-}
+.img_catalog h1
+  abs-center-text()
+  font-size 48px
 
-.img_filter h2 {
-  @mixin abs-center-text;
-  font-size: 40px;
-}
+.img_filter h2
+  abs-center-text()
+  font-size 40px
 
-.searc_form {
-  @mixin flex-center;
-  margin-top: 100px;
+.searc_form
+  flex-center()
+  margin-top 100px
 
-  img {
-    width: 50px;
-    height: 50px;
-    background-color: $dark-red;
-    border-radius: 5px;
-  }
-}
+  img
+    width 50px
+    height 50px
+    background-color $dark-red
+    border-radius 5px
 
-.search_wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.search_wrapper
+  display flex
+  align-items center
+  gap 10px
 
-  input[type="search"] {
-    width: 500px;
-    height: 50px;
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid $border-gray;
-    outline: none;
-  }
-}
+  input[type="search"]
+    width 500px
+    height 50px
+    padding 5px 10px
+    font-size 14px
+    border-radius 5px
+    border 1px solid $border-gray
+    outline none
 
-button {
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+.body_cat
+  background-color: $white
+button
+  background transparent
+  border none
+  padding 0
+  cursor pointer
 
-  &:focus {
-    outline: none;
-  }
-}
+  &:focus
+    outline none
 
-.catalog-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
+.catalog-row
+  display flex
+  align-items center
+  justify-content space-between
+  gap 20px
 
-.card {
-  position: relative;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  width: 90%;
-  max-width: 1200px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: $white;
-  border-radius: 20px;
-  box-shadow: $shadow-card;
-  font-family: $font-regular;
+.card
+  position relative
+  display flex
+  gap 20px
+  flex-wrap wrap
+  width 90%
+  max-width 1200px
+  margin 50px auto
+  padding 20px
+  background-color $white
+  border-radius 20px
+  box-shadow $shadow-card
+  font-family $font-regular
 
-  &_img {
-    position: relative;
-    width: 25%;
-    max-width: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
+  &_img
+    position relative
+    width 25%
+    max-width 300px
+    border-radius 10px
+    overflow hidden
+    flex-shrink 0
 
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
+    img
+      width 100%
+      height auto
+      display block
+      object-fit cover
 
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      box-shadow: inset 5px 5px 10px rgba(47, 8, 9, 0.9);
-      pointer-events: none;
-    }
-  }
+    &::after
+      content ""
+      position absolute
+      inset 0
+      border-radius inherit
+      box-shadow inset 5px 5px 10px rgba(47, 8, 9, 0.9)
+      pointer-events none
 
-  &_content {
-    flex: 1;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    overflow-wrap: break-word;
-  }
+  &_content
+    flex 1
+    min-width 200px
+    display flex
+    flex-direction column
+    overflow-wrap break-word
 
-  &_title {
-    margin-top: 20px;
-    font-size: clamp(25px, 4vw, 50px);
-    color: $dark-red;
-  }
+  &_title
+    margin-top 20px
+    font-size clamp(25px, 4vw, 50px)
+    color $dark-red
 
-  &_sub {
-    margin-top: 20px;
-    font-size: clamp(18px, 2.5vw, 30px);
-    color: $dark-red;
-  }
-}
+  &_sub
+    margin-top 20px
+    font-size clamp(18px, 2.5vw, 30px)
+    color $dark-red
 
-.price_card {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: clamp(25px, 3vw, 50px);
-  color: $dark-red;
-}
+.price_card
+  position absolute
+  top 20px
+  right 20px
+  font-size clamp(25px, 3vw, 50px)
+  color $dark-red
 
-.btn {
-  position: absolute;
-  top: 100px;
-  right: 20px;
-  padding: 10px 15px;
-  background-color: $dark-red;
-  color: $white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: clamp(18px, 2.5vw, 30px);
-}
+.btn
+  position absolute
+  top 100px
+  right 20px
+  padding 10px 15px
+  background-color $dark-red
+  color $white
+  text-decoration none
+  border-radius 5px
+  font-size clamp(18px, 2.5vw, 30px)
 
-@media (--mobile) {
-  .card {
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
+@media (--mobile)
+  .card
+    flex-direction column
+    align-items center
+    padding 15px
 
-    &_img {
-      width: 80%;
-      margin-bottom: 15px;
-    }
+    &_img
+      width 80%
+      margin-bottom 15px
 
-    &_content {
-      width: 100%;
-      align-items: center;
-    }
-  }
+    &_content
+      width 100%
+      align-items center
 
   .price_card,
-  .btn {
-    position: relative;
-    inset: auto;
-    margin-bottom: 15px;
-    text-align: center;
-  }
+  .btn
+    position relative
+    inset auto
+    margin-bottom 15px
+    text-align center
 
   .card_title,
-  .card_sub {
-    text-align: center;
-  }
-}
+  .card_sub
+    text-align center
 
-@media (--desktop) {
+@media (--desktop)
   .wineshop,
-  .flex-column {
-    font-family: $font-light;
-  }
+  .flex-column
+    font-family $font-light
 
-  .wineshop { font-size: 40px !important; }
-  .flex-column { font-size: 20px !important; }
-}
+  .wineshop
+    font-size 40px !important
 
-@media (--tablet) {
-  .wineshop { font-size: 30px !important; }
-  .flex-column { font-size: 10px !important; }
-}
+  .flex-column
+    font-size 20px !important
 
-@media (--small) {
-  .wineshop { font-size: 20px !important; }
-}
+@media (--tablet)
+  .wineshop
+    font-size 30px !important
+
+  .flex-column
+    font-size 10px !important
+
+@media (--small)
+  .wineshop
+    font-size 20px !important
