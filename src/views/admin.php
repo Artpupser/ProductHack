@@ -17,7 +17,46 @@
         <input type="file" id="image" name="image" accept="image/*">
 
         <button type="submit">Add product</button>
-        <h2 class='messages'><?php echo var_dump($model);?></h2>
     </form>
-    <img id='preview' alt='preview'/>
+    <h1>Remove product</h1>
+    <form action="/api/product/delete" method="POST" enctype="multipart/form-data">
+        <label for="id">Product ID:</label>
+        <input type="number" id="id" name="id" required>
+        <button type="submit">Remove product</button>
+    </form>
+    <h1>Products</h1>
+    <div class='list'>
+        <?php
+        use ProductHack\models\ProductModel;
+        $productModel = new ProductModel();
+        foreach($productModel->selectAll() as $value):
+        ?>
+        <div class='item'><?php echo var_dump($value) ?></div>
+        <?php endforeach; ?>
+    </div>
+
+    <h1>Add images</h1>
+    <form action="/api/product/create" method="POST" enctype="multipart/form-data">
+        <label for="image">Price:</label>
+        <input type="number" id="price" name="price" required step="0.01" min="0">
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image1" accept="image1/*">
+
+        <button type="submit">Add product</button>
+    </form>
+    <h1>Images</h1>
+    <div class='list'>
+        <?php 
+        use ProductHack\models\ImagesModel;
+        $imagesModel = new ImagesModel();
+        foreach($imagesModel->selectAll() as $value):
+        ?>
+        <div class='item'>
+            <p>ID: <?php echo $value["id"] ?></p>
+            <img alt='img' src='<?php echo $value["base64"] ?>'/>
+        </div>
+        <?php endforeach;?>
+    </div>
+
 </main>

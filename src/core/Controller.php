@@ -11,8 +11,11 @@ abstract class Controller
         return Application::$app->router->renderView($view, $params);
     }
 
-    public function renderBadJson() {
-        return Application::$app->router->renderContent("Bad request");
+    public function redirect($location) {
+        header("Location: $location");
+    }
+    public function reload() {
+        header("Location: " . $_SERVER['REQUEST_URI']);
     }
     
     public function renderJson(Request $request) {

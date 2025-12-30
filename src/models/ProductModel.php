@@ -4,6 +4,8 @@ namespace ProductHack\models;
 
 use ProductHack\core\ModelDb;
 
+
+
 class ProductModel extends ModelDb
 {
     public int $id;
@@ -11,18 +13,24 @@ class ProductModel extends ModelDb
     public string $description;
     public float $price;
     public int $stock;
-    public $image;
+    public array $images;
+    public string $ids_images;
     
-    public function create() {
+    public function create() : bool {
+        $imagesModel = new ImagesModel();
+        $imagesModel->images = $this->images;
+        $imagesModel->create();
+        $this->ids_images = $imagesModel->getIdsString();
+        return $this->insert([$this->name, $this->description, $this->price, $this->stock, $this->ids_images]);
 
     }
 
-    public function delete() {
-
+    public function delete(int $id) : bool {
+        return $this->deleteFromId($id);
     }
 
-    public function change() {
-
+    public function change(array $attrs, array $params) : bool {
+        return $this->update($attrs, $params);
     }
 
     public function rules() : array 
@@ -36,12 +44,11 @@ class ProductModel extends ModelDb
                 [self::RULE_MAX, 'max'=> 512]],
             'price' => [self::RULE_IMPORTANT, self::RULE_NUMBER],
             'stock' => [self::RULE_IMPORTANT, self::RULE_NUMBER],
-            'image' => [self::RULE_IMPORTANT, self::RULE_IMG],
         ];
     }
     public function attributes(): array
     {
-        return ['name', 'description', 'price', 'stock', 'image'];
+        return ['name', 'description', 'price', 'stock', 'ids_images'];
     }
 
     public function tableName(): string

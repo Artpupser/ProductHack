@@ -7,15 +7,18 @@ import postCssImport from 'postcss-import';
 import postCssNested from 'postcss-nested';
 import postCssPresetEnv from 'postcss-preset-env';
 import mergeRules from 'postcss-merge-rules';
+import browserSync from 'browser-sync';
+
+const server = browserSync.create();
 
 const paths = {
     styl: {
         src: './src/public/stylus/main.styl',
         dist: './dist/public/css'
     },
-    css: {
-        src: './src/public/css/**/*.css',
-        dist: './dist/public/css'
+    js: {
+        src: './src/public/js/**/*',
+        dist: './dist/public/js'
     },
     php: {
         src: ['./src/**/*.php'],
@@ -26,11 +29,11 @@ const paths = {
         dist: ['./dist/assets/']
     },
     fonts: {
-        src: ['./src/assets/fonts/**/*.ttf'],
+        src: ['./src/assets/fonts/**/*.{ttf,woff2,woff,otf}'],
         dist: ['./dist/assets/fonts/']
     },
     scripts: {
-        src: ['./src/scripts/**/*.{go, py}'],
+        src: ['./src/scripts/**/*.{go,py}'],
         dist: ['./dist/scripts/']
     }
 };
@@ -45,14 +48,14 @@ gulp.task('styles', function () {
             autoprefixer(),
             mergeRules(),
             cssnano({preset: 'default'})])) 
-        .pipe(gulp.dest(paths.styl.dist)); 
+        .pipe(gulp.dest(paths.styl.dist));
 });
 
-gulp.task('css', function () {
-    return gulp.src(paths.css.src) 
-        .pipe(gulp.dest(paths.css.dist)); 
-});
 
+gulp.task('js', function () {
+    return gulp.src(paths.js.src) 
+        .pipe(gulp.dest(paths.js.dist));
+});
 
 gulp.task('images', function() {
     return gulp
@@ -78,7 +81,16 @@ gulp.task('php', function () {
         .pipe(gulp.dest(paths.php.dist));
 });
 
+gulp.task('serve', function() {
+    server.init({
+        port: 3001,
+        proxy: "localhost:8000",
+        open: false,
+    });
+    gulp.watch("./src/public/stylus/*.styl", gulp.series('styles'));
+    gulp.watch("./src/public/js/*.js", gulp.series('js'));
+    gulp.watch("./src/scripts/*.{py,go}", gulp.series('scripts'));
+});
 
-
-gulp.task('build', gulp.series('php','images', 'fonts', 'styles', 'fonts', 'scripts'));
+gulp.task('build', gulp.series('js', 'php', 'images', 'fonts', 'fonts', 'scripts', 'styles', 'serve'));
 gulp.task('default', gulp.series('build'));

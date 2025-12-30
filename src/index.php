@@ -25,6 +25,9 @@ $app = new Application(__DIR__, $config);
 // Страницы [Ну типа да]
 $app->router->get('/',  [PagesController::class, 'main']);
 $app->router->get('/index',  [PagesController::class, 'main']);
+$app->router->get('/home', [PagesController::class, 'main']);
+$app->router->get('/main', [PagesController::class, 'main']);
+
 $app->router->get('/catalog', [PagesController::class, 'catalog']);
 $app->router->get('/aboutus', [PagesController::class, 'aboutus']);
 $app->router->get('/admin', [PagesController::class, 'admin']);

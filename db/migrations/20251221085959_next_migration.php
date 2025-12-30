@@ -39,7 +39,7 @@ public function up(): void
                 description TEXT,
                 price NUMERIC(10,2) NOT NULL,
                 stock INTEGER NOT NULL DEFAULT 0,
-                image BYTEA NULL DEFAULT NULL
+                ids_images text not null default ''
             );
 
             CREATE TABLE orders (

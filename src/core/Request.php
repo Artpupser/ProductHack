@@ -45,6 +45,12 @@ class Request
             foreach($_POST as $key => $value) {
                 $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
+            foreach ($_FILES as $fileKey => $file) {
+                if ($file['error'] === UPLOAD_ERR_OK) {
+                    $imageData = base64_encode(file_get_contents($file['tmp_name']));
+                    $body['images'][$fileKey] = 'data:' . $file['type'] . ';base64,' . $imageData;
+                }
+            }
         }
         return $body;
     }

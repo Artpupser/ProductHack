@@ -1,6 +1,6 @@
 /* Подтверждение возраста */
 window.onload = function() {
-    const ok = confirm("Подтвердите, что вам есть 18 лет");
+    //const ok = confirm("Подтвердите, что вам есть 18 лет");
     if (!ok) {  
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
     }

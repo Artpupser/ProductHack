@@ -5,12 +5,29 @@ namespace ProductHack\controllers;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
 use ProductHack\core\Application;
+use ProductHack\models\ImagesModel;
+use ProductHack\models\ProductModel;
 
 class PagesController extends Controller
 {
+    public static PagesController $instance;
+
+    public function __construct()
+    {
+        $instance = $this;
+    }
+
+    public static function renderCustomError(Request $request, int $code = 403)
+    {
+        Application::$app->response->setStatusCode($code);
+        return PagesController::$instance->error($request);
+    }
+
     public function catalog(Request $request) {
+        $productModel = new ProductModel();
         return $this->render('catalog', [
-            "page_title"=>"🍇 Винный каталог"
+            "page_title"=>"🍇 Винный каталог",
+            "model" => $productModel->selectAll(),
         ]);
     }
 
@@ -34,9 +51,8 @@ class PagesController extends Controller
 
 
     public function admin(Request $request) {
-        $this->layout="empty_workflow";
         return $this->render('admin', [
-            "page_title"=>"🛠️ Админ"
+            "page_title"=>"🍇 Админ"
         ]);
     }
 

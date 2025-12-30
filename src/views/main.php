@@ -7,9 +7,13 @@
         <div class="bg-2">
         
         <div class="slider">
-            <img class="slider-img" src="../assets/wine_1.jpg" alt="Слайд 1">
-            <img class="slider-img" src="../assets/wine_2.jpg" alt="Слайд 2">
-            <img class="slider-img" src="../assets/wine_3.jpg" alt="Слайд 3">
+            <?php
+            use ProductHack\models\ImagesModel;
+
+            $imagesModel = new ImagesModel();
+            foreach ($imagesModel->selectRandom(3) as $value):?>
+                <img class="slider-img" src="<?php echo $value["base64"] ?>" alt="Слайд 1">
+            <?php endforeach; ?>
             <div class="controls">
                 <img style="opacity: 1; height: 40px;" class="left controlls" src="../assets/imgs/left_switch_icon.webp" alt="Слева">
                 <img style="opacity: 1; height: 40px;" class="right controlls" src="../assets/imgs/right_switch_icon.webp" alt="Справа">
@@ -26,4 +30,3 @@
         </div>
 
 </main>
-<script src="./public/js/full.js"></script>

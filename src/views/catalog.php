@@ -7,14 +7,12 @@
             </div>
         </div>
         <div class="searc_form">
-            <form action="/search" method="get">
-                <div class="search_wrapper">
-                    <input type="search" id="search" name="q" placeholder=" ">
-                    <button type="submit">
-                        <img src="../../assets/imgs/search_icon.webp" alt="Search">
-                    </button>
-                </div>
-            </form>
+            <div class="search_wrapper">
+                <input type="search" id="search" name="q" placeholder=" ">
+                <button type="submit">
+                    <img src="../../assets/imgs/search_icon.webp" alt="Search">
+                </button>
+            </div>
         </div>
 
         <div class="img_filter">
@@ -26,7 +24,6 @@
     </div>
 
 <div class="cards-container">
-    
     <?php 
     use ProductHack\models\ImagesModel;
     
@@ -49,5 +46,3 @@
     </div>
     <?php endforeach?>
 </div>
-<script src="./public/js/full.js"></script>
-</body>
