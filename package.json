@@ -15,6 +15,7 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^10.4.23",
+    "browser-sync": "^3.0.4",
     "cssnano": "^7.1.2",
     "gulp": "^5.0.1",
     "gulp-cli": "^3.1.0",

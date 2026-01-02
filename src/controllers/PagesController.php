@@ -14,7 +14,7 @@ class PagesController extends Controller
 
     public function __construct()
     {
-        $instance = $this;
+        self::$instance = $this;
     }
 
     public static function renderCustomError(Request $request, int $code = 403)

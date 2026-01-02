@@ -4,6 +4,7 @@ namespace ProductHack\core;
 
 abstract class Model
 {
+
     public const string RULE_EMAIL = 'email';
     public const string RULE_IMPORTANT = 'important';
     public const string RULE_MAX = 'max';
