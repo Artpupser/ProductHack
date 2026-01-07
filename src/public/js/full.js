@@ -1,7 +1,7 @@
 /* Подтверждение возраста */
 window.onload = function() {
     //const ok = confirm("Подтвердите, что вам есть 18 лет");
-    if (!ok) {  
+    if (!ok) {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
     }
 };
@@ -18,7 +18,7 @@ function show(index) {
 }
 
 controlls.forEach((e) => {
-    e.addEventListener('click', (event) => { 
+    e.addEventListener('click', (event) => {
         const target = event.target;
 
         if (target.classList.contains('left')) {
@@ -52,4 +52,14 @@ searchInput.addEventListener('input', function() {
         }
     });
 });
+/* Переключение с логина на авторизацию и на оборот */
 
+function showLoginForm() {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+}
+
+function showRegisterForm() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+}
