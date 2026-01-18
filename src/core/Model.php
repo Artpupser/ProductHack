@@ -4,7 +4,6 @@ namespace ProductHack\core;
 
 abstract class Model
 {
-
 	public const string RULE_EMAIL = 'email';
 	public const string RULE_IMPORTANT = 'important';
 	public const string RULE_MAX = 'max';
@@ -25,7 +24,6 @@ abstract class Model
 			}
 		}
 	}
-
 	public function validate()
 	{
 		foreach ($this->rules() as $attribute => $rules) {
@@ -39,15 +37,18 @@ abstract class Model
 				}
 				if ($ruleName === self::RULE_IMPORTANT && !$value) {
 					$this->addError($attribute, self::RULE_IMPORTANT);
-					continue;
-				} else if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+				}
+				if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
 					$this->addError($attribute, self::RULE_EMAIL);
-					continue;
-				} else if ($ruleName === self::RULE_IMG && (!$this->isImageBase64($value))) {
+				}
+				if ($ruleName === self::RULE_IMG && (!$this->isImageBase64($value))) {
 					$this->addError($attribute, self::RULE_IMG);
-					continue;
-				} else if ($ruleName === self::RULE_NUMBER && !is_numeric($value)) {
+				}
+				if ($ruleName === self::RULE_NUMBER && !is_numeric($value)) {
 					$this->addError($attribute, self::RULE_NUMBER);
+				}
+				if ($ruleName === self::RULE_MATCHES && $this->{$rule["match_name"]} !== $value) {
+					$this->addError($attribute, self::RULE_MATCHES);
 				}
 				if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
 					$this->addError($attribute, self::RULE_MIN);
@@ -91,8 +92,6 @@ abstract class Model
 		return [
 			self::RULE_IMPORTANT => 'This field is important',
 			self::RULE_MAX => 'This field must not exceed the maximum length',
-			self::RULE_MIN => 'This field must be at least the minimum length',
-			self::RULE_MAX => 'This field must not exceed the maximum',
 			self::RULE_MIN => 'This field must be at least the minimum',
 			self::RULE_EMAIL => 'Please enter a valid email address',
 			self::RULE_MATCHES => 'This field must match the other field',

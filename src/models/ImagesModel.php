@@ -30,7 +30,7 @@ class ImagesModel extends ModelDb
 		];
 	}
 
-	public function attributes(): array
+	public function attributes_db(): array
 	{
 		return ['base64'];
 	}

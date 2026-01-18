@@ -4,29 +4,6 @@ namespace ProductHack\models;
 
 use ProductHack\core\ModelDb;
 
-class UserCodeModel extends ModelDb
-{
-	public int $id;
-	public string $phone;
-	public string $code;
-	public string $created_at;
-	public string $expired_at;
-
-	public function tableName(): string
-	{
-		return "phone_verification_codes";
-	}
-
-	public function attributes(): array
-	{
-		return ["phone", "code", "created_at", "expired_at"];
-	}
-
-	public function rules(): array
-	{
-		throw new \Exception('Not implemented');
-	}
-}
 
 class ProductModel extends ModelDb
 {
@@ -74,7 +51,7 @@ class ProductModel extends ModelDb
 			'stock' => [self::RULE_IMPORTANT, self::RULE_NUMBER],
 		];
 	}
-	public function attributes(): array
+	public function attributes_db(): array
 	{
 		return ['name', 'description', 'price', 'stock', 'ids_images'];
 	}
