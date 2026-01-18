@@ -16,10 +16,19 @@ class SessionModel extends ModelDb
 	public function create(string $email): bool
 	{
 		$userModel = UserModel::get_user_from_email($email);
-		if ($userModel !== null) {
-			return $this->insert([$userModel->id, Session::get_token(), date('Y-m-d', strtotime('+1 day'))]);
+		$currentSession = Session::get_session_from_db();
+		if ($currentSession == null) {
+			if ($userModel !== null) {
+				return $this->insert([$userModel->id, Session::get_token(), self::current_time_plus_days(1)]);
+			}
+		} else {
+			$currentSession->changeColumn("expires_at", self::current_time_plus_days(1), $currentSession->id);
 		}
 		return false;
+	}
+	public static function current_time_plus_days(int $days): string
+	{
+		return date('Y-m-d', strtotime("+$days day"));
 	}
 
 	public function get_user_from_token(string $token): UserModel|null

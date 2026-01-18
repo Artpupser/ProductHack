@@ -24,9 +24,27 @@ class Session
 	public static function verify(): bool
 	{
 		$model = new SessionModel();
-		$expiredDateTime = new DateTime($model->get_expired_time(self::get_token()));
+		$result = $model->get_expired_time(self::get_token());
+		if (is_null($result)) {
+			return false;
+		}
+		$expiredDateTime = new DateTime($result);
 		$currentDateTime = new DateTime();
 		return $currentDateTime < $expiredDateTime;
+	}
+
+	public static function get_session_from_db(): SessionModel|null
+	{
+		$model = new SessionModel();
+		$result = $model->selectWhereEqual("token", self::get_token())[0] ?? null;
+		if ($result === null) {
+			return $result;
+		}
+		$model->expires_at = $result["expires_at"];
+		$model->token = $result["token"];
+		$model->id = $result["id"];
+		$model->user_id = $result["user_id"];
+		return $model;
 	}
 
 	public static function get_user(): UserModel|null

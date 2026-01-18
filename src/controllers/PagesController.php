@@ -33,9 +33,19 @@ class PagesController extends Controller
 			"model" => $productModel->selectAll(),
 		]);
 	}
-
+	public function payment(Request $request)
+	{
+		return $this->render('payment', [
+			"page_title" => "🍇 Страница оплаты"
+		]);
+	}
 	public function profile(Request $request)
 	{
+		// $user = Session::get_user();
+		// if (is_null($user) || $user->role_id != 1) {
+		// 	$this->redirect("/authorization");
+		// 	return null;
+		// }
 		return $this->render('profile', [
 			"page_title" => "🍇 Страница пользователя"
 		]);
@@ -80,6 +90,7 @@ class PagesController extends Controller
 	public function authorization(Request $request)
 	{
 		$user = Session::get_user();
+		echo var_dump($user);
 		if (!is_null($user) && $user->role_id == 1) {
 			$this->redirect("/profile");
 			return null;
