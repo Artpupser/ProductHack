@@ -20,6 +20,17 @@ abstract class ModelDb extends Model
 		return $success;
 	}
 
+	public function changeColumn(string $column_name, $new_value, int $id): bool
+	{
+		$table_name = $this->tableName();
+		$statement = self::prepare("
+				UPDATE $table_name 
+				SET $column_name = ? 
+				WHERE id = ?
+			");
+		$success = $statement->execute([$new_value, $id]);
+		return $success;
+	}
 	public function selectAll(): array
 	{
 		$tableName = $this->tableName();
@@ -28,7 +39,8 @@ abstract class ModelDb extends Model
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function existsInDb(string $columnName, $value): bool {
+	public function existsInDb(string $columnName, $value): bool
+	{
 		$tableName = $this->tableName();
 		$statement = self::prepare("
 			select exists(

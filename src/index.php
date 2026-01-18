@@ -33,6 +33,7 @@ $app->router->get('/aboutus', [PagesController::class, 'aboutus']);
 $app->router->get('/admin', [PagesController::class, 'admin']);
 $app->router->get('/profile', [PagesController::class, 'profile']);
 $app->router->get('/card_product', [PagesController::class, 'card_product']);
+$app->router->get('/payment', [PagesController::class, 'payment']);
 $app->router->get('/contacts', [PagesController::class, 'contacts']);
 $app->router->get('/authorization', [PagesController::class, 'authorization']);
 $app->router->get('*', [PagesController::class, 'error']);
