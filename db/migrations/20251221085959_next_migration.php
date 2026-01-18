@@ -8,86 +8,89 @@ final class NextMigration extends AbstractMigration
 {
 	public function up(): void
 	{
+
 		$this->execute("
             drop table if exists users cascade;
             drop table if exists user_roles cascade;
             drop table if exists sessions_table cascade;
 
             create table roles (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(30) NOT NULL DEFAULT 'N/A'
+                id serial primary key,
+                name varchar(30) not null default 'N/A'
             );
 
             create table users (
-                id SERIAL PRIMARY KEY,
-                role_id INTEGER NOT NULL REFERENCES roles(id),
-                email VARCHAR(255) NOT NULL UNIQUE,
-                password_hash VARCHAR(255) NOT NULL,
-                full_name VARCHAR(150)
+                id serial primary key,
+                role_id int not null references roles(id),
+                email varchar(254) check (email ~* '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') unique,
+                password_hash varchar(255) not null,
+                full_name varchar(150)
             );
 
             create table order_statuses (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(100) NOT NULL UNIQUE
+                id serial primary key,
+                name varchar(100) not null unique
             );
 
             create table products (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(150) NOT NULL,
+                id serial primary key,
+                name varchar(150) not null,
                 description TEXT,
-                price NUMERIC(10,2) NOT NULL,
-                stock INTEGER NOT NULL DEFAULT 0,
+                price numeric(10,2) not null,
+                stock int not null default 0,
                 ids_images text not null default ''
             );
 
             create table orders (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER NOT NULL REFERENCES users(id),
-                status_id INTEGER NOT NULL REFERENCES order_statuses(id),
-                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP,
-                total_price NUMERIC(10,2) NOT NULL DEFAULT 0
+                id serial primary key,
+                user_id int not null references users(id),
+                status_id int not null references order_statuses(id),
+                created_at timestamp not null default current_timestamp,
+                updated_at timestamp,
+                total_price numeric(10,2) not null default 0
             );
 
             create table order_items (
-                id SERIAL PRIMARY KEY,
-                order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
-                product_id INTEGER NOT NULL REFERENCES products(id),
-                quantity INTEGER NOT NULL CHECK (quantity > 0),
-                price_snapshot NUMERIC(10,2) NOT NULL
+                id serial primary key,
+                order_id int not null references orders(id) on delete cascade,
+                product_id int not null references products(id),
+                quantity int not null check (quantity > 0),
+                price_snapshot numeric(10,2) not null
             );
 
             create table sessions (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-                token VARCHAR(255) NOT NULL UNIQUE,
-                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                last_activity TIMESTAMP,
-                expires_at TIMESTAMP NOT NULL,
-                ip_address VARCHAR(50),
-                user_agent TEXT,
-                revoked BOOLEAN NOT NULL DEFAULT FALSE
+                id serial primary key,
+                user_id int not null references users(id) on delete cascade,
+                token varchar(255) not null unique,
+                created_at timestamp not null default current_timestamp,
+                last_activity timestamp,
+                expires_at timestamp not null,
+                revoked boolean not null default false
             );
 
             create table payment_methods (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(100) NOT NULL UNIQUE
+                id serial primary key,
+                name varchar(100) not null unique
             );
 
             create table payment_statuses (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(100) NOT NULL UNIQUE
+                id serial primary key,
+                name varchar(100) not null unique
             );
 
             create table payments (
-                id SERIAL PRIMARY KEY,
-                order_id INTEGER NOT NULL REFERENCES orders(id),
-                method_id INTEGER NOT NULL REFERENCES payment_methods(id),
-                status_id INTEGER NOT NULL REFERENCES payment_statuses(id),
-                amount NUMERIC(10,2) NOT NULL,
-                transaction_id VARCHAR(100),
-                error_message TEXT
+                id serial primary key,
+                order_id int not null references orders(id),
+                method_id int not null references payment_methods(id),
+                status_id int not null references payment_statuses(id),
+                amount numeric(10,2) not null,
+                transaction_id varchar(100),
+                error_message text
             );
+
+				insert into roles (name) values
+				('User'),
+				('Admin')
         ");
 	}
 

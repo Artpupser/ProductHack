@@ -22,6 +22,6 @@ abstract class Controller
 
 	public function renderJson(Request $request)
 	{
-		return Application::$app->router->renderContent($request->getContentJson());
+		return Application::$app->router->renderContent($request->getDataJson());
 	}
 }
