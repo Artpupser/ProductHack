@@ -21,17 +21,17 @@ $config = [
 	],
 ];
 $app = new Application(__DIR__, $config);
-
+$pages = new PagesController();
 //get
-$app->router->get('/',  [PagesController::class, 'main']);
-$app->router->get('/index',  [PagesController::class, 'main']);
+$app->router->get('/', [PagesController::class, 'main']);
+$app->router->get('/index', [PagesController::class, 'main']);
 $app->router->get('/home', [PagesController::class, 'main']);
 $app->router->get('/main', [PagesController::class, 'main']);
 
 $app->router->get('/catalog', [PagesController::class, 'catalog']);
 $app->router->get('/aboutus', [PagesController::class, 'aboutus']);
 $app->router->get('/admin', [PagesController::class, 'admin']);
-$app->router->get('/user', [PagesController::class, 'user']);
+$app->router->get('/profile', [PagesController::class, 'profile']);
 $app->router->get('/card_product', [PagesController::class, 'card_product']);
 $app->router->get('/contacts', [PagesController::class, 'contacts']);
 $app->router->get('/authorization', [PagesController::class, 'authorization']);

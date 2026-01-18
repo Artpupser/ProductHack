@@ -13,16 +13,16 @@ class Application
 	public Response $response;
 	public Database $database;
 	public Request $request;
-	public Session  $sessions;
+	public Session $sessions;
 
 	public function __construct($rootPath, array $config)
 	{
+		$this->sessions = new Session();
 		self::$app = $this;
 		self::$ROOT_DIR = $rootPath;
 		self::$VIEWS_DIR = pathCombine([self::$ROOT_DIR, '/views/']);
 		$this->request = new Request();
 		$this->response = new Response();
-		$this->sessions = new Session();
 		$this->database = new Database($config['db']);
 		$this->router = new Router($this->request, $this->response);
 	}

@@ -5,7 +5,7 @@ namespace ProductHack\controllers;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
 use ProductHack\core\Application;
-use ProductHack\models\ImagesModel;
+use ProductHack\core\Session;
 use ProductHack\models\ProductModel;
 
 class PagesController extends Controller
@@ -14,7 +14,9 @@ class PagesController extends Controller
 
 	public function __construct()
 	{
-		self::$instance = $this;
+		if (empty(self::$instance)) {
+			self::$instance = $this;
+		}
 	}
 
 	public static function renderCustomError(Request $request, int $code = 403)
@@ -32,9 +34,9 @@ class PagesController extends Controller
 		]);
 	}
 
-	public function user(Request $request)
+	public function profile(Request $request)
 	{
-		return $this->render('user', [
+		return $this->render('profile', [
 			"page_title" => "🍇 Страница пользователя"
 		]);
 	}
@@ -77,6 +79,11 @@ class PagesController extends Controller
 
 	public function authorization(Request $request)
 	{
+		$user = Session::get_user();
+		if (!is_null($user) && $user->role_id == 1) {
+			$this->redirect("/profile");
+			return null;
+		}
 		return $this->render('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",
 		]);

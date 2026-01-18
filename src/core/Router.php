@@ -57,7 +57,7 @@ class Router
 		return str_replace('{{content}}', $viewContent, $layoutContent);
 	}
 
-	protected function layoutContent($params = [])
+	protected function layoutContent($params = []): string
 	{
 		foreach ($params as $key => $value) {
 			$$key = $value;

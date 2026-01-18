@@ -4,7 +4,7 @@
 			<h2>Авторизация</h2>
 			<form class="contact-form" method="POST" action="/api/user/login">
 				<label for="login_email">Почта</label>
-				<input type="tel" id="phone" name="phone" placeholder="Введите почту" required />
+				<input type="tel" id="phone" name="email" placeholder="Введите почту" required />
 
 				<label for="login_password">Пароль</label>
 				<input type="text" id="password" name="password" placeholder="Введите пароль" required />

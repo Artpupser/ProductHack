@@ -33,11 +33,14 @@ class ProductController extends Controller
 		$model = new ProductModel();
 		$model->loadData($request->getData());
 		$imagesModel = new ImagesModel();
+		if (!isset($model->ids_images)) {
+			return $this->redirect("/admin");
+		}
 		$model->ids_images = $model->selectWhereEqual("id", $model->id)[0]["ids_images"];
 		foreach (explode(',', $model->ids_images) as $value) {
 			if (!$imagesModel->deleteFromId($value)) {
 				return PagesController::$instance->renderCustomError($request, 403);
-			};
+			}
 		}
 		if ($model->validate() && $model->delete($model->id)) {
 			return $this->redirect("/admin");

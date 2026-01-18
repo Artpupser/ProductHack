@@ -19,7 +19,6 @@ abstract class Controller
 	{
 		header("Location: " . $_SERVER['REQUEST_URI']);
 	}
-
 	public function renderJson(Request $request)
 	{
 		return Application::$app->router->renderContent($request->getDataJson());
