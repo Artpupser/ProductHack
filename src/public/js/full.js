@@ -1,10 +1,10 @@
-/* Подтверждение возраста */
+/* Подтверждение возраста 
 window.onload = function() {
     //const ok = confirm("Подтвердите, что вам есть 18 лет");
     if (!ok) {
         document.body.innerHTML = "<h1 style='text-align:center; margin-top:100px;'>Доступ запрещён</h1>";
     }
-};
+};*/
 
 /* Слайдер */
 const images = document.querySelectorAll('.slider-img');
@@ -62,4 +62,23 @@ function showLoginForm() {
 function showRegisterForm() {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('register-form').style.display = 'block';
+}
+
+//18 age
+const overlay = document.getElementById('ageOverlay');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+
+yesBtn.addEventListener('click', () => {
+  localStorage.setItem('ageConfirmed', 'true');
+  overlay.style.display = 'none';
+});
+
+noBtn.addEventListener('click', () => {
+  window.open('', '_self');
+  window.close();
+});
+
+if (localStorage.getItem('ageConfirmed') === 'true') {
+  overlay.style.display = 'none';
 }

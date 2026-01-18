@@ -1,3 +1,6 @@
+// =====================
+// VARIABLES
+// =====================
 whiteColor = #fff
 darkRed = #800000
 footerBg = #2f0909
@@ -9,6 +12,15 @@ fontLight = "bergamosco-light", sans-serif
 radiusBtn = 20px
 transitionFast = 0.3s
 
+// breakpoints
+bp-mobile = 480px
+bp-tablet = 768px
+bp-laptop = 1200px
+bp-tv = 1920px
+
+// =====================
+// MIXINS
+// =====================
 flex(justify = center, align = center, direction = row)
   display flex
   flex-direction direction
@@ -25,6 +37,11 @@ abs(top = auto, left = auto)
   top top
   left left
 
+fixed(top = auto, left = auto)
+  position fixed
+  top top
+  left left
+
 btn(bg = darkRed)
   background-color bg
   color whiteColor
@@ -33,8 +50,22 @@ btn(bg = darkRed)
   cursor pointer
   transition all transitionFast
   &:hover
-    opacity 0.8
+    opacity .8
 
+media(max = null, min = null)
+  if max && min
+    @media (min-width: min) and (max-width: max)
+      {block}
+  else if max
+    @media (max-width: max)
+      {block}
+  else if min
+    @media (min-width: min)
+      {block}
+
+// =====================
+// RESET
+// =====================
 *
   margin 0
   padding 0
@@ -43,42 +74,82 @@ btn(bg = darkRed)
 body
   background-color whiteColor
 
+// =====================
+// HEADER (FIXED & ADAPTIVE)
+// =====================
 .header_main
-  flex(space-between, center)
-  width 100dvw
+  display flex
+  align-items center
+  justify-content space-between
+
+  width 100vw
   height 100px
   padding 0 1%
-  background-color: darkRed
+  background-color darkRed
   border-bottom 1px solid borderGray
-  z-index 100
   color whiteColor
   fixed(0, 0)
+  z-index 100
 
   .logo
-    height 90%
-    flex()
+    height 100%
+    display flex
+    align-items center
+
     img
+      height 80%
+      width auto
+      max-height 80px
       padding 5px
 
   .wineshop
     text(50px, whiteColor, fontLight)
+    line-height 1
 
   .user-icons
-    flex(row, flex-start, center)
+    display flex
+    align-items center
     gap 20px
+    height 100%
 
-    a
-      display flex
-      align-items center
+    img
+      height 60%
+      width auto
+      max-height 60px
 
-      img
-        display block
-        width 90px
-        height 90px
-        &.admin
-          width 90px
-          height 90px
+      &.admin
+        max-height 60px
 
+  // планшет
+  media(max: bp-tablet)
+    height 70px
+    padding 0 10px
+
+    .logo img
+      max-height 50px
+
+    .user-icons img
+      max-height 40px
+
+    .wineshop
+      font-size 26px
+
+  // телефон
+  media(max: bp-mobile)
+    height 60px
+
+    .logo img
+      max-height 40px
+
+    .user-icons img
+      max-height 32px
+
+    .wineshop
+      font-size 20px
+
+// =====================
+// BACKGROUND SECTIONS
+// =====================
 .background-container
   width 100vw
   position relative
@@ -92,6 +163,13 @@ body
   background-repeat no-repeat
   position relative
 
+  media(max: bp-tablet)
+    height 80vh
+
+  media(max: bp-mobile)
+    min-height 400px
+    height auto
+
 .bg-1
   background-image url('../../assets/bg.png')
 
@@ -99,26 +177,35 @@ body
   background-image url('../../assets/slider.png')
   flex()
 
+// =====================
+// CONTENT
+// =====================
 .acii
   width 100%
   height 100%
   flex()
   overflow hidden
 
-  img
-    max-width 100%
-    height auto
-
 .vinishko
   abs(200px, 12%)
   text(50px)
   z-index 20
 
+  media(max: bp-tablet)
+    font-size 36px
+    top 150px
+
+  media(max: bp-mobile)
+    position static
+    font-size 26px
+    text-align center
+    margin 20px auto
+
 .ssilka
   position absolute
   top 80%
   right 10%
-
+  color darkRed
 
 .butcat
   abs(60%, 12%)
@@ -127,12 +214,32 @@ body
   font-family fontRegular
   z-index 5
 
+  media(max: bp-mobile)
+    position static
+    margin 20px auto
+    display block
+
+// =====================
+// SLIDER
+// =====================
 .slider
   width 450px
   height 550px
   position relative
   overflow hidden
   z-index 10
+
+  media(max: bp-laptop)
+    width 360px
+    height 460px
+
+  media(max: bp-tablet)
+    width 280px
+    height 360px
+
+  media(max: bp-mobile)
+    width 100%
+    height 300px
 
   &-img
     position absolute
@@ -148,22 +255,9 @@ body
     height 100%
     object-fit cover
 
-  .controls
-    abs(50%, 0)
-    width 100%
-    flex(space-between)
-    transform translateY(-50%)
-
-  .left,
-  .right
-    width 40px
-    height 40px
-    cursor pointer
-    transition .3s
-
-    &:hover
-      opacity .7
-
+// =====================
+// FOOTER
+// =====================
 .footer
   background-color footerBg
   text()
@@ -171,73 +265,41 @@ body
   padding 20px 60px
   height 250px
 
-  .title_foot
-    font-size 30px
-    line-height 1.2
-
-  .icon_wine_foot
-    margin 10px 0
-
-  .copy
-    font-size 14px
-    opacity .8
-    margin-top 10px
-
-  .menu_foot
-    display flex
-    gap 40px
-
-    a
-      text(16px)
-      text-decoration none
-
-      &:hover
-        opacity .6
-
-  .social
-    margin-top 25px
-    display flex
-    gap 20px
-    font-size 26px
-
-    a
-      text-decoration none
-      color whiteColor
-
-@media (max-width: 1024px)
-  .footer
-    padding 20px 40px
-    height 160px
-
-  .wineshop
-    font-size 40px
-
-@media (max-width: 768px)
-  .footer
-    flex-direction column
+  media(max: bp-tablet)
+    flex(column, flex-start)
     height auto
+    gap 20px
+    padding 20px
+
+  media(max: bp-mobile)
     text-align center
-    gap 25px
 
-  .menu_foot
-    flex-direction column
-    gap 15px
+    .menu_foot
+      flex(column)
+      gap 10px
 
-  .social
-    justify-content center
-
-  .wineshop
-    font-size 30px
-
-@media (max-width: 480px)
-  .title_foot
-    font-size 18px
-
-  .menu_foot a
-    font-size 15px
-
-  .social
-    font-size 22px
-
-  .wineshop
+// =====================
+// TV / 4K
+// =====================
+media(min: bp-tv)
+  body
     font-size 20px
+
+  .wineshop
+    font-size 64px
+
+  .header_main
+    height 130px
+
+    .logo img
+      max-height 100px
+
+    .user-icons img
+      max-height 80px
+
+  .slider
+    width 600px
+    height 750px
+
+  .footer
+    padding 40px 120px

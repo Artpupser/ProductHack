@@ -20,7 +20,7 @@
 					<img style="opacity: 1; height: 40px;" class="right controlls" src="../assets/imgs/right_switch_icon.webp" alt="Справа">
 				</div>
 			</div>
-			<a href="/catalog" class="ssilka" style="color: #800000; ">
+			<a href="/catalog" class="ssilka" >
 				Перейти в каталог</a>
 		</div>
 

@@ -1,101 +1,81 @@
-font-regular = "bergamosco-regular"
-font-light   = "bergamosco-light"
+$overlay-bg = rgba(0, 0, 0, 0.6)
+$card-bg = #fff
+$radius-lg = 18px
+$radius-md = 10px
+$shadow-card = 0 20px 50px rgba(0,0,0,.3)
+$shadow-hover = 0 6px 16px rgba(0,0,0,.2)
+$transition-fast = .15s ease
 
-color-main        = #7a1b1b
-color-main-hover  = #a22b2b
-color-white       = #fff
-color-border      = #ccc
-
-shadow-text = 0 2px 4px rgba(0, 0, 0, 0.7)
-shadow-card = 0 2px 10px rgba(0, 0, 0, 0.08)
-
-tablet = "(max-width: 768px)"
-mobile = "(max-width: 480px)"
+$green = #34ff89
+$red = #ff432e
 
 flex-center()
   display flex
   align-items center
   justify-content center
 
-card()
-  padding 20px
-  background color-white
-  border-radius 12px
-  box-shadow shadow-card
+button-base($bg)
+  background $bg
+  color #fff
+  flex 1
+  padding 14px
+  border-radius $radius-md
+  border none
+  font-size 16px
+  cursor pointer
+  transition transform $transition-fast, box-shadow $transition-fast
 
-input-base()
-  padding 10px
-  border 1px solid color-border
-  border-radius 6px
-  font-size 1rem
-  width 100%
+  &:hover
+    transform translateY(-2px)
+    box-shadow $shadow-hover
 
-@font-face
-  font-family font-regular
-  src url("../../assets/fonts/BergamascoRegular.ttf")
+@keyframes fadeIn
+  from
+    opacity 0
+  to
+    opacity 1
 
-@font-face
-  font-family font-light
-  src url("../../assets/fonts/BergamascoLight.ttf")
+@keyframes scaleIn
+  from
+    transform scale(.9)
+    opacity 0
+  to
+    transform scale(1)
+    opacity 1
 
-.h1-con
-  height 100px
+.age_overlay
+  position fixed
+  inset 0
+  backdrop-filter blur(8px)
+  background $overlay-bg
+  animation fadeIn .6s ease
   flex-center()
-  color color-white
-  text-shadow shadow-text
-  font-size 3rem
-  margin 0
 
-.container_con
+.age_card
+  background $card-bg
+  padding 40px 32px
+  max-width 420px
   width 90%
-  max-width 900px
-  margin 40px auto
+  border-radius $radius-lg
+  text-align center
+  box-shadow $shadow-card
+  animation scaleIn .5s ease
 
-.section_con
-  margin-bottom 40px
-  card()
+  h1
+    margin 0 0 12px
+    font-size 28px
 
-  h2
-    margin-top 0
-    font-size 1.8rem
-    color color-main
+  p
+    margin 0 0 28px
+    color #555
 
-.contact-form
+.buttons
   display flex
-  flex-direction column
-  gap 15px
+  gap 14px
 
-  label
-    font-weight bold
+button
+  &.yes
+    button-base($green)
 
-  input,
-  textarea
-    input-base()
-
-  textarea#message
-    resize none
-
-  button
-    padding 12px
-    background color-main
-    color color-white
-    border none
-    border-radius 6px
-    cursor pointer
-    font-size 1rem
-    transition background 0.3s
-
-    &:hover
-      background color-main-hover
-
-@media tablet
-  h1
-    font-size 2.2rem
-
-@media mobile
-  h1
-    height 200px
-    font-size 1.8rem
-
-  .container_con
-    width 95%
+  &.no
+    button-base($red)
