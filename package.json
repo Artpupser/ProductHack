@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "src/index.php",
   "scripts": {
-    "dev-migrate": "vendor/bin/phinx migrate -e development && vendor/bin/phinx seed:run",
+    "dev-migrate": "vendor/bin/phinx migrate -e development",
     "dev": "yarn build & php -S localhost:8000 -t dist",
     "go_ping": "go run ./src/scripts/ping.go",
     "build": "gulp build"
   },
   "type": "module",
-  "author": "Artpupser, AnyaHandina, annafilimo_ova, Alexey",
+  "author": "Artpupser, AnyaHandina, annafilimo_ova, Alica",
   "repository": "https://github.com/Artpupser/ProductHack",
   "license": "MIT",
   "dependencies": {},

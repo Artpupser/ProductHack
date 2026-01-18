@@ -6,23 +6,19 @@ use Phinx\Migration\AbstractMigration;
 
 final class ImagesMigrate extends AbstractMigration
 {
- public function up(): void
-    {
-        $max_count_session = 3;
-        // Создание таблицы sessions_table
-        $this->execute("
-            CREATE TABLE IF NOT EXISTS images (
-                id SERIAL PRIMARY KEY not null,
-                base64 TEXT not null
+	public function up(): void
+	{
+		$this->execute("
+            create table if not exists images (
+                id serial primary key not null,
+				tag varchar(12) not null,
+                base64 text not null
             );
         ");
-    }
+	}
 
-    public function down(): void
-    {
-        // Удаление таблицы sessions_table
-        $this->execute("
-            DROP TABLE IF EXISTS images;
-        ");
-    }
+	public function down(): void
+	{
+		$this->execute("drop table if exists images;");
+	}
 }

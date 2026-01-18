@@ -4,39 +4,39 @@ namespace ProductHack\core;
 
 use function Cake\Core\pathCombine;
 
-class Application 
+class Application
 {
-    public static string $ROOT_DIR;
-    public static string $VIEWS_DIR;
-    public static Application $app;
-    public Router $router;
-    public Response $response;
-    public Database $database;
-    public Request $request;
+	public static string $ROOT_DIR;
+	public static string $VIEWS_DIR;
+	public static Application $app;
+	public Router $router;
+	public Response $response;
+	public Database $database;
+	public Request $request;
 
-    public function __construct($rootPath, array $config)
-    {
-        self::$app = $this;
-        self::$ROOT_DIR = $rootPath;
-        self::$VIEWS_DIR = pathCombine([self::$ROOT_DIR, '/views/']);
-        $this->request = new Request();
-        $this->response = new Response();
-        $this->database = new Database($config['db']);
-        $this->router = new Router($this->request, $this->response);
-    }
+	public function __construct($rootPath, array $config)
+	{
+		self::$app = $this;
+		self::$ROOT_DIR = $rootPath;
+		self::$VIEWS_DIR = pathCombine([self::$ROOT_DIR, '/views/']);
+		$this->request = new Request();
+		$this->response = new Response();
+		$this->database = new Database($config['db']);
+		$this->router = new Router($this->request, $this->response);
+	}
 
-    public function run()
-    {
-        echo $this->router->resolve();
-    }
+	public function run()
+	{
+		echo $this->router->resolve();
+	}
 
-        public function errorMessage(int $code) : string {
-        $dict = [
-            404=>"Страница не найдена",
-            400=>"Запрос не верный",
-            403=>"Доступ запрещен",
-        ];
-        return $dict[$code];
-    }
-
+	public function errorMessage(int $code): string
+	{
+		$dict = [
+			404 => "Page not found",
+			400 => "Request not valid",
+			403 => "Access denied",
+		];
+		return $dict[$code];
+	}
 }

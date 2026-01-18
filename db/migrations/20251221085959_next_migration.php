@@ -6,21 +6,19 @@ use Phinx\Migration\AbstractMigration;
 
 final class NextMigration extends AbstractMigration
 {
-public function up(): void
-    {
-        $max_count_session = 3;
-        // Создание таблицы sessions_table
-        $this->execute("
-            DROP TABLE IF EXISTS users CASCADE;
-            DROP TABLE IF EXISTS user_roles CASCADE;
-            DROP TABLE IF EXISTS sessions_table CASCADE;
+	public function up(): void
+	{
+		$this->execute("
+            drop table if exists users cascade;
+            drop table if exists user_roles cascade;
+            drop table if exists sessions_table cascade;
 
-            CREATE TABLE roles (
+            create table roles (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(30) NOT NULL DEFAULT 'N/A'
             );
 
-            CREATE TABLE users (
+            create table users (
                 id SERIAL PRIMARY KEY,
                 role_id INTEGER NOT NULL REFERENCES roles(id),
                 email VARCHAR(255) NOT NULL UNIQUE,
@@ -28,12 +26,12 @@ public function up(): void
                 full_name VARCHAR(150)
             );
 
-            CREATE TABLE order_statuses (
+            create table order_statuses (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(100) NOT NULL UNIQUE
             );
 
-            CREATE TABLE products (
+            create table products (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(150) NOT NULL,
                 description TEXT,
@@ -42,7 +40,7 @@ public function up(): void
                 ids_images text not null default ''
             );
 
-            CREATE TABLE orders (
+            create table orders (
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL REFERENCES users(id),
                 status_id INTEGER NOT NULL REFERENCES order_statuses(id),
@@ -51,7 +49,7 @@ public function up(): void
                 total_price NUMERIC(10,2) NOT NULL DEFAULT 0
             );
 
-            CREATE TABLE order_items (
+            create table order_items (
                 id SERIAL PRIMARY KEY,
                 order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
                 product_id INTEGER NOT NULL REFERENCES products(id),
@@ -59,7 +57,7 @@ public function up(): void
                 price_snapshot NUMERIC(10,2) NOT NULL
             );
 
-            CREATE TABLE sessions (
+            create table sessions (
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
                 token VARCHAR(255) NOT NULL UNIQUE,
@@ -71,17 +69,17 @@ public function up(): void
                 revoked BOOLEAN NOT NULL DEFAULT FALSE
             );
 
-            CREATE TABLE payment_methods (
+            create table payment_methods (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(100) NOT NULL UNIQUE
             );
 
-            CREATE TABLE payment_statuses (
+            create table payment_statuses (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(100) NOT NULL UNIQUE
             );
 
-            CREATE TABLE payments (
+            create table payments (
                 id SERIAL PRIMARY KEY,
                 order_id INTEGER NOT NULL REFERENCES orders(id),
                 method_id INTEGER NOT NULL REFERENCES payment_methods(id),
@@ -91,23 +89,23 @@ public function up(): void
                 error_message TEXT
             );
         ");
-    }
+	}
 
-    public function down(): void
-    {
-        $this->execute("DROP TABLE IF EXISTS order_items CASCADE;
-DROP TABLE IF EXISTS payments CASCADE;
-DROP TABLE IF EXISTS delivery_info CASCADE;
-DROP TABLE IF EXISTS orders CASCADE;
-DROP TABLE IF EXISTS sessions CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS products CASCADE;
-DROP TABLE IF EXISTS categories CASCADE;
-DROP TABLE IF EXISTS suppliers CASCADE;
-DROP TABLE IF EXISTS brands CASCADE;
-DROP TABLE IF EXISTS payment_statuses CASCADE;
-DROP TABLE IF EXISTS payment_methods CASCADE;
-DROP TABLE IF EXISTS order_statuses CASCADE;
-DROP TABLE IF EXISTS roles;");
-    }
+	public function down(): void
+	{
+		$this->execute("drop table if exists order_items cascade;
+drop table if exists payments cascade;
+drop table if exists delivery_info cascade;
+drop table if exists orders cascade;
+drop table if exists sessions cascade;
+drop table if exists users cascade;
+drop table if exists products cascade;
+drop table if exists categories cascade;
+drop table if exists suppliers cascade;
+drop table if exists brands cascade;
+drop table if exists payment_statuses cascade;
+drop table if exists payment_methods cascade;
+drop table if exists order_statuses cascade;
+drop table if exists roles;");
+	}
 }
