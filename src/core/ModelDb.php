@@ -8,12 +8,12 @@ use PDOStatement;
 abstract class ModelDb extends Model
 {
 	public abstract function tableName(): string;
-	public abstract function attributes(): array;
+	public abstract function attributes_db(): array;
 
 	public function insert(array $params): bool
 	{
 		$tableName = $this->tableName();
-		$attrs = $this->attributes();
+		$attrs = $this->attributes_db();
 		$statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attrs) . ")
             VALUES(" . implode(',', array_fill(0, count($attrs), '?')) . ")");
 		$success = $statement->execute($params);
@@ -26,6 +26,19 @@ abstract class ModelDb extends Model
 		$statement = self::prepare("SELECT * FROM $tableName");
 		$statement->execute();
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function existsInDb(string $columnName, $value): bool {
+		$tableName = $this->tableName();
+		$statement = self::prepare("
+			select exists(
+					select 1 from $tableName 
+					where $columnName = ?
+					limit 1
+			)
+		");
+		$statement->execute([$value]);
+		return $statement->fetchColumn() === true;
 	}
 
 	public function selectWhereEqual($collumnName, $value)

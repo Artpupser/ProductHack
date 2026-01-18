@@ -19,7 +19,7 @@ class ProductController extends Controller
 		if (!$request->isPost())
 			return PagesController::$instance->renderCustomError($request, 403);
 		$model = new ProductModel();
-		$model->loadData($request->getContent());
+		$model->loadData($request->getData());
 		if ($model->validate() && $model->create()) {
 			return $this->redirect("/admin");
 		}
@@ -31,7 +31,7 @@ class ProductController extends Controller
 		if (!$request->isPost())
 			return PagesController::$instance->renderCustomError($request, 403);
 		$model = new ProductModel();
-		$model->loadData($request->getContent());
+		$model->loadData($request->getData());
 		$imagesModel = new ImagesModel();
 		$model->ids_images = $model->selectWhereEqual("id", $model->id)[0]["ids_images"];
 		foreach (explode(',', $model->ids_images) as $value) {

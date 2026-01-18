@@ -26,12 +26,13 @@ class Request
 	{
 		return $this->getMethod() === "get";
 	}
+
 	public function isPost()
 	{
 		return $this->getMethod() === "post";
 	}
 
-	public function getContent()
+	public function getData()
 	{
 		$body = [];
 		if ($this->isGet()) {
@@ -52,8 +53,8 @@ class Request
 		return $body;
 	}
 
-	public function getContentJson()
+	public function getDataJson()
 	{
-		return json_encode($this->getContent());
+		return json_encode($this->getData());
 	}
 }
