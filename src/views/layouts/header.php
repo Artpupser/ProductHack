@@ -13,11 +13,13 @@
 		</div>
 	</div>
 	<div class="contacts flex-center flex-row">
-		<?php if (true): ?>
-			<a href="./authorization"><img src="./assets/imgs/profile_icon.webp" alt="Профиль" class="profile"></a>
-			<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Профиль" class="admin"></a>
-		<?php else: ?>
-			<a href="./authorization"><img src="./assets/basket.png" alt="Корзина" class="basket"></a>
+		<?php
+
+		use ProductHack\core\Session;
+		$user = Session::get_user();
+		if ($user->role_id == 2): ?>
+			<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin profile" class="admin"></a>
 		<?php endif; ?>
+		<a href="./authorization"><img src="./assets/imgs/profile_icon.webp" alt="Авторизация" class="profile"></a>
 	</div>
 </header>

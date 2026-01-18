@@ -10,9 +10,9 @@ final class ImagesMigrate extends AbstractMigration
 	{
 		$this->execute("
             create table if not exists images (
-                id serial primary key not null,
-				tag varchar(12) not null,
-                base64 text not null
+					id serial primary key not null,
+					tag varchar(12) not null,
+					base64 text not null
             );
         ");
 	}

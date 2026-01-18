@@ -19,8 +19,9 @@ class ProductModel extends ModelDb
 	{
 		$imagesModel = new ImagesModel();
 		$imagesModel->images = $this->images;
+		$imagesModel->tag = "product";
 		$imagesModel->create();
-		$this->ids_images = $imagesModel->getIdsString();
+		$this->ids_images = $imagesModel->getLastIdsString();
 		return $this->insert([$this->name, $this->description, $this->price, $this->stock, $this->ids_images]);
 	}
 

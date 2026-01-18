@@ -8,8 +8,9 @@ class ImagesModel extends ModelDb
 {
 	public array $images;
 	public array $last_ids = [];
+	public string $tag;
 
-	public function getIdsString(): string
+	public function getLastIdsString(): string
 	{
 		return implode(',', $this->last_ids);
 	}
@@ -18,7 +19,7 @@ class ImagesModel extends ModelDb
 	public function create()
 	{
 		foreach ($this->images as $key => $value) {
-			$this->insert([$value]);
+			$this->insert([$value, $this->tag]);
 			array_push($this->last_ids, $this->lastId());
 		}
 	}
@@ -32,7 +33,7 @@ class ImagesModel extends ModelDb
 
 	public function attributes_db(): array
 	{
-		return ['base64'];
+		return ['base64', 'tag'];
 	}
 
 	public function tableName(): string

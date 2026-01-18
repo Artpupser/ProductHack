@@ -63,9 +63,7 @@ final class NextMigration extends AbstractMigration
                 user_id int not null references users(id) on delete cascade,
                 token varchar(255) not null unique,
                 created_at timestamp not null default current_timestamp,
-                last_activity timestamp,
                 expires_at timestamp not null,
-                revoked boolean not null default false
             );
 
             create table payment_methods (
