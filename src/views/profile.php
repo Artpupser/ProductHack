@@ -19,6 +19,9 @@
 			</div>
 
 		</div>
+		<form class="contact-form" method="POST" action="/api/user/logout">
+			<button type="submit">Выйти из аккаунта</button>
+		</form>
 	</section>
 
 	<section class="section_con profile-section">
