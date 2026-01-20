@@ -25,12 +25,12 @@ const paths = {
         dist: ['./dist/'],
     },
     images: {
-        src: ['./src/assets/**/*.{png,jpg,jpeg,webp,svg}'],
-        dist: ['./dist/assets/']
+        src: ['./src/public/**/*.{png,jpg,jpeg,webp,svg}'],
+        dist: ['./dist/public/']
     },
     fonts: {
-        src: ['./src/assets/fonts/**/*.{ttf,woff2,woff,otf}'],
-        dist: ['./dist/assets/fonts/']
+        src: ['./src/public/fonts/**/*.{ttf,woff2,woff,otf}'],
+        dist: ['./dist/public/fonts/']
     },
     scripts: {
         src: ['./src/scripts/**/*.{go,py}'],
