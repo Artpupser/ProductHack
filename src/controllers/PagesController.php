@@ -19,12 +19,6 @@ class PagesController extends Controller
 		}
 	}
 
-	public static function renderCustomError(Request $request, int $code = 403)
-	{
-		Application::$app->response->setStatusCode($code);
-		return PagesController::$instance->error($request);
-	}
-
 	public function catalog(Request $request)
 	{
 		$productModel = new ProductModel();
@@ -97,16 +91,6 @@ class PagesController extends Controller
 		}
 		return $this->render('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",
-		]);
-	}
-
-	public function error(Request $request)
-	{
-		$code = Application::$app->response->getStatusCode();
-		return $this->render('error', [
-			"page_title" => "🍇 Ошибка, " . $code,
-			"code" => $code,
-			"message" => Application::$app->errorMessage($code),
 		]);
 	}
 }
