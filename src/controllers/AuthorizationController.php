@@ -26,7 +26,7 @@ class AuthorizationController extends Controller
 			return Application::$app->router->renderContent(var_dump($model->errors));
 		}
 		if ($model->create() === false) {
-			return PagesController::renderCustomError($request, 400);
+			return Application::$app->error->pushClientError("any", "Model not created");
 		}
 		return $this->redirect("/index");
 	}
@@ -37,10 +37,10 @@ class AuthorizationController extends Controller
 		$model = new LoginModel();
 		$model->loadData($request->getData());
 		if ($model->validate() === false) {
-			return Application::$app->router->renderContent(var_dump($model->errors));
+			return "";
 		}
 		if ($model->check() === false) {
-			return PagesController::renderCustomError($request, 400);
+			return Application::$app->error->pushServerError(400);
 		}
 		$sessionModel = new SessionModel();
 		$sessionModel->create($model->email);

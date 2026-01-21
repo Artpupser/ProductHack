@@ -2,10 +2,16 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\ModelDb;
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropRuleAttribute;
+use ProductHack\core\ModelRule;
 
-class ImagesModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "images", table_collumn_names: ["base64", "tag"])]
+class ImagesModel extends ModelDatabase
 {
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::IMG)]
 	public array $images;
 	public array $last_ids = [];
 	public string $tag;
@@ -22,22 +28,5 @@ class ImagesModel extends ModelDb
 			$this->insert([$value, $this->tag]);
 			array_push($this->last_ids, $this->lastId());
 		}
-	}
-
-	public function rules(): array
-	{
-		return [
-			'images' => [self::RULE_IMPORTANT, self::RULE_IMG],
-		];
-	}
-
-	public function attributes_db(): array
-	{
-		return ['base64', 'tag'];
-	}
-
-	public function tableName(): string
-	{
-		return "images";
 	}
 }

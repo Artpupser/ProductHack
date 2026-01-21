@@ -18,16 +18,16 @@ class StartSeed extends AbstractSeed
             ["id" => 2, "name" => "admin"]
         ];
         $user_roles_table->setData($roles_data)->save();
-        
+
         $user_table = $this->table('users');
         $users_data = [];
-        for($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $users_data[$i] = [
                 'id' => $i,
                 'fullname' => $faker->name(),
                 'email' => $faker->email(),
-                'password_hash' => hash('sha256',$faker->password(10, 30)),
-                'role_id' => (int)$faker->randomElement([0,1,2])
+                'password_hash' => hash('sha256', $faker->password(10, 30)),
+                'role_id' => (int) $faker->randomElement([0, 1, 2])
             ];
         }
         $user_table->insert($users_data)->save();

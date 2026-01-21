@@ -3,10 +3,14 @@
 namespace ProductHack\models;
 
 use DateTime;
-use ProductHack\core\ModelDb;
+use DateTimeImmutable;
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropDatabaseAttribute;
 use ProductHack\core\Session;
 
-class SessionModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "sessions", table_collumn_names: ["user_id", "token", "expires_at"])]
+class SessionModel extends ModelDatabase
 {
 	public int $id;
 	public int $user_id;
@@ -19,16 +23,16 @@ class SessionModel extends ModelDb
 		$currentSession = Session::get_session_from_db();
 		if ($currentSession == null) {
 			if ($userModel !== null) {
-				return $this->insert([$userModel->id, Session::get_token(), self::current_time_plus_days(1)]);
+				return $this->insert([$userModel->id, Session::get_token(), self::current_time_plus_days(2)]);
 			}
 		} else {
-			$currentSession->changeColumn("expires_at", self::current_time_plus_days(1), $currentSession->id);
+			$result = $currentSession->changeColumn("expires_at", self::current_time_plus_days(2), $currentSession->id);
 		}
 		return false;
 	}
 	public static function current_time_plus_days(int $days): string
 	{
-		return date('Y-m-d', strtotime("+$days day"));
+		return (new DateTimeImmutable())->modify('+' . $days . 'day')->format('Y-m-d H:i:s');
 	}
 
 	public function get_user_from_token(string $token): UserModel|null
@@ -42,25 +46,11 @@ class SessionModel extends ModelDb
 
 	public function get_expired_time(string $token): string|null
 	{
-		$result = $this->selectWhereEqual("token", $token)[0];
-		if (isset($result["expires_at"])) {
-			return $result["expires_at"];
+		$result = $this->selectWhereEqual("token", $token);
+		if (empty($result)) {
+			return null;
 		}
-		return null;
+		return $result[0]["expires_at"];
 	}
 
-	public function rules(): array
-	{
-		return [];
-	}
-
-	public function attributes_db(): array
-	{
-		return ['user_id', 'token', 'expires_at'];
-	}
-
-	public function tableName(): string
-	{
-		return "sessions";
-	}
 }

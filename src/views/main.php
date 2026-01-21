@@ -25,11 +25,7 @@
 			<a href="/catalog" class="ssilka">
 				Перейти в каталог</a>
 		</div>
-
-
-
 		<div class="acii">
 			<img src="../assets/imgs/sale_banner.webp" alt="">
 		</div>
-
 </main>

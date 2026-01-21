@@ -31,8 +31,8 @@
 		foreach ($model as $value): ?>
 			<div class="card">
 				<img class="card_img" src="<?php
-													$images = new ImagesModel();
-													echo $images->selectWhereEqual("id", explode(',', $value['ids_images'])[0])[0]["base64"] ?>" />
+				$images = new ImagesModel();
+				echo $images->selectWhereEqual("id", explode(',', $value['ids_images'])[0])[0]["base64"] ?>" />
 				<div class="card_content">
 					<div class="card_title"><?php echo $value['name'] ?></div>
 					<div class="card_sub">

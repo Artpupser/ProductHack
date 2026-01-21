@@ -4,8 +4,8 @@ namespace ProductHack\controllers;
 
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
-use ProductHack\core\Application;
 use ProductHack\core\Session;
+use ProductHack\models\LoginModel;
 use ProductHack\models\ProductModel;
 
 class PagesController extends Controller
@@ -17,6 +17,13 @@ class PagesController extends Controller
 		if (empty(self::$instance)) {
 			self::$instance = $this;
 		}
+	}
+
+	public function test(Request $request): string
+	{
+		$this->layout = "empty_workflow";
+		$model = new LoginModel();
+		return $this->renderDump([]);
 	}
 
 	public function catalog(Request $request)
@@ -42,13 +49,6 @@ class PagesController extends Controller
 		// }
 		return $this->render('profile', [
 			"page_title" => "🍇 Страница пользователя"
-		]);
-	}
-
-	public function card_product(Request $request)
-	{
-		return $this->render('card_product', [
-			"page_title" => "🍇 Card product"
 		]);
 	}
 
@@ -84,7 +84,6 @@ class PagesController extends Controller
 	public function authorization(Request $request)
 	{
 		$user = Session::get_user();
-		echo var_dump($user);
 		if (!is_null($user) && $user->role_id == 1) {
 			$this->redirect("/profile");
 			return null;

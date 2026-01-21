@@ -55,7 +55,7 @@
 
 				$productModel = new ProductModel();
 				foreach ($productModel->selectAll() as $value):
-				?>
+					?>
 					<div class='item'><?php echo var_dump($value) ?></div>
 				<?php endforeach; ?>
 			</div>
@@ -70,7 +70,7 @@
 
 				$imagesModel = new ImagesModel();
 				foreach ($imagesModel->selectAll() as $value):
-				?>
+					?>
 					<div class='item'>
 						<p>ID: <?php echo $value["id"] ?></p>
 						<img alt='img' src='<?php echo $value["base64"] ?>' />

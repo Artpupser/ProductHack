@@ -2,47 +2,31 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\ModelDb;
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropDatabaseAttribute;
+use ProductHack\core\ModelPropRuleAttribute;
+use ProductHack\core\ModelRule;
 
-class RegistrationModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "users", table_collumn_names: ["email", "password_hash", "role_id"])]
+class RegistrationModel extends ModelDatabase
 {
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::EMAIL)]
 	public string $email;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
 	public string $password;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
+	#[ModelPropRuleAttribute(ModelRule::MATCH , "password")]
 	public string $repeat_password;
 	public int $role_id;
 
 	public function create(): bool
 	{
 		return $this->insert([$this->email, hash("sha256", $this->password), 1]);
-	}
-	public function rules(): array
-	{
-		return [
-			'email' => [
-				self::RULE_IMPORTANT,
-				self::RULE_EMAIL,
-			],
-			'password' => [
-				self::RULE_IMPORTANT,
-				[self::RULE_MIN, 'min' => 10],
-				[self::RULE_MAX, 'max' => 32],
-			],
-			'repeat_password' => [
-				self::RULE_IMPORTANT,
-				[self::RULE_MIN, 'min' => 10],
-				[self::RULE_MAX, 'max' => 32],
-				[self::RULE_MATCHES, 'match_name' => 'password'],
-			],
-		];
-	}
-
-	public function attributes_db(): array
-	{
-		return ['email', 'password_hash', 'role_id'];
-	}
-
-	public function tableName(): string
-	{
-		return "users";
 	}
 }

@@ -22,6 +22,11 @@ abstract class Controller
 		header("Location: " . $_SERVER['REQUEST_URI']);
 	}
 
+	public function renderDump(mixed $data)
+	{
+		return Application::$app->router->renderContent(var_dump($data));
+	}
+
 	public function renderJson(Request $request)
 	{
 		return Application::$app->router->renderContent($request->getDataJson());

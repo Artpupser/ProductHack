@@ -26,6 +26,7 @@ $app = new Application(__DIR__, $config);
 $pages = new PagesController();
 //get
 $app->router->create_get_route(['/', '/index', '/home', '/main'], [PagesController::class, 'main']);
+$app->router->create_get_route(['/test'], [PagesController::class, 'test']);
 $app->router->create_get_route(['/catalog'], [PagesController::class, 'catalog']);
 $app->router->create_get_route(['/aboutus'], [PagesController::class, 'aboutus']);
 $app->router->create_get_route(['/admin'], [PagesController::class, 'admin']);
@@ -34,20 +35,17 @@ $app->router->create_get_route(['/card_product'], [PagesController::class, 'card
 $app->router->create_get_route(['/payment'], [PagesController::class, 'payment']);
 $app->router->create_get_route(['/contacts'], [PagesController::class, 'contacts']);
 $app->router->create_get_route(['/authorization'], [PagesController::class, 'authorization']);
+$app->router->create_get_route(['/api/public/file/'], [FileController::class, 'file']);
 
 
 //post
-
-$app->router->create_get_route(['/api/public/file/'], [FileController::class, 'file']);
-
-// $app->router->post('/api/product/create', [ProductController::class, 'create']);
-// $app->router->post('/api/product/delete', [ProductController::class, 'delete']);
-// $app->router->post('/api/product/change', [ProductController::class, 'change']);
-
-// $app->router->post('/api/user/login', [AuthorizationController::class, 'login']);
-// $app->router->post('/api/user/send_code', [AuthorizationController::class, 'send_code']);
-// $app->router->post('/api/user/registration', [AuthorizationController::class, 'registration']);
-// $app->router->post('/api/user/logout', [AuthorizationController::class, 'logout']);
+$app->router->create_post_route(['/api/product/create'], [ProductController::class, 'create']);
+$app->router->create_post_route(['/api/product/delete'], [ProductController::class, 'delete']);
+$app->router->create_post_route(['/api/product/change'], [ProductController::class, 'change']);
+$app->router->create_post_route(['/api/user/login'], [AuthorizationController::class, 'login']);
+$app->router->create_post_route(['/api/user/send_code'], [AuthorizationController::class, 'send_code']);
+$app->router->create_post_route(['/api/user/registration'], [AuthorizationController::class, 'registration']);
+$app->router->create_post_route(['/api/user/logout'], [AuthorizationController::class, 'logout']);
 
 
 $app->run();

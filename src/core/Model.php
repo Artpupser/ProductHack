@@ -2,19 +2,77 @@
 
 namespace ProductHack\core;
 
+use Attribute;
+use Reflection;
+use ReflectionAttribute;
+use ReflectionClass;
+use ReflectionFiber;
+use ReflectionProperty;
+
+#[Attribute(flags: Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
+class ModelPropRuleAttribute
+{
+	public function __construct(public ModelRule $rule, public string|int|null $value = null)
+	{
+	}
+}
+
+
+#[Attribute(flags: Attribute::TARGET_CLASS)]
+class ModelDatabaseAttribute
+{
+	public function __construct(public string $table_name, public array $table_collumn_names = [])
+	{
+	}
+}
+
+
+enum ModelRule: int
+{
+	case IMPORTANT = 0;
+	case EMAIL = 1;
+	case TEXT_MAX = 2;
+	case TEXT_MIN = 3;
+	case NUMBER_MAX = 4;
+	case NUMBER_MIN = 5;
+	case MATCH = 6;
+	case NUMBER = 7;
+	case IMG = 8;
+
+	public function message(): string
+	{
+		return match ($this) {
+			self::IMPORTANT => 'Important',
+			self::TEXT_MAX => 'Text length > MAX',
+			self::TEXT_MIN => 'Text length < MIN',
+			self::NUMBER_MAX => 'Number > MAX',
+			self::NUMBER_MIN => 'Number < MIN',
+			self::EMAIL => 'Is not email',
+			self::MATCH => 'field not match is other field',
+			self::NUMBER => 'Is not number',
+			self::IMG => 'Is not image',
+		};
+	}
+}
+
 abstract class Model
 {
-	public const string RULE_EMAIL = 'email';
-	public const string RULE_IMPORTANT = 'important';
-	public const string RULE_MAX = 'max';
-	public const string RULE_MIN = 'min';
-	public const string RULE_MAX_NUMBER = 'max_number';
-	public const string RULE_MIN_NUMBER = 'min_number';
-	public const string RULE_MATCHES = 'matches';
-	public const string RULE_NUMBER = 'number';
-	public const string RULE_IMG = 'image';
+	private readonly array $_attributesRules;
+	public static array $VALIDATORS = [];
 
-	public array $errors = [];
+	public function __construct()
+	{
+		$this->_attributesRules = $this->getRules();
+		self::$VALIDATORS[ModelRule::IMPORTANT->value] = fn($value, null $rule_value): bool => $value;
+		self::$VALIDATORS[ModelRule::TEXT_MAX->value] = fn($value, int $max): bool => strlen($value) <= $max;
+		self::$VALIDATORS[ModelRule::TEXT_MIN->value] = fn($value, int $min): bool => strlen($value) >= $min;
+		self::$VALIDATORS[ModelRule::NUMBER_MAX->value] = fn($value, int $max): bool => $value <= $max;
+		self::$VALIDATORS[ModelRule::NUMBER_MIN->value] = fn($value, int $min): bool => $value >= $min;
+		self::$VALIDATORS[ModelRule::EMAIL->value] = fn($value, null $rule_value): bool => filter_var($value, FILTER_VALIDATE_EMAIL);
+		self::$VALIDATORS[ModelRule::MATCH ->value] = fn($value, string $rule_value): bool => $this->{$rule_value} === $value;
+		self::$VALIDATORS[ModelRule::NUMBER->value] = fn($value, null $rule_value): bool => is_numeric($value);
+		self::$VALIDATORS[ModelRule::IMG->value] = fn($value, null $rule_value): bool => $this->isImageBase64($value);
+	}
 
 	public function loadData($data)
 	{
@@ -24,50 +82,66 @@ abstract class Model
 			}
 		}
 	}
+	private function getModelDatabaseAttributes(): array
+	{
+		$ref = new ReflectionClass($this);
+		return $ref->getAttributes(ModelDatabaseAttribute::class);
+	}
+
+	private function getProps(): array
+	{
+		$ref = new ReflectionClass($this);
+		return $ref->getProperties(ReflectionProperty::IS_PUBLIC);
+	}
+
+	public function getTableName(): string
+	{
+		return $this->getModelDatabaseAttributes()[0]->newInstance()->table_name;
+	}
+
+	public function getDatabaseProps(): array|null
+	{
+		$attrs = $this->getModelDatabaseAttributes();
+		if (empty($attrs)) {
+			return null;
+		}
+		return $attrs[0]->newInstance()->table_collumn_names ?? null;
+	}
+
+	public function getRules(): array
+	{
+
+		$result = [];
+		foreach ($this->getProps() as $prop) {
+			$name = $prop->getName();
+			$result[$name] = [];
+			$attrs = $prop->getAttributes(ModelPropRuleAttribute::class);
+			if (empty($attrs))
+				continue;
+			foreach ($attrs as $attr) {
+				$el = $attr->newInstance();
+				$result[$name][$el->rule->value] = $el->value;
+			}
+		}
+		return $result;
+	}
+
 	public function validate()
 	{
-		foreach ($this->rules() as $attribute => $rules) {
+		foreach ($this->_attributesRules as $attribute => $rules) {
 			if (!isset($this->{$attribute}))
 				continue;
 			$value = $this->{$attribute};
-			foreach ($rules as $rule) {
-				$ruleName = $rule;
-				if (!is_string($ruleName)) {
-					$ruleName = $rule[0];
-				}
-				if ($ruleName === self::RULE_IMPORTANT && !$value) {
-					$this->addError($attribute, self::RULE_IMPORTANT);
-				}
-				if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-					$this->addError($attribute, self::RULE_EMAIL);
-				}
-				if ($ruleName === self::RULE_IMG && (!$this->isImageBase64($value))) {
-					$this->addError($attribute, self::RULE_IMG);
-				}
-				if ($ruleName === self::RULE_NUMBER && !is_numeric($value)) {
-					$this->addError($attribute, self::RULE_NUMBER);
-				}
-				if ($ruleName === self::RULE_MATCHES && $this->{$rule["match_name"]} !== $value) {
-					$this->addError($attribute, self::RULE_MATCHES);
-				}
-				if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
-					$this->addError($attribute, self::RULE_MIN);
-				}
-				if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
-					$this->addError($attribute, self::RULE_MAX);
-				}
-				if ($ruleName === self::RULE_MIN_NUMBER && (!is_numeric($value) || !((int)$value < $rule['min_number']))) {
-					$this->addError($attribute, self::RULE_MIN_NUMBER);
-				}
-				if ($ruleName === self::RULE_MAX_NUMBER && (!is_numeric($value) || !((int)$value > $rule['max_number']))) {
-					$this->addError($attribute, self::RULE_MAX_NUMBER);
+			foreach ($rules as $rule => $rule_value) {
+				if (!self::$VALIDATORS[$rule]($value, $rule_value)) {
+					Application::$app->error->pushClientError($attribute, $rule->name->message());
 				}
 			}
 		}
-		return empty($this->errors);
+		return Application::$app->error->clientErrorsIsEmpty();
 	}
 
-	private function isImageBase64($base64String)
+	private static function isImageBase64($base64String): bool
 	{
 		if (preg_match('/^data:image\/(png|jpeg|jpg|gif);base64,/', $base64String, $matches)) {
 			$data = substr($base64String, strlen($matches[0]));
@@ -81,34 +155,4 @@ abstract class Model
 		return false;
 	}
 
-	public function addError(string $attribute, string $rule)
-	{
-		$message = $this->errorMessages()[$rule] ?? 'Undefiend rule';
-		$this->errors[$attribute][] = $message;
-	}
-
-	public function errorMessages()
-	{
-		return [
-			self::RULE_IMPORTANT => 'This field is important',
-			self::RULE_MAX => 'This field must not exceed the maximum length',
-			self::RULE_MIN => 'This field must be at least the minimum',
-			self::RULE_EMAIL => 'Please enter a valid email address',
-			self::RULE_MATCHES => 'This field must match the other field',
-			self::RULE_NUMBER => 'This field must be an number',
-			self::RULE_IMG => 'This field must be not image',
-		];
-	}
-
-	public function hasError($attribute)
-	{
-		return $this->errors[$attribute] ?? false;
-	}
-
-	public function firstError($attribute)
-	{
-		return $this->errors[$attribute][0] ?? false;
-	}
-
-	public abstract function rules(): array;
 }

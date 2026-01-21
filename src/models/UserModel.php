@@ -2,8 +2,12 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\ModelDb;
-class UserModel extends ModelDb
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropDatabaseAttribute;
+
+#[ModelDatabaseAttribute(table_name: "users", table_collumn_names: ["email", "password_hash"])]
+class UserModel extends ModelDatabase
 {
 	public int $id;
 	public string $email;
@@ -38,20 +42,5 @@ class UserModel extends ModelDb
 			return $model;
 		}
 		return null;
-	}
-
-	public function rules(): array
-	{
-		return [];
-	}
-
-	public function attributes_db(): array
-	{
-		return ['email', 'password_hash'];
-	}
-
-	public function tableName(): string
-	{
-		return "users";
 	}
 }

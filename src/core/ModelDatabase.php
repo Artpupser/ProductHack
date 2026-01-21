@@ -5,26 +5,30 @@ namespace ProductHack\core;
 use PDO;
 use PDOStatement;
 
-abstract class ModelDb extends Model
+abstract class ModelDatabase extends Model
 {
-	public abstract function tableName(): string;
-	public abstract function attributes_db(): array;
+	public readonly string $_table_name;
+	public readonly array $_db_properties;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->_table_name = $this->getTableName();
+		$this->_db_properties = $this->getDatabaseProps();
+	}
 
 	public function insert(array $params): bool
 	{
-		$tableName = $this->tableName();
-		$attrs = $this->attributes_db();
-		$statement = self::prepare("INSERT INTO $tableName (" . implode(',', $attrs) . ")
-            VALUES(" . implode(',', array_fill(0, count($attrs), '?')) . ")");
+		$statement = self::prepare("INSERT INTO $this->_table_name (" . implode(',', $this->_db_properties) . ")
+            VALUES(" . implode(',', array_fill(0, count($this->_db_properties), '?')) . ")");
 		$success = $statement->execute($params);
 		return $success;
 	}
 
 	public function changeColumn(string $column_name, $new_value, int $id): bool
 	{
-		$table_name = $this->tableName();
 		$statement = self::prepare("
-				UPDATE $table_name 
+				UPDATE $this->_table_name 
 				SET $column_name = ? 
 				WHERE id = ?
 			");
@@ -33,18 +37,16 @@ abstract class ModelDb extends Model
 	}
 	public function selectAll(): array
 	{
-		$tableName = $this->tableName();
-		$statement = self::prepare("SELECT * FROM $tableName");
+		$statement = self::prepare("SELECT * FROM $this->_table_name");
 		$statement->execute();
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function existsInDb(string $columnName, $value): bool
 	{
-		$tableName = $this->tableName();
 		$statement = self::prepare("
 			select exists(
-					select 1 from $tableName 
+					select 1 from $this->_table_name
 					where $columnName = ?
 					limit 1
 			)
@@ -55,38 +57,34 @@ abstract class ModelDb extends Model
 
 	public function selectWhereEqual($collumnName, $value)
 	{
-		$tableName = $this->tableName();
-		$statement = self::prepare("SELECT * FROM $tableName WHERE $collumnName = ?");
+		$statement = self::prepare("SELECT * FROM $this->_table_name WHERE $collumnName = ?");
 		$statement->execute([$value]);
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function selectRandom(int $amount): array
 	{
-		$tableName = $this->tableName();
 		if ($amount < 1) {
 			return [];
 		}
-		$statement = self::prepare("SELECT * FROM $tableName ORDER BY RANDOM() LIMIT ?");
+		$statement = self::prepare("SELECT * FROM $this->_table_name ORDER BY RANDOM() LIMIT ?");
 		$statement->execute([$amount]);
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function deleteFromId(int $id): bool
 	{
-		$tableName = $this->tableName();
-		$statement = self::prepare("DELETE FROM $tableName WHERE id = ?");
+		$statement = self::prepare("DELETE FROM $this->_table_name WHERE id = ?");
 		$success = $statement->execute([$id]) && $statement->rowCount() > 0;
 		return $success;
 	}
 
 	public function update(array $attrs, array $params): bool
 	{
-		$tableName = $this->tableName();
 		$setClause = implode(',', array_map(function ($attr) {
 			return "$attr = ?";
 		}, $attrs));
-		$statement = self::prepare("UPDATE $tableName SET $setClause");
+		$statement = self::prepare("UPDATE $this->_table_name SET $setClause");
 		$success = $statement->execute($params);
 		return $success;
 	}
@@ -95,7 +93,6 @@ abstract class ModelDb extends Model
 	{
 		return Application::$app->database->pdo->lastInsertId();
 	}
-
 
 	public static function prepare($sql): PDOStatement|false
 	{

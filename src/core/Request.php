@@ -5,7 +5,9 @@ namespace ProductHack\core;
 class Request
 {
 
-	public function __construct() {}
+	public function __construct()
+	{
+	}
 
 	public function getPath()
 	{

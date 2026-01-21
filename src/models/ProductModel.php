@@ -2,10 +2,12 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\ModelDb;
+use ProductHack\core\ModelDatabase;
 
+use ProductHack\core\ModelDatabaseAttribute;
 
-class ProductModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "products")]
+class ProductModel extends ModelDatabase
 {
 	public int $id;
 	public string $name;
@@ -57,8 +59,4 @@ class ProductModel extends ModelDb
 		return ['name', 'description', 'price', 'stock', 'ids_images'];
 	}
 
-	public function tableName(): string
-	{
-		return "products";
-	}
 }

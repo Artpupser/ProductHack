@@ -17,8 +17,8 @@
 
 		use ProductHack\core\Session;
 		$user = Session::get_user();
-		if ($user->role_id == 2): ?>
-			<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin profile" class="admin"></a>
+		if (!empty($user) && $user->role_id == 2): ?>
+			<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin panel" class="admin"></a>
 		<?php endif; ?>
 		<a href="./authorization"><img src="./assets/imgs/profile_icon.webp" alt="Авторизация" class="profile"></a>
 	</div>

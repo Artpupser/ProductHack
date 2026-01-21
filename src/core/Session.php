@@ -25,9 +25,6 @@ class Session
 	{
 		$model = new SessionModel();
 		$result = $model->get_expired_time(self::get_token());
-		if (is_null($result)) {
-			return false;
-		}
 		$expiredDateTime = new DateTime($result);
 		$currentDateTime = new DateTime();
 		return $currentDateTime < $expiredDateTime;
@@ -54,20 +51,5 @@ class Session
 			return $model->get_user_from_token(self::get_token());
 		}
 		return null;
-	}
-
-	public static function is_role(string $role): bool
-	{
-		return false;
-	}
-
-	public static function create_new_session()
-	{
-
-	}
-
-	public function load_session()
-	{
-
 	}
 }

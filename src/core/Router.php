@@ -17,6 +17,7 @@ class Router
 	{
 		$this->request = $request;
 		$this->response = $response;
+		Application::$app->response->setStatusCode(200);
 	}
 
 	public function create_get_route(array $paths, array $userCallback)
@@ -79,7 +80,7 @@ class Router
 			$$key = $value;
 		}
 		ob_start();
-		include_once Application::$VIEWS_DIR . '/layouts/' . Controller::STANDARD_LAYOUT . '.php';
+		include_once Application::$VIEWS_DIR . '/layouts/' . $this->controller->layout . '.php';
 		return ob_get_clean();
 	}
 
