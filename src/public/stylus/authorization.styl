@@ -1,22 +1,26 @@
 @import 'index'
 
+$auth-radius = 12px
+$auth-padding-y = 40px
+$auth-padding-x = 30px
+
 .auth-wrapper
   width 90%
   max-width 500px
   margin 120px auto 60px
-  background #fff
-  border-radius 12px
-  box-shadow 0 2px 10px rgba(0,0,0,.08)
-  padding 40px 30px
+  background whiteColor
+  border-radius $auth-radius
+  box-shadow shadow-card
+  padding $auth-padding-y $auth-padding-x
   font-family fontRegular
 
-  @media (max-width: 768px)
+  @media (max-width: bp-tablet)
     margin-top 100px
     padding 30px 20px
 
 .auth-title
   font-size 1.8rem
-  color #7a1b1b
+  color darkRed
   margin-bottom 25px
   text-align center
 
