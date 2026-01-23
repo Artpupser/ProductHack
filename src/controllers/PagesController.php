@@ -42,14 +42,13 @@ class PagesController extends Controller
 	}
 	public function profile(Request $request)
 	{
-		// $user = Session::get_user();
-		// if (is_null($user) || $user->role_id != 1) {
-		// 	$this->redirect("/authorization");
-		// 	return null;
-		// }
-		return $this->render('profile', [
-			"page_title" => "🍇 Страница пользователя"
-		]);
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id != 0)
+				return $this->render('profile', ["page_title" => "🍇 Страница пользователя"]);
+		}
+		return $this->redirect("/authorization");
 	}
 
 	public function contacts(Request $request)
@@ -62,9 +61,13 @@ class PagesController extends Controller
 
 	public function admin(Request $request)
 	{
-		return $this->render('admin', [
-			"page_title" => "🍇 Админ"
-		]);
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id == 2)
+				return $this->render('admin', ["page_title" => "🍇 Админ"]);
+		}
+		return $this->redirect("/authorization");
 	}
 
 	public function main(Request $request)
