@@ -17,6 +17,15 @@ abstract class ModelDatabase extends Model
 		$this->_db_properties = $this->getDatabaseProps();
 	}
 
+	public function loadFromWhere(string $prop, mixed $value)
+	{
+		$result = self::selectWhereEqual($prop, $value);
+		if (empty($result))
+			return false;
+		$this->loadData($result[0]);
+		return true;
+	}
+
 	public function insert(array $params): bool
 	{
 		$statement = self::prepare("INSERT INTO $this->_table_name (" . implode(',', $this->_db_properties) . ")
@@ -42,7 +51,7 @@ abstract class ModelDatabase extends Model
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function existsInDb(string $columnName, $value): bool
+	public function checkAny(string $columnName, $value): bool
 	{
 		$statement = self::prepare("
 			select exists(
@@ -59,7 +68,14 @@ abstract class ModelDatabase extends Model
 	{
 		$statement = self::prepare("SELECT * FROM $this->_table_name WHERE $collumnName = ?");
 		$statement->execute([$value]);
-		return $statement->fetchAll(PDO::FETCH_ASSOC);
+		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function selectFirstWhereEqual($collumnName, $value)
+	{
+		$result = self::selectWhereEqual($collumnName, $value);
+		return empty($result) ? null : $result[0];
 	}
 
 	public function selectRandom(int $amount): array

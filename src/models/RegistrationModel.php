@@ -2,31 +2,34 @@
 
 namespace ProductHack\models;
 
+use ProductHack\core\Application;
 use ProductHack\core\ModelDatabase;
 use ProductHack\core\ModelDatabaseAttribute;
-use ProductHack\core\ModelPropDatabaseAttribute;
 use ProductHack\core\ModelPropRuleAttribute;
 use ProductHack\core\ModelRule;
 
 #[ModelDatabaseAttribute(table_name: "users", table_collumn_names: ["email", "password_hash", "role_id"])]
-class RegistrationModel extends ModelDatabase
+class RegistrationModel extends UserModel
 {
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::EMAIL)]
 	public string $email;
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
-	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 512)]
 	public string $password;
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
-	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 512)]
 	#[ModelPropRuleAttribute(ModelRule::MATCH , "password")]
 	public string $repeat_password;
+	public string $password_hash { get => hash('sha256', $this->password); }
+	public string $password_repeat_hash { get => hash('sha256', $this->repeat_password); }
+
 	public int $role_id;
 
-	public function create(): bool
+	public function registration(): bool
 	{
-		return $this->insert([$this->email, hash("sha256", $this->password), 1]);
+		return !$this->checkAny("email", $this->email) && $this->insert([$this->email, $this->password_hash, 1]);
 	}
 }

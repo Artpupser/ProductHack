@@ -4,9 +4,9 @@ namespace ProductHack\controllers;
 
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
-use ProductHack\core\Session;
 use ProductHack\models\LoginModel;
 use ProductHack\models\ProductModel;
+use ProductHack\models\SessionModel;
 
 class PagesController extends Controller
 {
@@ -83,10 +83,11 @@ class PagesController extends Controller
 
 	public function authorization(Request $request)
 	{
-		$user = Session::get_user();
-		if (!is_null($user) && $user->role_id == 1) {
-			$this->redirect("/profile");
-			return null;
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id == 1)
+				return $this->redirect("/profile");
 		}
 		return $this->render('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",

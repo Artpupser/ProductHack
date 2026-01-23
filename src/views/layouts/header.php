@@ -14,11 +14,14 @@
 	</div>
 	<div class="contacts flex-center flex-row">
 		<?php
-
-		use ProductHack\core\Session;
-		$user = Session::get_user();
-		if (!empty($user) && $user->role_id == 2): ?>
-			<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin panel" class="admin"></a>
+		use ProductHack\models\SessionModel;
+		$sessionModel = new SessionModel();
+		if ($sessionModel->loadFromPHPSESSID()): ?>
+			<?php
+			$user = $sessionModel->getUser();
+			if ($user->role_id == 2): ?>
+				<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin panel" class="admin"></a>
+			<?php endif; ?>
 		<?php endif; ?>
 		<a href="./authorization"><img src="./assets/imgs/profile_icon.webp" alt="Авторизация" class="profile"></a>
 	</div>

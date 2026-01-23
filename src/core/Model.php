@@ -63,7 +63,7 @@ abstract class Model
 	public function __construct()
 	{
 		$this->_attributesRules = $this->getRules();
-		self::$VALIDATORS[ModelRule::IMPORTANT->value] = fn($value, null $rule_value): bool => $value;
+		self::$VALIDATORS[ModelRule::IMPORTANT->value] = fn($value, null $rule_value): bool => !empty($value);
 		self::$VALIDATORS[ModelRule::TEXT_MAX->value] = fn($value, int $max): bool => strlen($value) <= $max;
 		self::$VALIDATORS[ModelRule::TEXT_MIN->value] = fn($value, int $min): bool => strlen($value) >= $min;
 		self::$VALIDATORS[ModelRule::NUMBER_MAX->value] = fn($value, int $max): bool => $value <= $max;
@@ -82,6 +82,7 @@ abstract class Model
 			}
 		}
 	}
+
 	private function getModelDatabaseAttributes(): array
 	{
 		$ref = new ReflectionClass($this);
@@ -134,7 +135,7 @@ abstract class Model
 			$value = $this->{$attribute};
 			foreach ($rules as $rule => $rule_value) {
 				if (!self::$VALIDATORS[$rule]($value, $rule_value)) {
-					Application::$app->error->pushClientError($attribute, $rule->name->message());
+					Application::$app->error->pushClientError($attribute, ModelRule::from($rule)->message());
 				}
 			}
 		}

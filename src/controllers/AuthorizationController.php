@@ -18,17 +18,13 @@ class AuthorizationController extends Controller
 		$this->layout = "empty_workflow";
 		$model = new RegistrationModel();
 		$model->loadData($request->getData());
-		if ($model->validate() === false) {
-			return Application::$app->router->renderContent(var_dump($model->errors));
+		if (!$model->validate()) {
+			return;
 		}
-		if ($model->existsInDb("email", $model->email)) {
-			$model->addError("any", "User already created");
-			return Application::$app->router->renderContent(var_dump($model->errors));
+		if (!$model->registration()) {
+			return Application::$app->error->pushClientError("any", "User already created or bad registartion");
 		}
-		if ($model->create() === false) {
-			return Application::$app->error->pushClientError("any", "Model not created");
-		}
-		return $this->redirect("/index");
+		return $this->redirect("/authorization");
 	}
 
 	public function login(Request $request)
@@ -36,15 +32,15 @@ class AuthorizationController extends Controller
 		$this->layout = "empty_workflow";
 		$model = new LoginModel();
 		$model->loadData($request->getData());
-		if ($model->validate() === false) {
-			return "";
-		}
-		if ($model->check() === false) {
-			return Application::$app->error->pushServerError(400);
+		if (!$model->validate())
+			return;
+		if (!$model->enter()) {
+			Application::$app->error->pushClientError("any", "Client not found");
+			return Application::$app->router->renderContent(var_dump(Application::$app->error->getClientErrors()));
 		}
 		$sessionModel = new SessionModel();
-		$sessionModel->create($model->email);
-		return $this->redirect("/index");
+		$sessionModel->create($model);
+		return $this->redirect("/profile");
 	}
 
 	public function send_code(Request $request)

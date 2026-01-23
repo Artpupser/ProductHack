@@ -5,14 +5,30 @@ namespace ProductHack\models;
 use ProductHack\core\ModelDatabase;
 
 use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropRuleAttribute;
+use ProductHack\core\ModelRule;
 
-#[ModelDatabaseAttribute(table_name: "products")]
+#[ModelDatabaseAttribute(table_name: "products", table_collumn_names: ['name', 'description', 'price', 'stock', 'ids_images'])]
 class ProductModel extends ModelDatabase
 {
 	public int $id;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 8)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 128)]
 	public string $name;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 8)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 512)]
+
 	public string $description;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::NUMBER)]
+	#[ModelPropRuleAttribute(ModelRule::NUMBER_MIN, 1)]
+	#[ModelPropRuleAttribute(ModelRule::NUMBER_MAX, 10 ** 6)]
 	public float $price;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::NUMBER)]
+	#[ModelPropRuleAttribute(ModelRule::NUMBER_MAX, 1024)]
 	public int $stock;
 	public array $images;
 	public string $ids_images;
@@ -35,28 +51,6 @@ class ProductModel extends ModelDatabase
 	public function change(array $attrs, array $params): bool
 	{
 		return $this->update($attrs, $params);
-	}
-
-	public function rules(): array
-	{
-		return [
-			'name' => [
-				self::RULE_IMPORTANT,
-				[self::RULE_MIN, 'min' => 5],
-				[self::RULE_MAX, 'max' => 150]
-			],
-			'description' => [
-				self::RULE_IMPORTANT,
-				[self::RULE_MIN, 'min' => 32],
-				[self::RULE_MAX, 'max' => 512]
-			],
-			'price' => [self::RULE_IMPORTANT, self::RULE_NUMBER],
-			'stock' => [self::RULE_IMPORTANT, self::RULE_NUMBER],
-		];
-	}
-	public function attributes_db(): array
-	{
-		return ['name', 'description', 'price', 'stock', 'ids_images'];
 	}
 
 }

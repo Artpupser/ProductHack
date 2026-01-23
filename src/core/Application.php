@@ -29,22 +29,6 @@ class Application
 		$this->router = new Router($this->request, $this->response);
 	}
 
-	public function valid_files()
-	{
-		if ($_FILES['uploaded_file']['error'] === UPLOAD_ERR_OK) {
-			$fileType = $_FILES['uploaded_file']['type'];
-
-			// Разрешите только определенные типы файлов
-			$allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-			if (!in_array($fileType, $allowedTypes)) {
-				die("Ошибка: тип файла не поддерживается.");
-			}
-
-			// Переместите файл в безопасное место
-			move_uploaded_file($_FILES['uploaded_file']['tmp_name'], 'uploads/' . $_FILES['uploaded_file']['name']);
-		}
-	}
-
 	public function run()
 	{
 		echo $this->router->resolve();
