@@ -25,12 +25,16 @@ class SessionModel extends ModelDatabase
 				return $this->insert([$user->id, Session::token(), self::nextSessionTime()]);
 			return false;
 		}
-		return $this->changeColumn("expires_at", self::nextSessionTime(), $this->id);
+		return $this->extendSessionTime();
 	}
 
 	public function loadFromPHPSESSID()
 	{
 		return $this->loadFromWhere("token", Session::token());
+	}
+	public function extendSessionTime(): bool
+	{
+		return $this->changeColumn("expires_at", self::nextSessionTime(), $this->id);
 	}
 
 	public static function nextSessionTime(): string

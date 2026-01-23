@@ -88,10 +88,10 @@ abstract class ModelDatabase extends Model
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function deleteFromId(int $id): bool
+	public function deleteFromProp($collumnName, mixed $value): bool
 	{
-		$statement = self::prepare("DELETE FROM $this->_table_name WHERE id = ?");
-		$success = $statement->execute([$id]) && $statement->rowCount() > 0;
+		$statement = self::prepare("DELETE FROM $this->_table_name WHERE $collumnName = ?");
+		$success = $statement->execute([$value]) && $statement->rowCount() > 0;
 		return $success;
 	}
 

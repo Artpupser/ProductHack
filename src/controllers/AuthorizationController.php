@@ -5,6 +5,7 @@ namespace ProductHack\controllers;
 use ProductHack\core\Application;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
+use ProductHack\core\Session;
 use ProductHack\models\EmailVerificationModel;
 use ProductHack\models\LoginModel;
 use ProductHack\models\RegistrationModel;
@@ -25,6 +26,15 @@ class AuthorizationController extends Controller
 			return Application::$app->error->pushClientError("any", "User already created or bad registartion");
 		}
 		return $this->redirect("/authorization");
+	}
+
+	public function logout(Request $request)
+	{
+		$this->layout = "empty_workflow";
+		if (!new SessionModel()->deleteFromProp("token", Session::token())) {
+			return $this->redirect("/authorization");
+		}
+		return $this->redirect("/index");
 	}
 
 	public function login(Request $request)
@@ -48,12 +58,6 @@ class AuthorizationController extends Controller
 		$this->layout = "empty_workflow";
 		$model = new EmailVerificationModel();
 		$model->loadData($request->getData());
-		return Application::$app->router->renderContent($request->getDataJson());
-	}
-
-	public function logout(Request $request)
-	{
-		$this->layout = "empty_workflow";
 		return Application::$app->router->renderContent($request->getDataJson());
 	}
 }

@@ -86,7 +86,7 @@ class PagesController extends Controller
 		$session = new SessionModel();
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
-			if ($user->role_id == 1)
+			if ($user->role_id > 0)
 				return $this->redirect("/profile");
 		}
 		return $this->render('authorization', [
