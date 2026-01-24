@@ -43,7 +43,7 @@ $app->router->create_post_route(['/api/product/create'], [ProductController::cla
 $app->router->create_post_route(['/api/product/delete'], [ProductController::class, 'delete']);
 $app->router->create_post_route(['/api/product/change'], [ProductController::class, 'change']);
 $app->router->create_post_route(['/api/user/login'], [AuthorizationController::class, 'login']);
-$app->router->create_post_route(['/api/user/send_code'], [AuthorizationController::class, 'send_code']);
+$app->router->create_post_route(['/api/user/send_code'], [AuthorizationController::class, 'sendCode']);
 $app->router->create_post_route(['/api/user/registration'], [AuthorizationController::class, 'registration']);
 $app->router->create_post_route(['/api/user/logout'], [AuthorizationController::class, 'logout']);
 

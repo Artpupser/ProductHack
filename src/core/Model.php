@@ -39,18 +39,18 @@ enum ModelRule: int
 	case NUMBER = 7;
 	case IMG = 8;
 
-	public function message(): string
+	public function message(mixed $value): string
 	{
 		return match ($this) {
-			self::IMPORTANT => 'Important',
-			self::TEXT_MAX => 'Text length > MAX',
-			self::TEXT_MIN => 'Text length < MIN',
-			self::NUMBER_MAX => 'Number > MAX',
-			self::NUMBER_MIN => 'Number < MIN',
-			self::EMAIL => 'Is not email',
-			self::MATCH => 'field not match is other field',
-			self::NUMBER => 'Is not number',
-			self::IMG => 'Is not image',
+			self::IMPORTANT => "Important",
+			self::TEXT_MAX => "Text length > $value",
+			self::TEXT_MIN => "Text length < $value",
+			self::NUMBER_MAX => "Number > $value",
+			self::NUMBER_MIN => "Number < $value",
+			self::EMAIL => "Is not email",
+			self::MATCH => "field not match is other field",
+			self::NUMBER => "Is not number",
+			self::IMG => "Is not image",
 		};
 	}
 }
@@ -135,7 +135,7 @@ abstract class Model
 			$value = $this->{$attribute};
 			foreach ($rules as $rule => $rule_value) {
 				if (!self::$VALIDATORS[$rule]($value, $rule_value)) {
-					Application::$app->error->pushClientError($attribute, ModelRule::from($rule)->message());
+					Application::$app->error->pushClientError($attribute, ModelRule::from($rule)->message($rule_value));
 				}
 			}
 		}

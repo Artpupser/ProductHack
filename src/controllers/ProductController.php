@@ -2,6 +2,7 @@
 
 namespace ProductHack\controllers;
 
+use ProductHack\core\Application;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
 use ProductHack\models\ImagesModel;
@@ -9,49 +10,41 @@ use ProductHack\models\ProductModel;
 
 class ProductController extends Controller
 {
-	public function __construct()
-	{
-		$this->layout = "empty_workflow";
-	}
-
 	public function create(Request $request)
 	{
-		if (!$request->isPost())
-			return PagesController::$instance->renderCustomError($request, 403);
 		$model = new ProductModel();
 		$model->loadData($request->getData());
-		if ($model->validate() && $model->create()) {
-			return $this->redirect("/admin");
+		if ($model->validate()) {
+			if (!$model->create()) {
+				Application::$app->error->pushClientError("any", "Product bad created");
+			}
 		}
-		return PagesController::$instance->renderCustomError($request, 403);
+		return $this->renderPage("admin");
 	}
 
 	public function delete(Request $request)
 	{
-		if (!$request->isPost())
-			return PagesController::$instance->renderCustomError($request, 403);
 		$model = new ProductModel();
 		$model->loadData($request->getData());
-		$imagesModel = new ImagesModel();
-		if (!isset($model->ids_images)) {
-			return $this->redirect("/admin");
-		}
-		$model->ids_images = $model->selectWhereEqual("id", $model->id)[0]["ids_images"];
-		foreach (explode(',', $model->ids_images) as $value) {
-			if (!$imagesModel->deleteFromId($value)) {
-				return PagesController::$instance->renderCustomError($request, 403);
+		$model->loadFromWhere("id", $model->id);
+		if ($model->validate()) {
+			$imagesModel = new ImagesModel();
+			$imageDeleted = true;
+			foreach (explode(',', $model->ids_images) as $value) {
+				if (!$imagesModel->deleteFromProp("id", $value)) {
+					Application::$app->error->pushClientError($value . "image", "Image with id(" . $value . ") bad deleted");
+					$imageDeleted = false;
+				}
+			}
+			if (!$imageDeleted || !$model->delete($model->id)) {
+				Application::$app->error->pushClientError("any", "Product bad delted");
 			}
 		}
-		if ($model->validate() && $model->delete($model->id)) {
-			return $this->redirect("/admin");
-		}
-		return PagesController::$instance->renderCustomError($request, 403);
+		return $this->renderPage("admin");
 	}
 
 	public function change(Request $request)
 	{
-		if (!$request->isPost())
-			return PagesController::$instance->renderCustomError($request, 403);
-		return $this->redirect("/admin");
+		return $this->redirect("admin");
 	}
 }

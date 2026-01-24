@@ -1,6 +1,6 @@
 <header class="header_main">
 	<div class="logo">
-		<a href="http://localhost:8000/"><img src="../../public/imgs/logo_icon.webp" alt="Логотип"></a>
+		<a href="/"><img src="../../public/imgs/logo_icon.webp" alt="Логотип"></a>
 	</div>
 	<p class="wineshop">Винный магазин</p>
 	<div class="place flex-center flex-row">

@@ -45,7 +45,7 @@ class ProductModel extends ModelDatabase
 
 	public function delete(int $id): bool
 	{
-		return $this->deleteFromId($id);
+		return $this->deleteFromProp("id", $id);
 	}
 
 	public function change(array $attrs, array $params): bool
