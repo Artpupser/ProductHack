@@ -48,7 +48,7 @@ class PagesController extends Controller
 			if ($user->role_id != 0)
 				return $this->renderPage('profile', ["page_title" => "🍇 Страница пользователя"]);
 		}
-		return $this->redirect("/authorization");
+		return $this->redirect("authorization");
 	}
 
 	public function contacts(Request $request)
@@ -67,7 +67,7 @@ class PagesController extends Controller
 			if ($user->role_id == 2)
 				return $this->renderPage('admin', ["page_title" => "🍇 Админ"]);
 		}
-		return $this->redirect("/authorization");
+		return $this->redirect("authorization");
 	}
 
 	public function main(Request $request)
@@ -90,7 +90,7 @@ class PagesController extends Controller
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
 			if ($user->role_id > 0)
-				return $this->redirect("/profile");
+				return $this->redirect("profile");
 		}
 		return $this->renderPage('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",
