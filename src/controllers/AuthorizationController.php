@@ -23,7 +23,8 @@ class AuthorizationController extends Controller
 			return;
 		}
 		if (!$model->registration()) {
-			return Application::$app->error->pushClientError("any", "User already created or bad registartion");
+			Application::$app->error->pushClientError("any", "User already created or bad registartion");
+			return;
 		}
 		return $this->redirect("/authorization");
 	}
@@ -39,11 +40,11 @@ class AuthorizationController extends Controller
 
 	public function login(Request $request)
 	{
-		$this->layout = "empty_workflow";
 		$model = new LoginModel();
 		$model->loadData($request->getData());
-		if (!$model->validate())
-			return;
+		if (!$model->validate()) {
+			return $this->renderPage("authorization", ["page_title" => "🍇 Авторизация пользователя"]);
+		}
 		if (!$model->enter()) {
 			Application::$app->error->pushClientError("any", "Client not found");
 			return Application::$app->router->renderContent(var_dump(Application::$app->error->getClientErrors()));

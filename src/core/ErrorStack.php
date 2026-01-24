@@ -7,7 +7,20 @@ enum ErrorType: int
 	case SERVER = 0;
 	case CLIENT = 1;
 }
-
+class ClientErrors
+{
+	private array $_errors;
+	public function __construct(array $errors)
+	{
+		$this->_errors = $errors;
+	}
+	public function view()
+	{
+		foreach ($this->_errors as $error => $error_message) {
+			echo "<div class='error-notification'>$error_message</div>";
+		}
+	}
+}
 class ErrorStack
 {
 	private array $errors;
@@ -32,9 +45,9 @@ class ErrorStack
 		return empty($this->errors[ErrorType::SERVER->value]);
 	}
 
-	public function getClientErrors(): array
+	public function getClientErrors(): ClientErrors
 	{
-		return $this->errors[ErrorType::CLIENT->value];
+		return new ClientErrors($this->errors[ErrorType::CLIENT->value] ?? []);
 	}
 
 	public function getServerErrors(): array
@@ -50,7 +63,7 @@ class ErrorStack
 
 	public function pushClientError(string $id, string $message)
 	{
-		array_push($this->errors[ErrorType::CLIENT->value], ["id" => $id, "message" => $message]);
+		$this->errors[ErrorType::CLIENT->value][$id] = $message;
 	}
 
 	public static function httpCodeStatusMessage(int $code): string

@@ -29,14 +29,14 @@ class PagesController extends Controller
 	public function catalog(Request $request)
 	{
 		$productModel = new ProductModel();
-		return $this->render('catalog', [
+		return $this->renderPage('catalog', [
 			"page_title" => "🍇 Винный каталог",
 			"model" => $productModel->selectAll(),
 		]);
 	}
 	public function payment(Request $request)
 	{
-		return $this->render('payment', [
+		return $this->renderPage('payment', [
 			"page_title" => "🍇 Страница оплаты"
 		]);
 	}
@@ -46,14 +46,14 @@ class PagesController extends Controller
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
 			if ($user->role_id != 0)
-				return $this->render('profile', ["page_title" => "🍇 Страница пользователя"]);
+				return $this->renderPage('profile', ["page_title" => "🍇 Страница пользователя"]);
 		}
 		return $this->redirect("/authorization");
 	}
 
 	public function contacts(Request $request)
 	{
-		return $this->render('contacts', [
+		return $this->renderPage('contacts', [
 			"page_title" => "🍇 Страница пользователя"
 		]);
 	}
@@ -65,21 +65,21 @@ class PagesController extends Controller
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
 			if ($user->role_id == 2)
-				return $this->render('admin', ["page_title" => "🍇 Админ"]);
+				return $this->renderPage('admin', ["page_title" => "🍇 Админ"]);
 		}
 		return $this->redirect("/authorization");
 	}
 
 	public function main(Request $request)
 	{
-		return $this->render('main', [
+		return $this->renderPage('main', [
 			"page_title" => "🍇 Винный магазин",
 		]);
 	}
 
 	public function aboutus(Request $request)
 	{
-		return $this->render('aboutus', [
+		return $this->renderPage('aboutus', [
 			"page_title" => "🍇 О нас",
 		]);
 	}
@@ -92,7 +92,7 @@ class PagesController extends Controller
 			if ($user->role_id > 0)
 				return $this->redirect("/profile");
 		}
-		return $this->render('authorization', [
+		return $this->renderPage('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",
 		]);
 	}

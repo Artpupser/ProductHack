@@ -2,8 +2,6 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\Application;
-use ProductHack\core\ModelDatabase;
 use ProductHack\core\ModelDatabaseAttribute;
 use ProductHack\core\ModelPropRuleAttribute;
 use ProductHack\core\ModelRule;

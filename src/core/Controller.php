@@ -5,10 +5,12 @@ namespace ProductHack\core;
 abstract class Controller
 {
 	public const string STANDARD_LAYOUT = 'workflow';
+	public const string EMPTY_LAYOUT = 'empty_workflow';
 	public string $layout = self::STANDARD_LAYOUT;
 
-	public function render($view, $params = [])
+	public function renderPage($view, $params = [])
 	{
+		$params["clientErrors"] = Application::$app->error->getClientErrors();
 		return Application::$app->router->renderView($view, $params);
 	}
 
