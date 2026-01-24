@@ -1,11 +1,8 @@
 <?php
 namespace ProductHack\components;
 
-class Field
+class FieldFile extends Field
 {
-	protected string $_id;
-	protected string $_type;
-	protected string $_label;
 	public function __construct(string $id, string $label = 'None', string $type = 'text')
 	{
 		$this->_id = $id;
@@ -16,6 +13,6 @@ class Field
 	public function __toString(): string
 	{
 		return "<label for='$this->_id'>$this->_label</label>
-			<input type='$this->_type' name='$this->_id' placeholder='Пусто' required>";
+			<input accept='image/*' type='$this->_type' name='$this->_id' placeholder='Пусто' required>";
 	}
 }

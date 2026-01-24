@@ -16,47 +16,41 @@ class AuthorizationController extends Controller
 
 	public function registration(Request $request)
 	{
-		$this->layout = "empty_workflow";
 		$model = new RegistrationModel();
 		$model->loadData($request->getData());
-		if (!$model->validate()) {
-			return;
+		if ($model->validate()) {
+			if (!$model->registration()) {
+				Application::$app->error->pushClientError("any", "User already created or bad registartion");
+			}
 		}
-		if (!$model->registration()) {
-			Application::$app->error->pushClientError("any", "User already created or bad registartion");
-			return;
-		}
-		return $this->redirect("/authorization");
-	}
-
-	public function logout(Request $request)
-	{
-		$this->layout = "empty_workflow";
-		if (!new SessionModel()->deleteFromProp("token", Session::token())) {
-			return $this->redirect("/authorization");
-		}
-		return $this->redirect("/index");
+		return $this->renderPage("authorization");
 	}
 
 	public function login(Request $request)
 	{
 		$model = new LoginModel();
 		$model->loadData($request->getData());
-		if (!$model->validate()) {
-			return $this->renderPage("authorization", ["page_title" => "🍇 Авторизация пользователя"]);
-		}
-		if (!$model->enter()) {
+		if ($model->validate()) {
+			if ($model->enter()) {
+				$sessionModel = new SessionModel();
+				$sessionModel->create($model);
+				return $this->redirect("profile");
+			}
 			Application::$app->error->pushClientError("any", "Client not found");
-			return Application::$app->router->renderContent(var_dump(Application::$app->error->getClientErrors()));
 		}
-		$sessionModel = new SessionModel();
-		$sessionModel->create($model);
-		return $this->redirect("/profile");
+		return $this->renderPage("authorization");
 	}
 
-	public function send_code(Request $request)
+	public function logout(Request $request)
 	{
-		$this->layout = "empty_workflow";
+		if (!new SessionModel()->deleteFromProp("token", Session::token())) {
+			return $this->redirect("authorization");
+		}
+		return $this->redirect("index");
+	}
+
+	public function sendCode(Request $request)
+	{
 		$model = new EmailVerificationModel();
 		$model->loadData($request->getData());
 		return Application::$app->router->renderContent($request->getDataJson());
