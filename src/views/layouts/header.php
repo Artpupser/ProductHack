@@ -1,11 +1,11 @@
 <header class="header_main">
 	<div class="logo">
-		<a href="http://localhost:8000/"><img src="../../assets/imgs/logo_icon.webp" alt="Логотип"></a>
+		<a href="http://localhost:8000/"><img src="../../public/imgs/logo_icon.webp" alt="Логотип"></a>
 	</div>
 	<p class="wineshop">Винный магазин</p>
 	<div class="place flex-center flex-row">
 		<div class="img-place">
-			<img src="./assets/imgs/place_icon.webp" alt="Местоположение">
+			<img src="./public/imgs/place_icon.webp" alt="Местоположение">
 		</div>
 		<div class="flex-column">
 			<p class="my_font">г. Санкт-Петербург,</p>
@@ -20,9 +20,10 @@
 			<?php
 			$user = $sessionModel->getUser();
 			if ($user->role_id == 2): ?>
-				<a href="./admin"><img src="./assets/imgs/admin_icon.webp" alt="Admin panel" class="admin"></a>
+				<a href="./admin"><img src="./public/imgs/admin_icon.webp" alt="Admin panel" class="admin"></a>
 			<?php endif; ?>
 		<?php endif; ?>
-		<a href="./authorization"><img src="./assets/imgs/profile_icon.webp" alt="Авторизация" class="profile"></a>
+		<a href="./authorization"><img src="./public/imgs/profile_icon.webp" alt="Авторизация" class="profile"></a>
+		<a href="./cart"><img src="./public/imgs/basket_icon.webp" alt="Корзина" class="cart"></a>
 	</div>
 </header>

@@ -34,12 +34,35 @@ const MESSAGE = 'Пусто';
 				<span class="info-label">Почта:</span>
 				<span class="info-value" id="email"><?php echo $user->email ?? MESSAGE ?></span>
 			</div>
+			<form class="contact-form" method="POST" action="/api/user/logout">
+				<button id="edit-profile-btn" type="button" onclick="showEditForm()">Редактировать профиль</button>
+			</form>
 
-		</div>
-		<form class="contact-form" method="POST" action="/api/user/logout">
-			<button type="submit">Выйти из аккаунта</button>
-		</form>
-	</section>
+			
+        </div>
+
+        <div id="edit-form" style="display:none">
+            <h2>Редактирование профиля</h2>
+            <form id="edit-profile-form" class="contact-form" method="POST" action="/api/user/update">
+                <label for="edit_full_name">Полное имя</label>
+                <input type="text" id="edit_full_name" name="full_name" placeholder="Введите полное имя" value="<?php echo $user->full_name ?? '' ?>" required />
+
+                <label for="edit_email">Почта</label>
+                <input type="email" id="edit_email" name="email" placeholder="Введите почту" value="<?php echo $user->email ?? '' ?>" required />
+
+                <label for="edit_password">Новый пароль (оставьте пустым, если не хотите менять)</label>
+                <input type="password" id="edit_password" name="password" placeholder="Введите новый пароль" />
+
+                <label for="edit_repeat_password">Повторите новый пароль</label>
+                <input type="password" id="edit_repeat_password" name="repeat_password" placeholder="Повторите новый пароль" />
+
+                <button type="submit">Сохранить</button>
+                <button type="button" onclick="hideEditForm()">Отмена</button>
+            </form>
+        </div>
+
+        
+    </section>
 
 	<section class="section_con profile-section">
 		<div class="orders-section">
@@ -53,6 +76,13 @@ const MESSAGE = 'Пусто';
 				<div class="orders-list" id="completed-orders">
 				</div>
 			</div>
+		</div>
+	</section>
+	<section class="section_con profile-section">
+		<div class="profile-header">
+			<form class="contact-form" method="POST" action="/api/user/logout">
+				<button type="submit">Выйти из аккаунта</button>
+			</form>
 		</div>
 	</section>
 </div>
