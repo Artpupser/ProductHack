@@ -86,3 +86,4 @@ const MESSAGE = 'Пусто';
 		</div>
 	</section>
 </div>
+<script src="/api/public/file/?name=js/profile.js"></script>

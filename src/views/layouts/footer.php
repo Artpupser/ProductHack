@@ -18,4 +18,3 @@
 		</div>
 	</div>
 </footer>
-<script src="/api/public/file/?name=js/full.js"></script>

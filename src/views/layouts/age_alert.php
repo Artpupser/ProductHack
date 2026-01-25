@@ -9,3 +9,4 @@
 		</div>
 	</div>
 </div>
+<script src="/api/public/file/?name=js/alert18.js"></script>

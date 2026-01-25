@@ -4,7 +4,6 @@ footerBg = #2f0909
 borderGray = #7E868E
 
 fontRegular = "bergamosco-regular", sans-serif
-fontLight = "bergamosco-light", sans-serif
 
 radiusBtn = 20px
 transitionFast = 0.3s
@@ -61,8 +60,8 @@ media(max = null, min = null)
   padding 0
   box-sizing border-box
 
-body
-  background-color whiteColor
+.body_main
+  background-color whiteColor !important
 
 .header_main
   flex(space-between)
@@ -85,7 +84,7 @@ body
       padding 5px
 
   .wineshop
-    text(50px, whiteColor, fontLight)
+    text(50px, whiteColor, fontRegular) 
     line-height 1
 
   .user-icons
@@ -125,6 +124,13 @@ body
 .background-container
   width 100vw
   position relative
+.header_main a,
+.footer a
+  color whiteColor
+  text-decoration none
+
+  &:hover
+    opacity .8
 
 .bg-1,
 .bg-2
@@ -143,10 +149,10 @@ body
     height auto
 
 .bg-1
-  background-image url('../../assets/bg.webp')
+  background-image url('/api/public/file/?name=imgs/bg.webp')
 
 .bg-2
-  background-image url('../../assets/slider.webp')
+  background-image url('/api/public/file/?name=imgs/slider.webp')
   flex()
 
 .acii
@@ -154,10 +160,15 @@ body
   height 100%
   flex()
   overflow hidden
+.acii img
+  width 100%
+  height 100%
+  object-fit cover
+
 
 .vinishko
   abs(200px, 12%)
-  text(50px)
+  text(50px, whiteColor, fontRegular)
   z-index 20
 
   media(max = bp-tablet)
@@ -188,11 +199,14 @@ body
     display block
 
 .slider
-  width 450px
-  height 550px
   position relative
   overflow hidden
   z-index 10
+
+  .left_controlls
+    width 40px
+  .right_controlls
+    width 40px
 
   media(max = bp-laptop)
     width 360px
@@ -226,6 +240,7 @@ body
   flex(space-between)
   padding 20px 60px
   height 250px
+  font-family fontRegular 
 
   media(max = bp-tablet)
     flex(direction = column, align = flex-start)
@@ -262,3 +277,4 @@ media(min = bp-tv)
 
   .footer
     padding 40px 120px
+    font-family fontRegular 
