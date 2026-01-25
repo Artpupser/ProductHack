@@ -9,7 +9,7 @@
 			<?php $loginForm->field("password", "Пароль", "password"); ?>
 			<?php Form::end("Вход") ?>
 			<p class="switch-p">Еще не зарегистрировались?</p>
-			<button type="button" class="switch-btn" onclick="showRegisterForm()">Зарегистрироваться!</button>
+			<button type="button" class="auth-btn" onclick="showRegisterForm()">Зарегистрироваться!</button>
 		</div>
 
 		<div id="register-form" style="display:none">
@@ -20,7 +20,7 @@
 			<?php $registrationForm->field("repeat_password", "Повтор пароля", "password"); ?>
 			<?php Form::end("Зарегистрироваться") ?>
 			<p class="switch-p">Уже есть аккаунт?</p>
-			<button type="button" class="switch-btn" onclick="showLoginForm()">Войти!</button>
+			<button type="button" class="auth-btn" onclick="showLoginForm()">Войти!</button>
 		</div>
 	</section>
 </div>

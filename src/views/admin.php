@@ -58,7 +58,7 @@
 					?>
 					<div class='item'>
 						<p>ID: <?php echo $value["id"] ?></p>
-						<img alt='img' src='<?php echo $value["base64"] ?>' />
+						<img class='admin-image' alt='img' src='<?php echo $value["base64"] ?>' />
 					</div>
 				<?php endforeach; ?>
 			</div>
