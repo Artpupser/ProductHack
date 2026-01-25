@@ -1,3 +1,4 @@
+<div class="body_abu">
 <h1 class="h1-abu">About us</h1>
 <div class="container_abu">
 	<section class="section_abu">
@@ -16,4 +17,5 @@
 			Мы работаем только с семейными винодельнями, поддерживаем ремесленный подход и ценим экологичность производства.
 		</p>
 	</section>
+</div>
 </div>

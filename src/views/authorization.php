@@ -24,3 +24,4 @@
 		</div>
 	</section>
 </div>
+<script src="/api/public/file/?name=js/authorization.js"></script>
