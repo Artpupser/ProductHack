@@ -13,7 +13,7 @@ class Session
 	}
 	public static function token(): string
 	{
-		return $_COOKIE["PHPSESSID"];
+		return $_COOKIE["PHPSESSID"] ?? "";
 	}
 
 	public static function session(): array

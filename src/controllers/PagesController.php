@@ -54,7 +54,7 @@ class PagesController extends Controller
 	public function contacts(Request $request)
 	{
 		return $this->renderPage('contacts', [
-			"page_title" => "🍇 Страница пользователя"
+			"pageTitle" => "🍇 Страница пользователя"
 		]);
 	}
 
