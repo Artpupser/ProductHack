@@ -14,12 +14,12 @@ final class NextMigration extends AbstractMigration
             drop table if exists user_roles cascade;
             drop table if exists sessions_table cascade;
 
-            create table roles (
-                id serial primary key,
-                name varchar(30) not null default 'N/A'
+            create table if not exists roles (
+               id serial primary key,
+               name varchar(30) not null default 'N/A'
             );
 
-            create table users (
+            create table if not exists users (
                 id serial primary key,
                 role_id int not null references roles(id),
                 email varchar(254) check (email ~* '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') unique,
@@ -27,12 +27,12 @@ final class NextMigration extends AbstractMigration
                 full_name varchar(150)
             );
 
-            create table order_statuses (
+            create table if not exists  order_statuses (
                 id serial primary key,
                 name varchar(100) not null unique
             );
 
-            create table products (
+            create table if not exists  products (
                 id serial primary key,
                 name varchar(150) not null,
                 description TEXT,
@@ -41,54 +41,55 @@ final class NextMigration extends AbstractMigration
                 ids_images text not null default ''
             );
 
-            create table orders (
-                id serial primary key,
-                user_id int not null references users(id),
-                status_id int not null references order_statuses(id),
-                created_at timestamp not null default current_timestamp,
-                updated_at timestamp,
-                total_price numeric(10,2) not null default 0
+            create table if not exists  orders (
+					id serial primary key,
+					user_id int not null references users(id),
+					status_id int not null references order_statuses(id),
+					created_at timestamp not null default current_timestamp,
+					updated_at timestamp,
+					total_price numeric(10,2) not null default 0
             );
 
-            create table order_items (
-                id serial primary key,
-                order_id int not null references orders(id) on delete cascade,
-                product_id int not null references products(id),
-                quantity int not null check (quantity > 0),
-                price_snapshot numeric(10,2) not null
+            create table if not exists  order_items (
+					id serial primary key,
+					order_id int not null references orders(id) on delete cascade,
+					product_id int not null references products(id),
+					quantity int not null check (quantity > 0),
+					price_snapshot numeric(10,2) not null
             );
 
-            create table sessions (
-                id serial primary key,
-                user_id int not null references users(id) on delete cascade,
-                token varchar(255) not null unique,
-                created_at timestamp not null default current_timestamp,
-                expires_at timestamp not null,
+            create table if not exists  sessions (
+					id serial primary key,
+					user_id int not null references users(id) on delete cascade,
+					token varchar(255) not null unique,
+					created_at timestamp not null default current_timestamp,
+					expires_at timestamp not null
             );
 
-            create table payment_methods (
-                id serial primary key,
-                name varchar(100) not null unique
+            create table if not exists  payment_methods (
+					id serial primary key,
+					name varchar(100) not null unique
             );
 
-            create table payment_statuses (
-                id serial primary key,
-                name varchar(100) not null unique
+            create table if not exists  payment_statuses (
+					id serial primary key,
+					name varchar(100) not null unique
             );
 
-            create table payments (
-                id serial primary key,
-                order_id int not null references orders(id),
-                method_id int not null references payment_methods(id),
-                status_id int not null references payment_statuses(id),
-                amount numeric(10,2) not null,
-                transaction_id varchar(100),
-                error_message text
+            create table if not exists  payments (
+					id serial primary key,
+					order_id int not null references orders(id),
+					method_id int not null references payment_methods(id),
+					status_id int not null references payment_statuses(id),
+					amount numeric(10,2) not null,
+					transaction_id varchar(100),
+					error_message text
             );
 
-				insert into roles (name) values
-				('User'),
-				('Admin')
+				insert into roles (id, name) values
+				(1,'User'),
+				(2,'Admin')
+				ON CONFLICT (id) DO NOTHING;
         ");
 	}
 

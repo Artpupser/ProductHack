@@ -21,16 +21,16 @@ const paths = {
         dist: './dist/public/js'
     },
     php: {
-        src: ['./src/**/*.php'],
+        src: ['./src/**/*.{php,ini}'],
         dist: ['./dist/'],
     },
     images: {
-        src: ['./src/assets/**/*.{png,jpg,jpeg,webp,svg}'],
-        dist: ['./dist/assets/']
+        src: ['./src/public/**/*.{png,jpg,jpeg,webp,svg}'],
+        dist: ['./dist/public/']
     },
     fonts: {
-        src: ['./src/assets/fonts/**/*.{ttf,woff2,woff,otf}'],
-        dist: ['./dist/assets/fonts/']
+        src: ['./src/public/fonts/**/*.{ttf,woff2,woff,otf}'],
+        dist: ['./dist/public/fonts/']
     },
     scripts: {
         src: ['./src/scripts/**/*.{go,py}'],
@@ -63,6 +63,11 @@ gulp.task('images', function() {
         .pipe(gulp.dest(paths.images.dist)); 
 });
 
+gulp.task('storage', function(){
+    return gulp
+        .src(paths.storage.src, { encoding: false })
+        .pipe(gulp.dest(paths.storage.dist));
+})
 
 gulp.task('fonts', function(){
     return gulp
@@ -92,5 +97,5 @@ gulp.task('serve', function() {
     gulp.watch("./src/scripts/*.{py,go}", gulp.series('scripts'));
 });
 
-gulp.task('build', gulp.series('js', 'php', 'images', 'fonts', 'fonts', 'scripts', 'styles', 'serve'));
+gulp.task('build', gulp.series('js', 'php', 'images', 'fonts', 'scripts', 'styles', 'serve'));
 gulp.task('default', gulp.series('build'));

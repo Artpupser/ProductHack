@@ -2,6 +2,8 @@
 
 namespace ProductHack\core;
 
+use ProductHack\controllers\PagesController;
+
 class Router
 {
 
@@ -15,46 +17,61 @@ class Router
 	{
 		$this->request = $request;
 		$this->response = $response;
+		Application::$app->response->setStatusCode(200);
 	}
 
-	public function get($path, $callback)
+	public function create_get_route(array $paths, array $userCallback)
 	{
-		$this->routes['get'][$path] = $callback;
+		foreach ($paths as $item) {
+			$this->routes['get'][$item] = $userCallback;
+		}
 	}
 
-	public function post($path, $callback)
+	public function create_post_route(array $paths, array $userCallback)
 	{
-		$this->routes['post'][$path] = $callback;
+		foreach ($paths as $item) {
+
+			$this->routes['post'][$item] = $userCallback;
+		}
 	}
 
 	public function resolve()
 	{
 		$path = $this->request->getPath();
 		$method = $this->request->getMethod();
-		$callback = $this->routes[$method][$path] ?? false;
+		$callback = $this->routes[$method][$path] ?? null;
 		$this->response->setStatusCode(200);
-		if ($callback === false || is_string($callback)) {
-			$this->response->setStatusCode(404);
-			$callback = $this->routes[$method]['*'];
-		}
-		if (is_array($callback)) {
+		$result = null;
+		if ($callback !== null) {
 			$this->controller = new $callback[0]();
 			$callback[0] = $this->controller;
+			$result = $callback($this->request);
+		} else {
+			Application::$app->error->pushServerError(404);
 		}
-		return call_user_func($callback, $this->request);
+		if (Application::$app->error->serverErrorsIsEmpty()) {
+			return $result;
+		}
+		return $this->renderError();
 	}
 
-	public function renderView($view, $params = [])
+	private function renderError(): string
+	{
+		$this->controller ??= new PagesController();
+		return $this->renderView("error", ["errors" => Application::$app->error->getServerErrors()]);
+	}
+
+	public function renderView($view, $params = []): string
 	{
 		$layoutContent = $this->layoutContent($params);
 		$viewContent = $this->viewContent($view, $params);
-		return str_replace('{{content}}', $viewContent, $layoutContent);
+		return str_replace('{{ content }}', $viewContent, $layoutContent);
 	}
 
-	public function renderContent($viewContent)
+	public function renderContent($content): string
 	{
 		$layoutContent = $this->layoutContent();
-		return str_replace('{{content}}', $viewContent, $layoutContent);
+		return str_replace('{{ content }}', $content, $layoutContent);
 	}
 
 	protected function layoutContent($params = []): string
@@ -67,7 +84,7 @@ class Router
 		return ob_get_clean();
 	}
 
-	protected function viewContent($view, $params = [])
+	protected function viewContent($view, $params = []): string
 	{
 		foreach ($params as $key => $value) {
 			$$key = $value;

@@ -14,9 +14,11 @@ class Application
 	public Database $database;
 	public Request $request;
 	public Session $sessions;
+	public ErrorStack $error;
 
 	public function __construct($rootPath, array $config)
 	{
+		$this->error = new ErrorStack();
 		$this->sessions = new Session();
 		self::$app = $this;
 		self::$ROOT_DIR = $rootPath;
@@ -30,15 +32,5 @@ class Application
 	public function run()
 	{
 		echo $this->router->resolve();
-	}
-
-	public function errorMessage(int $code): string
-	{
-		$dict = [
-			404 => "Page not found",
-			400 => "Request not valid",
-			403 => "Access denied",
-		];
-		return $dict[$code];
 	}
 }

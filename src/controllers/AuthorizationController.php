@@ -5,6 +5,7 @@ namespace ProductHack\controllers;
 use ProductHack\core\Application;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
+use ProductHack\core\Session;
 use ProductHack\models\EmailVerificationModel;
 use ProductHack\models\LoginModel;
 use ProductHack\models\RegistrationModel;
@@ -15,49 +16,43 @@ class AuthorizationController extends Controller
 
 	public function registration(Request $request)
 	{
-		$this->layout = "empty_workflow";
 		$model = new RegistrationModel();
 		$model->loadData($request->getData());
-		if ($model->validate() === false) {
-			return Application::$app->router->renderContent(var_dump($model->errors));
+		if ($model->validate()) {
+			if (!$model->registration()) {
+				Application::$app->error->pushClientError("any", "User already created or bad registartion");
+			}
 		}
-		if ($model->existsInDb("email", $model->email)) {
-			$model->addError("any", "User already created");
-			return Application::$app->router->renderContent(var_dump($model->errors));
-		}
-		if ($model->create() === false) {
-			return PagesController::renderCustomError($request, 400);
-		}
-		return $this->redirect("/index");
+		return $this->renderPage("authorization");
 	}
 
 	public function login(Request $request)
 	{
-		$this->layout = "empty_workflow";
 		$model = new LoginModel();
 		$model->loadData($request->getData());
-		if ($model->validate() === false) {
-			return Application::$app->router->renderContent(var_dump($model->errors));
+		if ($model->validate()) {
+			if ($model->enter()) {
+				$sessionModel = new SessionModel();
+				$sessionModel->create($model);
+				return $this->redirect("profile");
+			}
+			Application::$app->error->pushClientError("any", "Client not found");
 		}
-		if ($model->check() === false) {
-			return PagesController::renderCustomError($request, 400);
-		}
-		$sessionModel = new SessionModel();
-		$sessionModel->create($model->email);
-		return $this->redirect("/index");
-	}
-
-	public function send_code(Request $request)
-	{
-		$this->layout = "empty_workflow";
-		$model = new EmailVerificationModel();
-		$model->loadData($request->getData());
-		return Application::$app->router->renderContent($request->getDataJson());
+		return $this->renderPage("authorization");
 	}
 
 	public function logout(Request $request)
 	{
-		$this->layout = "empty_workflow";
+		if (!new SessionModel()->deleteFromProp("token", Session::token())) {
+			return $this->redirect("authorization");
+		}
+		return $this->redirect("index");
+	}
+
+	public function sendCode(Request $request)
+	{
+		$model = new EmailVerificationModel();
+		$model->loadData($request->getData());
 		return Application::$app->router->renderContent($request->getDataJson());
 	}
 }

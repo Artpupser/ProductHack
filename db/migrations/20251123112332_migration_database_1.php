@@ -9,7 +9,7 @@ final class MigrationDatabase1 extends AbstractMigration
 	public function up(): void
 	{
 		$this->execute("
-            CREATE TABLE IF NOT EXISTS sessions_table (
+            CREATE TABLE if not exists sessions_table (
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER NULL,
                 token VARCHAR(255),
@@ -27,7 +27,7 @@ final class MigrationDatabase1 extends AbstractMigration
 	public function down(): void
 	{
 		$this->execute("
-            DROP TABLE IF EXISTS sessions_table;
+            DROP TABLE if exists sessions_table;
         ");
 	}
 }

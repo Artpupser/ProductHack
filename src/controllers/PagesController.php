@@ -4,9 +4,9 @@ namespace ProductHack\controllers;
 
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
-use ProductHack\core\Application;
-use ProductHack\core\Session;
+use ProductHack\models\LoginModel;
 use ProductHack\models\ProductModel;
+use ProductHack\models\SessionModel;
 
 class PagesController extends Controller
 {
@@ -19,48 +19,41 @@ class PagesController extends Controller
 		}
 	}
 
-	public static function renderCustomError(Request $request, int $code = 403)
+	public function test(Request $request): string
 	{
-		Application::$app->response->setStatusCode($code);
-		return PagesController::$instance->error($request);
+		$this->layout = "empty_workflow";
+		$model = new LoginModel();
+		return $this->renderDump([]);
 	}
 
 	public function catalog(Request $request)
 	{
 		$productModel = new ProductModel();
-		return $this->render('catalog', [
+		return $this->renderPage('catalog', [
 			"page_title" => "🍇 Винный каталог",
 			"model" => $productModel->selectAll(),
 		]);
 	}
 	public function payment(Request $request)
 	{
-		return $this->render('payment', [
+		return $this->renderPage('payment', [
 			"page_title" => "🍇 Страница оплаты"
 		]);
 	}
 	public function profile(Request $request)
 	{
-		// $user = Session::get_user();
-		// if (is_null($user) || $user->role_id != 1) {
-		// 	$this->redirect("/authorization");
-		// 	return null;
-		// }
-		return $this->render('profile', [
-			"page_title" => "🍇 Страница пользователя"
-		]);
-	}
-
-	public function card_product(Request $request)
-	{
-		return $this->render('card_product', [
-			"page_title" => "🍇 Card product"
-		]);
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id != 0)
+				return $this->renderPage('profile', ["page_title" => "🍇 Страница пользователя"]);
+		}
+		return $this->redirect("authorization");
 	}
 
 	public function contacts(Request $request)
 	{
-		return $this->render('contacts', [
+		return $this->renderPage('contacts', [
 			"page_title" => "🍇 Страница пользователя"
 		]);
 	}
@@ -68,45 +61,39 @@ class PagesController extends Controller
 
 	public function admin(Request $request)
 	{
-		return $this->render('admin', [
-			"page_title" => "🍇 Админ"
-		]);
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id == 2)
+				return $this->renderPage('admin', ["page_title" => "🍇 Админ"]);
+		}
+		return $this->redirect("authorization");
 	}
 
 	public function main(Request $request)
 	{
-		return $this->render('main', [
+		return $this->renderPage('main', [
 			"page_title" => "🍇 Винный магазин",
 		]);
 	}
 
 	public function aboutus(Request $request)
 	{
-		return $this->render('aboutus', [
+		return $this->renderPage('aboutus', [
 			"page_title" => "🍇 О нас",
 		]);
 	}
 
 	public function authorization(Request $request)
 	{
-		$user = Session::get_user();
-		echo var_dump($user);
-		if (!is_null($user) && $user->role_id == 1) {
-			$this->redirect("/profile");
-			return null;
+		$session = new SessionModel();
+		if ($session->loadFromPHPSESSID()) {
+			$user = $session->getUser();
+			if ($user->role_id > 0)
+				return $this->redirect("profile");
 		}
-		return $this->render('authorization', [
+		return $this->renderPage('authorization', [
 			"page_title" => "🍇 Авторизация пользователя",
-		]);
-	}
-
-	public function error(Request $request)
-	{
-		$code = Application::$app->response->getStatusCode();
-		return $this->render('error', [
-			"page_title" => "🍇 Ошибка, " . $code,
-			"code" => $code,
-			"message" => Application::$app->errorMessage($code),
 		]);
 	}
 }

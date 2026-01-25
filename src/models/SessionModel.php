@@ -2,65 +2,50 @@
 
 namespace ProductHack\models;
 
-use DateTime;
-use ProductHack\core\ModelDb;
+use DateTimeImmutable;
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
 use ProductHack\core\Session;
 
-class SessionModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "sessions", table_collumn_names: ["user_id", "token", "expires_at"])]
+class SessionModel extends ModelDatabase
 {
 	public int $id;
 	public int $user_id;
 	public string $token;
+	public string $created_at;
 	public string $expires_at;
-
-	public function create(string $email): bool
+	public DateTimeImmutable $expires_at_dateTime { get => new DateTimeImmutable($this->expires_at); }
+	public bool $inDate { get => new DateTimeImmutable('now') < $this->expires_at_dateTime; }
+	public function create(LoginModel $loginModel): bool
 	{
-		$userModel = UserModel::get_user_from_email($email);
-		$currentSession = Session::get_session_from_db();
-		if ($currentSession == null) {
-			if ($userModel !== null) {
-				return $this->insert([$userModel->id, Session::get_token(), self::current_time_plus_days(1)]);
-			}
-		} else {
-			$currentSession->changeColumn("expires_at", self::current_time_plus_days(1), $currentSession->id);
+		if (!$this->loadFromPHPSESSID()) {
+			$user = $loginModel->getUser();
+			if ($user !== null)
+				return $this->insert([$user->id, Session::token(), self::nextSessionTime()]);
+			return false;
 		}
-		return false;
-	}
-	public static function current_time_plus_days(int $days): string
-	{
-		return date('Y-m-d', strtotime("+$days day"));
+		return $this->extendSessionTime();
 	}
 
-	public function get_user_from_token(string $token): UserModel|null
+	public function loadFromPHPSESSID()
 	{
-		$result = $this->selectWhereEqual("token", $token);
-		if (!empty($result)) {
-			return UserModel::get_user_from_id($result[0]["user_id"]);
-		}
-		return null;
+		return $this->loadFromWhere("token", Session::token());
+	}
+	public function extendSessionTime(): bool
+	{
+		return $this->changeColumn("expires_at", self::nextSessionTime(), $this->id);
 	}
 
-	public function get_expired_time(string $token): string|null
+	public static function nextSessionTime(): string
 	{
-		$result = $this->selectWhereEqual("token", $token)[0];
-		if (isset($result["expires_at"])) {
-			return $result["expires_at"];
-		}
-		return null;
+		return new DateTimeImmutable("tomorrow")->format('Y-m-d H:i:s');
 	}
 
-	public function rules(): array
+	public function getUser(): UserModel|null
 	{
-		return [];
-	}
-
-	public function attributes_db(): array
-	{
-		return ['user_id', 'token', 'expires_at'];
-	}
-
-	public function tableName(): string
-	{
-		return "sessions";
+		$user = new UserModel();
+		$user->loadFromWhere("id", $this->user_id);
+		return $user;
 	}
 }

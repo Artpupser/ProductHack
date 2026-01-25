@@ -16,18 +16,16 @@
 					<img class="slider-img" src="<?php echo $value["base64"] ?>" alt="Слайд 1">
 				<?php endforeach; ?>
 				<div class="controls">
-					<img style="opacity: 1; height: 40px;" class="left controlls" src="../assets/imgs/left_switch_icon.webp" alt="Слева">
-					<img style="opacity: 1; height: 40px;" class="right controlls" src="../assets/imgs/right_switch_icon.webp" alt="Справа">
+					<img style="opacity: 1; height: 40px;" class="left controlls" src="../assets/imgs/left_switch_icon.webp"
+						alt="Слева">
+					<img style="opacity: 1; height: 40px;" class="right controlls"
+						src="../assets/imgs/right_switch_icon.webp" alt="Справа">
 				</div>
 			</div>
-			<a href="/catalog" class="ssilka" >
+			<a href="/catalog" class="ssilka">
 				Перейти в каталог</a>
 		</div>
-
-
-
 		<div class="acii">
 			<img src="../assets/imgs/sale_banner.webp" alt="">
 		</div>
-
 </main>

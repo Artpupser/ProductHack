@@ -2,37 +2,22 @@
 
 namespace ProductHack\models;
 
-use ProductHack\core\ModelDb;
+use ProductHack\core\ModelDatabase;
+use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropRuleAttribute;
+use ProductHack\core\ModelRule;
 
-class EmailVerificationModel extends ModelDb
+#[ModelDatabaseAttribute(table_name: "email_verification_codes", table_collumn_names: ["email", "code", "created_at", "expired_at"])]
+class EmailVerificationModel extends ModelDatabase
 {
 	public int $id;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::EMAIL)]
 	public string $email;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 6)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 6)]
 	public string $code;
 	public string $created_at;
 	public string $expired_at;
-
-	public function tableName(): string
-	{
-		return "email_verification_codes";
-	}
-
-	public function attributes_db(): array
-	{
-		return ["email", "code", "created_at", "expired_at"];
-	}
-
-	public function rules(): array
-	{
-		return [
-			'email' => [
-				self::RULE_IMPORTANT,
-				self::RULE_EMAIL,
-			],
-			'code' => [
-				self::RULE_IMPORTANT,
-				[self::RULE_MIN, 'min' => 6],
-			],
-		];
-	}
 }
