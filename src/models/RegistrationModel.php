@@ -14,11 +14,11 @@ class RegistrationModel extends UserModel
 	public string $email;
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
-	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 512)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
 	public string $password;
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
-	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 512)]
+	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 32)]
 	#[ModelPropRuleAttribute(ModelRule::MATCH , "password")]
 	public string $repeat_password;
 	public string $password_hash { get => hash('sha256', $this->password); }

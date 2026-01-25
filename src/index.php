@@ -32,6 +32,7 @@ $app->router->create_get_route(['/aboutus'], [PagesController::class, 'aboutus']
 $app->router->create_get_route(['/admin'], [PagesController::class, 'admin']);
 $app->router->create_get_route(['/profile'], [PagesController::class, 'profile']);
 $app->router->create_get_route(['/card_product'], [PagesController::class, 'card_product']);
+$app->router->create_get_route(['/cart'], [PagesController::class, 'cart']);
 $app->router->create_get_route(['/payment'], [PagesController::class, 'payment']);
 $app->router->create_get_route(['/contacts'], [PagesController::class, 'contacts']);
 $app->router->create_get_route(['/authorization'], [PagesController::class, 'authorization']);

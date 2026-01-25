@@ -21,7 +21,6 @@ class ImagesModel extends ModelDatabase
 		return implode(',', $this->last_ids);
 	}
 
-
 	public function create()
 	{
 		foreach ($this->images as $key => $value) {

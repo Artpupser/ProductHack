@@ -30,15 +30,12 @@ class PagesController extends Controller
 	{
 		$productModel = new ProductModel();
 		return $this->renderPage('catalog', [
-			"page_title" => "🍇 Винный каталог",
 			"model" => $productModel->selectAll(),
 		]);
 	}
 	public function payment(Request $request)
 	{
-		return $this->renderPage('payment', [
-			"page_title" => "🍇 Страница оплаты"
-		]);
+		return $this->renderPage('payment');
 	}
 	public function profile(Request $request)
 	{
@@ -46,18 +43,15 @@ class PagesController extends Controller
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
 			if ($user->role_id != 0)
-				return $this->renderPage('profile', ["page_title" => "🍇 Страница пользователя"]);
+				return $this->renderPage('profile');
 		}
 		return $this->redirect("authorization");
 	}
 
 	public function contacts(Request $request)
 	{
-		return $this->renderPage('contacts', [
-			"pageTitle" => "🍇 Страница пользователя"
-		]);
+		return $this->renderPage('contacts');
 	}
-
 
 	public function admin(Request $request)
 	{
@@ -65,23 +59,24 @@ class PagesController extends Controller
 		if ($session->loadFromPHPSESSID()) {
 			$user = $session->getUser();
 			if ($user->role_id == 2)
-				return $this->renderPage('admin', ["page_title" => "🍇 Админ"]);
+				return $this->renderPage('admin');
 		}
 		return $this->redirect("authorization");
 	}
 
 	public function main(Request $request)
 	{
-		return $this->renderPage('main', [
-			"page_title" => "🍇 Винный магазин",
-		]);
+		return $this->renderPage('main');
+	}
+
+	public function cart(Request $request)
+	{
+		return $this->renderPage('cart');
 	}
 
 	public function aboutus(Request $request)
 	{
-		return $this->renderPage('aboutus', [
-			"page_title" => "🍇 О нас",
-		]);
+		return $this->renderPage('aboutus');
 	}
 
 	public function authorization(Request $request)
@@ -92,8 +87,6 @@ class PagesController extends Controller
 			if ($user->role_id > 0)
 				return $this->redirect("profile");
 		}
-		return $this->renderPage('authorization', [
-			"page_title" => "🍇 Авторизация пользователя",
-		]);
+		return $this->renderPage('authorization');
 	}
 }

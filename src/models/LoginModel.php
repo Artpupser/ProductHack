@@ -3,8 +3,6 @@
 namespace ProductHack\models;
 
 use ProductHack\core\ModelDatabaseAttribute;
-use ProductHack\core\ModelDatabase;
-use ProductHack\core\ModelPropDatabaseAttribute;
 use ProductHack\core\ModelPropRuleAttribute;
 use ProductHack\core\ModelRule;
 
