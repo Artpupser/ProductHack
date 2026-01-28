@@ -46,8 +46,8 @@ button-base($bg)
 .age_overlay
   position fixed
   inset 0
-  backdrop-filter blur(8px)
   background $overlay-bg
+  backdrop-filter blur(8px)
   animation fadeIn .6s ease
   flex-center()
 
@@ -60,6 +60,7 @@ button-base($bg)
   text-align center
   box-shadow $shadow-card
   animation scaleIn .5s ease
+  will-change transform, opacity
 
   h1
     margin 0 0 12px
@@ -73,9 +74,8 @@ button-base($bg)
   display flex
   gap 14px
 
-button
-  &.yes
+  button.yes
     button-base($green)
 
-  &.no
+  button.no
     button-base($red)

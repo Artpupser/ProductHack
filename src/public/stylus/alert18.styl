@@ -1,9 +1,10 @@
-font-regular = "bergamosco-regular"
+// Переменные
+font-regular     = "bergamosco-regular", sans-serif
 
-color-main        = #7a1b1b
-color-main-hover  = #a22b2b
-color-white       = #fff
-color-border      = #ccc
+color-main       = #7a1b1b
+color-main-hover = #a22b2b
+color-white      = #fff
+color-border     = #ccc
 
 shadow-text = 0 2px 4px rgba(0, 0, 0, 0.7)
 shadow-card = 0 2px 10px rgba(0, 0, 0, 0.08)
@@ -11,6 +12,7 @@ shadow-card = 0 2px 10px rgba(0, 0, 0, 0.08)
 tablet = "(max-width: 768px)"
 mobile = "(max-width: 480px)"
 
+// Миксины
 flex-center()
   display flex
   align-items center
@@ -29,6 +31,7 @@ input-base()
   font-size 1rem
   width 100%
 
+// Заголовок
 .h1-con
   height 100px
   flex-center()
@@ -37,11 +40,13 @@ input-base()
   font-size 3rem
   margin 0
 
+// Контейнер
 .container_con
   width 90%
   max-width 900px
   margin 40px auto
 
+// Секции
 .section_con
   margin-bottom 40px
   card()
@@ -51,6 +56,7 @@ input-base()
     font-size 1.8rem
     color color-main
 
+// Форма контактов
 .contact-form
   display flex
   flex-direction column
@@ -79,12 +85,13 @@ input-base()
     &:hover
       background color-main-hover
 
+// Медиа-запросы
 @media tablet
-  h1
+  .h1-con
     font-size 2.2rem
 
 @media mobile
-  h1
+  .h1-con
     height 200px
     font-size 1.8rem
 
