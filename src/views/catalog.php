@@ -41,7 +41,7 @@
 					</div>
 					<div class="price_card"><?php echo $value['price'] ?>₽</div>
 					<div class='btn-card'>
-						<a class='btn' href='#'>Купить</a>
+						<a class='btn' href='#'>Добавить в корзину</a>
 					</div>
 				</div>
 			</div>
