@@ -23,6 +23,3 @@
 		<p><strong>Email:</strong> rzn@top-academy.ru</p>
 	</section>
 </div>
-
-<div class="notifications_container"></div>
-<script src="/api/public/file/?name=js/notifications.js"></script>

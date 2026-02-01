@@ -32,6 +32,7 @@ class SessionModel extends ModelDatabase
 	{
 		return $this->loadFromWhere("token", Session::token());
 	}
+
 	public function extendSessionTime(): bool
 	{
 		return $this->changeColumn("expires_at", self::nextSessionTime(), $this->id);

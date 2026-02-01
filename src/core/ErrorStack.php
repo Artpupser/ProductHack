@@ -17,7 +17,7 @@ class ClientErrors
 	public function view()
 	{
 		foreach ($this->_errors as $error => $error_message) {
-			echo "<div class='error-notification'>$error_message</div>";
+			echo "<div class='notification error'>$error_message</div>";
 		}
 	}
 }
