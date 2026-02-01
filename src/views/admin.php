@@ -11,7 +11,7 @@
 			<?php $addProductForm->field("description", "Описание", "text") ?>
 			<?php $addProductForm->field("price", "Цена", "number") ?>
 			<?php $addProductForm->field("stock", "Количество", "number") ?>
-			<?php $addProductForm->fieldFile("image", "Изображение", "file") ?>
+			<?php $addProductForm->fieldFile("image", "Изображение", "image/*") ?>
 			<?php Form::end("Добавить продукт") ?>
 		</section>
 

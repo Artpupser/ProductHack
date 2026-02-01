@@ -2,18 +2,13 @@
 <div class="container_con">
 	<section class="section_con">
 		<h2>Свяжитесь с нами</h2>
-		<form class="contact-form" id="contactForm">
-			<label for="name">Имя</label>
-			<input type="text" id="name" name="name" placeholder="Ваше имя" required />
-
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" placeholder="Ваш email" required />
-
-			<label for="message">Сообщение</label>
-			<textarea id="message" name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
-
-			<button type="submit">Отправить</button>
-		</form>
+		<?php
+		use ProductHack\components\Form;
+		$loginForm = Form::begin("/api/user/login") ?>
+		<?php $loginForm->field("name", "Имя", "text"); ?>
+		<?php $loginForm->field("email", "Почта", "email"); ?>
+		<?php $loginForm->fieldMessage("message", "Сообщение", "text"); ?>
+		<?php Form::end("Отправить") ?>
 	</section>
 
 	<section class="section_con">

@@ -17,9 +17,13 @@ class Form
 	{
 		echo new Field($id, $label, $type);
 	}
-	public function fieldFile(string $id, string $label, string $type)
+	public function fieldMessage(string $id, string $label, string $type)
 	{
-		echo new FieldFile($id, $label, $type);
+		echo new FieldMessage($id, $label);
+	}
+	public function fieldFile(string $id, string $label, string $accpet)
+	{
+		echo new FieldFile($id, $label, $accpet);
 	}
 	public static function end(string $submitLabel = 'Отправить')
 	{
