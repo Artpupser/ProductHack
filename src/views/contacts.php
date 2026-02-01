@@ -2,7 +2,7 @@
 <div class="container_con">
 	<section class="section_con">
 		<h2>Свяжитесь с нами</h2>
-		<form class="contact-form">
+		<form class="contact-form" id="contactForm">
 			<label for="name">Имя</label>
 			<input type="text" id="name" name="name" placeholder="Ваше имя" required />
 
@@ -23,3 +23,6 @@
 		<p><strong>Email:</strong> rzn@top-academy.ru</p>
 	</section>
 </div>
+
+<div class="notifications_container"></div>
+<script src="/api/public/file/?name=js/notifications.js"></script>

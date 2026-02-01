@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 
 include_once './views/layouts/head.php' ?>
@@ -7,12 +5,11 @@ include_once './views/layouts/head.php' ?>
 <body>
 	<?php include_once './views/layouts/header.php' ?>
 	{{ content }}
-	<div class="notifications">
-		<?php if (isset($clientErrors)) {
-			$clientErrors->view();
-		} ?>
-	</div>
+	<div class="notifications_container"> <?php if (isset($clientErrors)) { 
+		foreach ($clientErrors as $error) 
+		{ echo '<div class="notification error">' . htmlspecialchars($error) . 
+		'</div>'; } } ?> </div>
 	<?php include_once './views/layouts/footer.php' ?>
-</body>
+	<script src="/api/public/file/?name=js/notifications.js"></script>
 
-</html>
+</body>
