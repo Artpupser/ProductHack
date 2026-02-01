@@ -30,8 +30,9 @@ abstract class Controller
 		return Application::$app->router->renderContent(var_dump($data));
 	}
 
-	public function renderJson(Request $request)
+	public function renderJson(mixed $data)
 	{
-		return Application::$app->router->renderContent($request->getDataJson());
+		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	}
 }

@@ -12,6 +12,7 @@ class LoginModel extends UserModel
 	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::EMAIL)]
 	public string $email;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MIN, 10)]
 	#[ModelPropRuleAttribute(ModelRule::TEXT_MAX, 256)]
 	public string $password;

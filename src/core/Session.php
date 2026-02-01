@@ -6,6 +6,7 @@ use ProductHack\models\SessionModel;
 
 class Session
 {
+	public static ?SessionModel $CURRENT = null;
 	public function __construct()
 	{
 		session_start();
@@ -22,7 +23,16 @@ class Session
 
 	public static function verify(): bool
 	{
+		return Session::$CURRENT == null;
+	}
+
+	public static function load()
+	{
 		$model = new SessionModel();
-		return $model->loadFromPHPSESSID() && $model->inDate;
+		if ($model->loadFromPHPSESSID() && $model->inDate) {
+			Session::$CURRENT = $model;
+			return;
+		}
+		Session::$CURRENT = null;
 	}
 }

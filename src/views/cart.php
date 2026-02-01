@@ -10,14 +10,11 @@
 					Тип: красно, сухое<br>
 					Регион: Франция <br>
 					<p class="small-text">
-						Любителей австралийских вин хочу предупредить, что шираз Mr Borio's совершенно не похож на «тёзку» с другого континента.
+						Любителей австралийских вин хочу предупредить, что шираз Mr Borio's совершенно не похож на «тёзку» с
+						другого континента.
 					</p>
 				</div>
-				<div class="quantity-control">
-					<button type="button" class="qty-btn minus">−</button>
-					<span class="qty-number">1</span>
-					<button type="button" class="qty-btn plus">+</button>
-				</div>
+
 			</div>
 		</div>
 

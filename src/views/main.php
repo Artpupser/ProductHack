@@ -8,9 +8,8 @@
 		<div class="bg-2">
 
 			<div class="slider">
-				<?php
-				for ($i = 1; $i <= 4; $i++)
-					echo '<img class="slider-img" src="/api/public/file/?name=imgs/' . $i . '.webp" alt="Слайд 1">' ?>
+				<?php for ($i = 1; $i <= 4; $i++)
+					echo "<img class=\"slider-img\" src=\"/api/public/file/?name=imgs/$i.webp\" alt=\"Слайд 1\">" ?>
 					<div class="controls">
 						<img style="opacity: 1; height: 40px;" class="left_controlls"
 							src="/api/public/file/?name=imgs/left_switch_icon.webp" alt="Слева">
