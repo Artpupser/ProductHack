@@ -53,12 +53,6 @@ function clear() {
 }
 
 
-get();
-clear();
-get();
 change("3", 1);
-change("3", 2);
-get();
-remove("3");
 get();
 
