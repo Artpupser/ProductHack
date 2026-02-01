@@ -2,7 +2,7 @@
 	<div class="logo">
 		<a href="/"><img src="../../public/imgs/logo_icon.webp" alt="Логотип"></a>
 	</div>
-	<p class="wineshop">Винный магазин</p>
+	<p class="wineshop"><?php echo $pageTitle ?></p>
 	<div class="place flex-center flex-row">
 		<div class="img-place">
 			<img src="./public/imgs/place_icon.webp" alt="Местоположение">
