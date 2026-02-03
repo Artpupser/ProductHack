@@ -1,8 +1,20 @@
 @import 'index'
 
+
 $auth-radius = 12px
 $auth-padding-y = 40px
 $auth-padding-x = 30px
+
+fontRegular = "bergamosco-regular", sans-serif
+
+.container_auto
+  width 90%
+  max-width 900px
+  margin 40px auto
+
+.section_auto
+  margin-top 150px
+  card()
 
 .auth-wrapper
   width 90%
@@ -23,11 +35,13 @@ $auth-padding-x = 30px
   color darkRed
   margin-bottom 25px
   text-align center
+  font-family fontRegular
 
 .auth-toggle
   btn()
   width 100%
   margin-top 15px
+  font-family fontRegular
 
 .auth-btn
   btn()
@@ -36,6 +50,21 @@ $auth-padding-x = 30px
   margin-top 10px
   border-radius 8px
   transition background .3s
+  font-family fontRegular
 
   &:hover
     background color-main-hover
+
+.switch-p
+  font-family fontRegular
+  text-align center
+  margin 15px 0 10px
+  color text-secondary
+
+h2
+  font-family fontRegular
+
+form input,
+form label,
+form button[type="submit"]
+  font-family fontRegular !important
