@@ -3,11 +3,7 @@
 namespace ProductHack\core;
 
 use Attribute;
-use ProductHack\controllers\PagesController;
-use Reflection;
-use ReflectionAttribute;
 use ReflectionClass;
-use ReflectionFiber;
 use ReflectionProperty;
 
 #[Attribute(flags: Attribute::TARGET_PROPERTY | Attribute::IS_REPEATABLE)]
@@ -147,12 +143,15 @@ abstract class Model
 		return Application::$app->error->clientErrorsIsEmpty() == true;
 	}
 
+
 	private static function isImageBase64($base64String): bool
 	{
+
+		echo var_dump($base64String);
 		if (preg_match('/^data:image\/(png|jpeg|jpg|gif);base64,/', $base64String, $matches)) {
 			$data = substr($base64String, strlen($matches[0]));
 			if (base64_decode($data, true) !== false) {
-				$image = @imagecreatefromstring(base64_decode($data));
+				$image = \imagecreatefromstring(base64_decode($data));
 				if ($image !== false) {
 					return true;
 				}

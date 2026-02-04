@@ -4,6 +4,7 @@ namespace ProductHack\controllers;
 
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
+use ProductHack\core\Session;
 use ProductHack\models\LoginModel;
 use ProductHack\models\ProductModel;
 use ProductHack\models\SessionModel;
@@ -28,10 +29,7 @@ class PagesController extends Controller
 
 	public function catalog(Request $request)
 	{
-		$productModel = new ProductModel();
-		return $this->renderPage('catalog', [
-			"model" => $productModel->selectAll(),
-		]);
+		return $this->renderPage('catalog');
 	}
 	public function payment(Request $request)
 	{
@@ -55,9 +53,8 @@ class PagesController extends Controller
 
 	public function admin(Request $request)
 	{
-		$session = new SessionModel();
-		if ($session->loadFromPHPSESSID()) {
-			$user = $session->getUser();
+		if (Session::$CURRENT) {
+			$user = Session::$CURRENT->getUser();
 			if ($user->role_id == 2)
 				return $this->renderPage('admin');
 		}
@@ -71,7 +68,12 @@ class PagesController extends Controller
 
 	public function cart(Request $request)
 	{
-		return $this->renderPage('cart');
+		if (Session::$CURRENT) {
+			$user = Session::$CURRENT->getUser();
+			if ($user->role_id > 0)
+				return $this->renderPage('cart');
+		}
+		return $this->redirect("authorization");
 	}
 
 	public function aboutus(Request $request)
@@ -81,9 +83,8 @@ class PagesController extends Controller
 
 	public function authorization(Request $request)
 	{
-		$session = new SessionModel();
-		if ($session->loadFromPHPSESSID()) {
-			$user = $session->getUser();
+		if (Session::$CURRENT) {
+			$user = Session::$CURRENT->getUser();
 			if ($user->role_id > 0)
 				return $this->redirect("profile");
 		}

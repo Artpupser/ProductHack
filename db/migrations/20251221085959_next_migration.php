@@ -8,7 +8,6 @@ final class NextMigration extends AbstractMigration
 {
 	public function up(): void
 	{
-
 		$this->execute("
             drop table if exists users cascade;
             drop table if exists user_roles cascade;
@@ -27,26 +26,25 @@ final class NextMigration extends AbstractMigration
                 full_name varchar(150)
             );
 
-            create table if not exists order_statuses (
-                id serial primary key,
-                name varchar(100) not null unique
-            );
-
             create table if not exists products (
                 id serial primary key,
                 name varchar(150) not null,
                 description TEXT,
                 price numeric(10,2) not null,
-                stock int not null default 0,
-                ids_images text not null default ''
+                stock int not null default 0
+            );
+
+            create table if not exists order_statuses (
+                id serial primary key,
+                name varchar(16) not null unique
             );
 
             create table if not exists orders (
 					id serial primary key,
 					user_id int not null references users(id),
-					status_id int not null references order_statuses(id),
+					status_id int not null default 2 references order_statuses(id),
 					created_at timestamp not null default current_timestamp,
-					updated_at timestamp,
+					updated_at timestamp not null default current_timestamp,
 					total_price numeric(10,2) not null default 0
             );
 
@@ -54,7 +52,7 @@ final class NextMigration extends AbstractMigration
 					id serial primary key,
 					order_id int not null references orders(id) on delete cascade,
 					product_id int not null references products(id),
-					quantity int not null check (quantity > 0),
+					amount int not null check (amount > 0),
 					price_snapshot numeric(10,2) not null
             );
 
@@ -66,30 +64,36 @@ final class NextMigration extends AbstractMigration
 					expires_at timestamp not null
             );
 
-            create table if not exists payment_methods (
-					id serial primary key,
-					name varchar(100) not null unique
-            );
-
             create table if not exists payment_statuses (
 					id serial primary key,
-					name varchar(100) not null unique
+					name varchar(8) not null unique
             );
 
-            create table if not exists  payments (
+            create table if not exists payments (
 					id serial primary key,
 					order_id int not null references orders(id),
-					method_id int not null references payment_methods(id),
 					status_id int not null references payment_statuses(id),
 					amount numeric(10,2) not null,
-					transaction_id varchar(100),
-					error_message text
+					transaction_id varchar(128)
             );
 
 				insert into roles (id, name) values
-				(1,'User'),
-				(2,'Admin')
-				ON CONFLICT (id) DO NOTHING;
+				(1,'user'),
+				(2,'admin')
+				on conflict (id) do nothing;
+
+				insert into order_statuses (id, name) values
+				(1, 'cancel'),
+				(2, 'created'),
+				(3, 'process'),
+				(4, 'completed')
+				on conflict (id) do nothing;
+
+				insert into payment_statuses (id, name) values
+				(1, 'ok'),
+				(2, 'cancel'),
+				(3, 'error')
+				on conflict (id) do nothing;
         ");
 	}
 

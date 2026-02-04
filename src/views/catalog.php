@@ -25,27 +25,30 @@
 
 	<div class="cards-container">
 		<?php
-
 		use ProductHack\models\ImagesModel;
-
-		foreach ($model as $value): ?>
+		use ProductHack\models\ProductsModel;
+		$products = new ProductsModel();
+		$products->loadAll();
+		foreach ($products->pool as $product): ?>
+			<?php
+			$imagesModel = new ImagesModel();
+			$imagesModel->loadFromTag($product->getTagForImage()); ?>
 			<div class="card">
-				<img class="card_img" src="<?php
-				$images = new ImagesModel();
-				echo $images->selectWhereEqual("id", explode(',', $value['ids_images'])[0])[0]["base64"] ?>" />
-				<div class="card_content">
-					<div class="card_title"><?php echo $value['name'] ?></div>
-					<div class="card_id"><?php echo $value['id'] ?></div>
+				<img class="card_img" src="
+				<?php echo $imagesModel->getFirst()->base64; ?>" />
+				<div class=" card_content">
+					<div class="card_title"><?php echo $product->name ?></div>
+					<div class="card_id"><?php echo $product->id ?></div>
 					<div class="card_sub">
-						<p>Описание: <?php echo $value['description'] ?></p>
-						<p>Кол-во: <?php echo $value['stock'] ?></p>
+						<p>Описание: <?php echo $product->description ?></p>
+						<p>Кол-во: <?php echo $product->stock ?></p>
 					</div>
 					<div class="quantity-control">
 						<button type="button" class="qty-btn minus">−</button>
 						<span class="qty-number">1</span>
 						<button type="button" class="qty-btn plus">+</button>
 					</div>
-					<div class="price_card"><?php echo $value['price'] ?>₽</div>
+					<div class="price_card"><?php echo $product->price ?>₽</div>
 					<div class='btn-card'>
 						<a class='btn' href='#'>Добавить в корзину</a>
 					</div>

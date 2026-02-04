@@ -8,7 +8,7 @@ use ProductHack\core\ModelDatabaseAttribute;
 use ProductHack\core\ModelPropRuleAttribute;
 use ProductHack\core\ModelRule;
 
-#[ModelDatabaseAttribute(table_name: "products", table_collumn_names: ['name', 'description', 'price', 'stock', 'ids_images'])]
+#[ModelDatabaseAttribute(table_name: "products", table_collumn_names: ['name', 'description', 'price', 'stock'])]
 class ProductModel extends ModelDatabase
 {
 	public int $id;
@@ -31,32 +31,36 @@ class ProductModel extends ModelDatabase
 	#[ModelPropRuleAttribute(ModelRule::NUMBER_MAX, 1024)]
 	public int $stock;
 	public array $images;
-	public string $ids_images;
 
 	public function create(): bool
 	{
+		$result = $this->insert([$this->name, $this->description, $this->price, $this->stock]);
+		if ($result and !empty($this->images)) {
+
+			$this->id = $result;
+			$imgModel = new ImageModel();
+			$imgModel->base64 = $this->images["base64"];
+			$imgModel->tag = "product_$result";
+			return $imgModel->create();
+		}
+		return false;
+	}
+
+	public function getTagForImage(): string
+	{
+		return "product_$this->id";
+	}
+
+	public function getImages(): ImagesModel
+	{
 		$imagesModel = new ImagesModel();
-		$imagesModel->images = $this->images;
-		$imagesModel->tag = "product";
-		$imagesModel->create();
-		$this->ids_images = $imagesModel->getLastIdsString();
-		return $this->insert([$this->name, $this->description, $this->price, $this->stock, $this->ids_images]);
+		$imagesModel->loadFromTag($this->getTagForImage());
+		return $imagesModel;
 	}
 
-	public function getFirstImage(): string
+	public function delete(?int $id): bool
 	{
-		$imageModel = new ImagesModel();
-		return $imageModel->selectWhereEqual("id", $this->getIds()[0])[0]["base64"];
-	}
-
-	public function getIds(): array
-	{
-		return explode(',', $this->ids_images);
-	}
-
-	public function delete(int $id): bool
-	{
-		return $this->deleteFromProp("id", $id);
+		return $this->deleteFromProp("id", $id ?? $this->id);
 	}
 
 	public function change(array $attrs, array $params): bool

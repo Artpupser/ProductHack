@@ -1,6 +1,6 @@
 <footer class="footer">
 	<div class="left_foot">
-		<h2 class="title_foot">Винный магазин</h2>
+		<h2 class="title_foot"><?php echo $pageTitle ?></h2>
 		<div class="icon_wine_foot">
 			<img src="/api/public/file/?name=imgs/logo_icon.webp" alt="Логотип">
 		</div>

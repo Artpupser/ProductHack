@@ -11,7 +11,7 @@
 			<?php $addProductForm->field("description", "Описание", "text") ?>
 			<?php $addProductForm->field("price", "Цена", "number") ?>
 			<?php $addProductForm->field("stock", "Количество", "number") ?>
-			<?php $addProductForm->fieldFile("image", "Изображение", "image/*") ?>
+			<?php $addProductForm->fieldFile("base64", "Изображение", "image/*") ?>
 			<?php Form::end("Добавить продукт") ?>
 		</section>
 
@@ -22,15 +22,7 @@
 			<?php Form::end("Удалить продукт") ?>
 		</section>
 
-		<section class="section_con">
 
-			<h1>Добавить изображение</h1>
-			<?php $addImageForm = Form::beginWithFile("/api/product/create") ?>
-			<?php $addImageForm->field("price", "Цена", "number") ?>
-			<?php $addImageForm->fieldFile("image", "Изображение", "file") ?>
-			<?php Form::end("Добавить изображение") ?>
-
-		</section>
 		<section class="section_con">
 			<h1>Товары</h1>
 			<div class='list'>
@@ -39,13 +31,35 @@
 				use ProductHack\models\ProductModel;
 
 				$productModel = new ProductModel();
-				foreach ($productModel->selectAll() as $value):
+				foreach ($productModel->selectAll() as $row):
 					?>
-					<div class='item'><?php echo var_dump($value) ?></div>
+					<div class='item'>
+						<p>ID: <?php echo $row["id"] ?></p>
+						<p>name: <?php echo $row["name"] ?></p>
+						<p>description: <?php echo $row["description"] ?></p>
+						<p>price: <?php echo $row["price"] ?></p>
+						<p>stock: <?php echo $row["stock"] ?></p>
+					</div>
 				<?php endforeach; ?>
 			</div>
 
 		</section>
+
+		<section class="section_con">
+			<h1>Добавить изображение</h1>
+			<?php $addImageForm = Form::beginWithFile("/api/image/create") ?>
+			<?php $addImageForm->field("tag", "Тег", "text") ?>
+			<?php $addImageForm->fieldFile("base64", "Изображение", "file") ?>
+			<?php Form::end("Добавить") ?>
+		</section>
+
+		<section class="section_con">
+			<h1>Удалить изображение</h1>
+			<?php $addImageForm = Form::beginWithFile("/api/image/delete") ?>
+			<?php $addImageForm->field("id", "ID", "number") ?>
+			<?php Form::end("Удалить") ?>
+		</section>
+
 		<section class="section_con">
 			<h1>Изображения</h1>
 			<div class='list'>
@@ -54,11 +68,14 @@
 				use ProductHack\models\ImagesModel;
 
 				$imagesModel = new ImagesModel();
-				foreach ($imagesModel->selectAll() as $value):
+				$imagesModel->loadAll();
+
+				foreach ($imagesModel->pool as $imageModel):
 					?>
 					<div class='item'>
-						<p>ID: <?php echo $value["id"] ?></p>
-						<img class='admin-image' alt='img' src='<?php echo $value["base64"] ?>' />
+						<p>ID: <?php echo $imageModel->id ?></p>
+						<p>Tag: <?php echo $imageModel->tag ?></p>
+						<img class='admin-image' src='<?php echo $imageModel->base64 ?>' />
 					</div>
 				<?php endforeach; ?>
 			</div>

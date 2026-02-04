@@ -5,6 +5,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use ProductHack\controllers\AuthorizationController;
 use ProductHack\controllers\CartController;
 use ProductHack\controllers\FileController;
+use ProductHack\controllers\ImageController;
+use ProductHack\controllers\OrderController;
 use ProductHack\controllers\ProductController;
 use ProductHack\controllers\PagesController;
 use ProductHack\core\Application;
@@ -41,9 +43,18 @@ $app->router->create_get_route(['/api/public/file/'], [FileController::class, 'f
 
 
 //post
+$app->router->create_post_route(['/api/order/create'], [OrderController::class, 'create']);
+$app->router->create_post_route(['/api/order/change_status'], [OrderController::class, 'change_status']);
+
+$app->router->create_post_route(['/api/pay/create'], [OrderController::class, 'pay']);
+
+$app->router->create_post_route(['/api/image/create'], [ImageController::class, 'create']);
+$app->router->create_post_route(['/api/image/delete'], [ImageController::class, 'delete']);
+
 $app->router->create_post_route(['/api/product/create'], [ProductController::class, 'create']);
 $app->router->create_post_route(['/api/product/delete'], [ProductController::class, 'delete']);
 $app->router->create_post_route(['/api/product/change'], [ProductController::class, 'change']);
+
 $app->router->create_post_route(['/api/user/login'], [AuthorizationController::class, 'login']);
 $app->router->create_post_route(['/api/user/send_code'], [AuthorizationController::class, 'sendCode']);
 $app->router->create_post_route(['/api/user/registration'], [AuthorizationController::class, 'registration']);

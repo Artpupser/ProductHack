@@ -3,30 +3,55 @@
 namespace ProductHack\models;
 
 use ProductHack\core\Model;
-use ProductHack\core\ModelPropRuleAttribute;
-use ProductHack\core\ModelRule;
 
 class CartModel extends Model
 {
-	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
-	public int $id;
-	#[ModelPropRuleAttribute(ModelRule::NUMBER)]
-	#[ModelPropRuleAttribute(ModelRule::NUMBER_MIN, 1)]
-	#[ModelPropRuleAttribute(ModelRule::NUMBER_MAX, 512)]
-	public int $cost;
-
-	public function getProducts(): array
+	/**
+	 * @var array<ProductModel>
+	 */
+	public array $products;
+	/**
+	 * @var array<CartItemModel>
+	 */
+	public array $cartItems { get => $_SESSION['cart']; }
+	public bool $isCorrect { get => isset($_SESSION['caart']); }
+	public function loadCart()
 	{
-		if (!$_SESSION['cart']) {
+		if (!$this->cartItems) {
 			return [];
 		}
-		$products = [];
-		foreach ($_SESSION['cart'] as $key => $value) {
+		foreach ($this->cartItems as $key => $value) {
 			$product = new ProductModel();
 			if ($product->loadFromWhere("id", $key)) {
-				$products[$key] = $product;
+				$this->products[$key] = $product;
 			}
 		}
-		return $products;
+	}
+
+	public function enumerate(callable $callback): bool
+	{
+		foreach ($this->cartItems as $key => $value) {
+			if (!$callback($this->products[$key], $value, $key)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public function priceProduct(string $id)
+	{
+		return $this->products[$id]->price * $this->cartItems[$id]->cost;
+	}
+
+	public function total()
+	{
+		$amount = 0;
+		foreach ($this->cartItems as $key => $value) {
+			if (!$value->enable) {
+				continue;
+			}
+			$amount += $this->priceProduct($key);
+		}
+		return $amount;
 	}
 }
