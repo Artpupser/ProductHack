@@ -5,12 +5,16 @@ namespace ProductHack\models;
 use DateTimeImmutable;
 use ProductHack\core\ModelDatabase;
 use ProductHack\core\ModelDatabaseAttribute;
+use ProductHack\core\ModelPropRuleAttribute;
+use ProductHack\core\ModelRule;
 use ProductHack\core\Session;
 
 #[ModelDatabaseAttribute(table_name: "sessions", table_collumn_names: ["user_id", "token", "expires_at"])]
 class SessionModel extends ModelDatabase
 {
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	public int $id;
+	#[ModelPropRuleAttribute(ModelRule::IMPORTANT)]
 	public int $user_id;
 	public string $token;
 	public string $created_at;

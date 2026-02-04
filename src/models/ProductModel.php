@@ -43,6 +43,17 @@ class ProductModel extends ModelDatabase
 		return $this->insert([$this->name, $this->description, $this->price, $this->stock, $this->ids_images]);
 	}
 
+	public function getFirstImage(): string
+	{
+		$imageModel = new ImagesModel();
+		return $imageModel->selectWhereEqual("id", $this->getIds()[0])[0]["base64"];
+	}
+
+	public function getIds(): array
+	{
+		return explode(',', $this->ids_images);
+	}
+
 	public function delete(int $id): bool
 	{
 		return $this->deleteFromProp("id", $id);

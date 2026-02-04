@@ -1,5 +1,5 @@
-<div class="container_con">
-	<section class="section_con">
+<div class="container_auto">
+	<section class="section_auto">
 		<div id="login-form">
 			<h2>Авторизация</h2>
 			<?php

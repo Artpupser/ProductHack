@@ -27,6 +27,7 @@ class Application
 		$this->response = new Response();
 		$this->database = new Database($config['db']);
 		$this->router = new Router($this->request, $this->response);
+		Session::load();
 	}
 
 	public function run()

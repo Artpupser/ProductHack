@@ -3,6 +3,7 @@
 namespace ProductHack\core;
 
 use Attribute;
+use ProductHack\controllers\PagesController;
 use Reflection;
 use ReflectionAttribute;
 use ReflectionClass;
@@ -63,15 +64,15 @@ abstract class Model
 	public function __construct()
 	{
 		$this->_attributesRules = $this->getRules();
-		self::$VALIDATORS[ModelRule::IMPORTANT->value] = fn($value, null $rule_value): bool => !empty($value);
-		self::$VALIDATORS[ModelRule::TEXT_MAX->value] = fn($value, int $max): bool => strlen($value) <= $max;
-		self::$VALIDATORS[ModelRule::TEXT_MIN->value] = fn($value, int $min): bool => strlen($value) >= $min;
-		self::$VALIDATORS[ModelRule::NUMBER_MAX->value] = fn($value, int $max): bool => $value <= $max;
-		self::$VALIDATORS[ModelRule::NUMBER_MIN->value] = fn($value, int $min): bool => $value >= $min;
-		self::$VALIDATORS[ModelRule::EMAIL->value] = fn($value, null $rule_value): bool => filter_var($value, FILTER_VALIDATE_EMAIL);
-		self::$VALIDATORS[ModelRule::MATCH ->value] = fn($value, string $rule_value): bool => $this->{$rule_value} === $value;
-		self::$VALIDATORS[ModelRule::NUMBER->value] = fn($value, null $rule_value): bool => is_numeric($value);
-		self::$VALIDATORS[ModelRule::IMG->value] = fn($value, null $rule_value): bool => $this->isImageBase64($value);
+		self::$VALIDATORS[ModelRule::IMPORTANT->value] = fn($attribute, null $rule_value): bool => isset($this->{$attribute});
+		self::$VALIDATORS[ModelRule::TEXT_MAX->value] = fn($attribute, int $max): bool => strlen($this->{$attribute}) <= $max;
+		self::$VALIDATORS[ModelRule::TEXT_MIN->value] = fn($attribute, int $min): bool => strlen($this->{$attribute}) >= $min;
+		self::$VALIDATORS[ModelRule::NUMBER_MAX->value] = fn($attribute, int $max): bool => $this->{$attribute} <= $max;
+		self::$VALIDATORS[ModelRule::NUMBER_MIN->value] = fn($attribute, int $min): bool => $this->{$attribute} >= $min;
+		self::$VALIDATORS[ModelRule::EMAIL->value] = fn($attribute, null $rule_value): bool => filter_var($this->{$attribute}, FILTER_VALIDATE_EMAIL);
+		self::$VALIDATORS[ModelRule::MATCH ->value] = fn($attribute, string $rule_value): bool => $this->{$rule_value} === $this->{$attribute};
+		self::$VALIDATORS[ModelRule::NUMBER->value] = fn($attribute, null $rule_value): bool => is_numeric($this->{$attribute});
+		self::$VALIDATORS[ModelRule::IMG->value] = fn($attribute, null $rule_value): bool => $this->isImageBase64($this->{$attribute});
 	}
 
 	public function loadData($data)
@@ -111,14 +112,15 @@ abstract class Model
 
 	public function getRules(): array
 	{
-
 		$result = [];
 		foreach ($this->getProps() as $prop) {
 			$name = $prop->getName();
 			$result[$name] = [];
 			$attrs = $prop->getAttributes(ModelPropRuleAttribute::class);
-			if (empty($attrs))
+			if (empty($attrs)) {
 				continue;
+			}
+
 			foreach ($attrs as $attr) {
 				$el = $attr->newInstance();
 				$result[$name][$el->rule->value] = $el->value;
@@ -130,16 +132,19 @@ abstract class Model
 	public function validate()
 	{
 		foreach ($this->_attributesRules as $attribute => $rules) {
-			if (!isset($this->{$attribute}))
-				continue;
-			$value = $this->{$attribute};
 			foreach ($rules as $rule => $rule_value) {
-				if (!self::$VALIDATORS[$rule]($value, $rule_value)) {
+				if (!isset($this->{$attribute})) {
+					if (isset($rules[ModelRule::IMPORTANT->value])) {
+						Application::$app->error->pushClientError($attribute, ModelRule::from(ModelRule::IMPORTANT->value)->message(null));
+					}
+					break;
+				}
+				if (!self::$VALIDATORS[$rule]($attribute, $rule_value)) {
 					Application::$app->error->pushClientError($attribute, ModelRule::from($rule)->message($rule_value));
 				}
 			}
 		}
-		return Application::$app->error->clientErrorsIsEmpty();
+		return Application::$app->error->clientErrorsIsEmpty() == true;
 	}
 
 	private static function isImageBase64($base64String): bool

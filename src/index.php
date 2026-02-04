@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use ProductHack\controllers\AuthorizationController;
+use ProductHack\controllers\CartController;
 use ProductHack\controllers\FileController;
 use ProductHack\controllers\ProductController;
 use ProductHack\controllers\PagesController;
@@ -47,6 +48,11 @@ $app->router->create_post_route(['/api/user/login'], [AuthorizationController::c
 $app->router->create_post_route(['/api/user/send_code'], [AuthorizationController::class, 'sendCode']);
 $app->router->create_post_route(['/api/user/registration'], [AuthorizationController::class, 'registration']);
 $app->router->create_post_route(['/api/user/logout'], [AuthorizationController::class, 'logout']);
+
+$app->router->create_post_route(['/api/cart/change'], [CartController::class, 'change']);
+$app->router->create_post_route(['/api/cart/clear'], [CartController::class, 'clear']);
+$app->router->create_post_route(['/api/cart/delete'], [CartController::class, 'delete']);
+$app->router->create_post_route(['/api/cart/get'], [CartController::class, 'get']);
 
 
 $app->run();

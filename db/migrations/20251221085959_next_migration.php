@@ -27,12 +27,12 @@ final class NextMigration extends AbstractMigration
                 full_name varchar(150)
             );
 
-            create table if not exists  order_statuses (
+            create table if not exists order_statuses (
                 id serial primary key,
                 name varchar(100) not null unique
             );
 
-            create table if not exists  products (
+            create table if not exists products (
                 id serial primary key,
                 name varchar(150) not null,
                 description TEXT,
@@ -41,7 +41,7 @@ final class NextMigration extends AbstractMigration
                 ids_images text not null default ''
             );
 
-            create table if not exists  orders (
+            create table if not exists orders (
 					id serial primary key,
 					user_id int not null references users(id),
 					status_id int not null references order_statuses(id),
@@ -50,7 +50,7 @@ final class NextMigration extends AbstractMigration
 					total_price numeric(10,2) not null default 0
             );
 
-            create table if not exists  order_items (
+            create table if not exists order_items (
 					id serial primary key,
 					order_id int not null references orders(id) on delete cascade,
 					product_id int not null references products(id),
@@ -58,7 +58,7 @@ final class NextMigration extends AbstractMigration
 					price_snapshot numeric(10,2) not null
             );
 
-            create table if not exists  sessions (
+            create table if not exists sessions (
 					id serial primary key,
 					user_id int not null references users(id) on delete cascade,
 					token varchar(255) not null unique,
@@ -66,12 +66,12 @@ final class NextMigration extends AbstractMigration
 					expires_at timestamp not null
             );
 
-            create table if not exists  payment_methods (
+            create table if not exists payment_methods (
 					id serial primary key,
 					name varchar(100) not null unique
             );
 
-            create table if not exists  payment_statuses (
+            create table if not exists payment_statuses (
 					id serial primary key,
 					name varchar(100) not null unique
             );

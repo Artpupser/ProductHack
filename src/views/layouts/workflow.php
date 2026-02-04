@@ -12,5 +12,4 @@ include_once './views/layouts/head.php' ?>
 	</div>
 	<?php include_once './views/layouts/footer.php' ?>
 	<script src="/api/public/file/?name=js/notifications.js"></script>
-
 </body>
