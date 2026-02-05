@@ -13,4 +13,13 @@ class UserModel extends ModelDatabase
 	public string $password_hash;
 	public ?string $full_name;
 	public int $role_id;
+
+	public function isAdmin(): bool
+	{
+		return $this->role_id > 1;
+	}
+	public function isUser(): bool
+	{
+		return $this->role_id > 0;
+	}
 }

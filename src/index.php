@@ -29,7 +29,6 @@ $app = new Application(__DIR__, $config);
 $pages = new PagesController();
 //get
 $app->router->create_get_route(['/', '/index', '/home', '/main'], [PagesController::class, 'main']);
-$app->router->create_get_route(['/test'], [PagesController::class, 'test']);
 $app->router->create_get_route(['/catalog'], [PagesController::class, 'catalog']);
 $app->router->create_get_route(['/aboutus'], [PagesController::class, 'aboutus']);
 $app->router->create_get_route(['/admin'], [PagesController::class, 'admin']);

@@ -39,15 +39,16 @@ enum ModelRule: int
 	public function message(mixed $value): string
 	{
 		return match ($this) {
-			self::IMPORTANT => "Important",
-			self::TEXT_MAX => "Text length > $value",
-			self::TEXT_MIN => "Text length < $value",
-			self::NUMBER_MAX => "Number > $value",
-			self::NUMBER_MIN => "Number < $value",
-			self::EMAIL => "Is not email",
-			self::MATCH => "field not match is other field",
-			self::NUMBER => "Is not number",
-			self::IMG => "Is not image",
+			self::IMPORTANT => '⚠️ Поле обязательно для заполнения',
+			self::TEXT_MAX => "📏 Максимальная длина: {$value} символов",
+			self::TEXT_MIN => "📏 Минимальная длина: {$value} символов",
+			self::NUMBER_MAX => "🔢 Максимальное значение: {$value}",
+			self::NUMBER_MIN => "🔢 Минимальное значение: {$value}",
+			self::EMAIL => '✉️ Неверный формат email адреса',
+			self::MATCH => '🔗 Поля не совпадают',
+			self::NUMBER => '🔢 Значение должно быть числом',
+			self::IMG => '🖼️ Файл должен быть изображением',
+			default => '❌ Ошибка валидации',
 		};
 	}
 }

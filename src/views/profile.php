@@ -1,14 +1,12 @@
 <?php
+
+use ProductHack\core\Session;
+use ProductHack\models\ImageModel;
 use ProductHack\models\OrderModel;
 use ProductHack\models\OrdersModel;
 use ProductHack\models\OrderStatus;
-use ProductHack\models\SessionModel;
-$sessionModel = new SessionModel();
-$user = null;
-if ($sessionModel->loadFromPHPSESSID()) {
-	$user = $sessionModel->getUser();
 
-}
+$user = Session::$CURRENT?->getUser() ?? null;
 const MESSAGE = 'Пусто';
 ?>
 
@@ -80,6 +78,9 @@ const MESSAGE = 'Пусто';
 				$ordersModel->loadAll();
 
 				if (\count($ordersModel->pool) != 0):
+					/**
+					 * @var OrderModel
+					 */
 					foreach ($ordersModel->pool as $orderModel): ?>
 						<div class="order">
 							<div class="order-info"><?php echo $orderModel->id ?></div>
@@ -95,7 +96,9 @@ const MESSAGE = 'Пусто';
 									<div class="order-item-info"><?php echo $orderItemModel->price_snapshot ?></div>
 									<div class="order-item-info"><?php echo $product->name ?></div>
 									<div class="order-item-info"><?php echo $product->description ?></div>
-									<img class="order-item-info img" src='<?php echo $product->getImages()->getFirst()->base64 ?>' />
+									<img class="order-item-info img" src='<?php /** @var ImageModel */
+									$image = $product->getImages()->getFirst();
+									echo $image->base64; ?>" /> ?>' />
 								</div>
 							<?php endforeach ?>
 							<?php

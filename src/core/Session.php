@@ -3,10 +3,12 @@
 namespace ProductHack\core;
 
 use ProductHack\models\SessionModel;
+use ProductHack\models\UserModel;
 
 class Session
 {
 	public static ?SessionModel $CURRENT = null;
+	public static ?UserModel $CURRENT_USER = null;
 	public function __construct()
 	{
 		session_start();
@@ -31,6 +33,7 @@ class Session
 		$model = new SessionModel();
 		if ($model->loadFromPHPSESSID() && $model->inDate) {
 			Session::$CURRENT = $model;
+			Session::$CURRENT_USER = Session::$CURRENT->getUser();
 			return;
 		}
 		Session::$CURRENT = null;

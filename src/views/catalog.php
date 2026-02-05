@@ -25,17 +25,22 @@
 
 	<div class="cards-container">
 		<?php
-		use ProductHack\models\ImagesModel;
+
+		use ProductHack\models\ImageModel;
 		use ProductHack\models\ProductsModel;
+		use ProductHack\models\ProductModel;
+
 		$products = new ProductsModel();
 		$products->loadAll();
+		/**
+		 * @var ProductModel
+		 */
 		foreach ($products->pool as $product): ?>
-			<?php
-			$imagesModel = new ImagesModel();
-			$imagesModel->loadFromTag($product->getTagForImage()); ?>
 			<div class="card">
-				<img class="card_img" src="
-				<?php echo $imagesModel->getFirst()->base64; ?>" />
+				<img class="card_img" src="		
+				<?php /** @var ImageModel */
+				$image = $product->getImages()->getFirst();
+				echo $image->base64; ?>" />
 				<div class=" card_content">
 					<div class="card_title"><?php echo $product->name ?></div>
 					<div class="card_id"><?php echo $product->id ?></div>

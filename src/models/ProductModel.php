@@ -54,7 +54,7 @@ class ProductModel extends ModelDatabase
 	public function getImages(): ImagesModel
 	{
 		$imagesModel = new ImagesModel();
-		$imagesModel->loadFromTag($this->getTagForImage());
+		$imagesModel->loadFrom("tag", $this->getTagForImage());
 		return $imagesModel;
 	}
 

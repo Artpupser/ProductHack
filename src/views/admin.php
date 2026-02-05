@@ -5,6 +5,7 @@
 			<?php
 
 			use ProductHack\components\Form;
+			use ProductHack\models\ImageModel;
 
 			$addProductForm = Form::beginWithFile("/api/product/create") ?>
 			<?php $addProductForm->field("name", "Название", "text") ?>
@@ -69,7 +70,7 @@
 
 				$imagesModel = new ImagesModel();
 				$imagesModel->loadAll();
-
+				/** @var ImageModel */
 				foreach ($imagesModel->pool as $imageModel):
 					?>
 					<div class='item'>

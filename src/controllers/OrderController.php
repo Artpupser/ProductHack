@@ -25,4 +25,14 @@ class OrderController extends Controller
 		}
 		return $this->redirect("profile");
 	}
+
+	public function change_status(Request $request)
+	{
+		$order = new OrderModel();
+		$order->loadData($request->getData());
+		if (!$order->changeColumn("status_id", $order->status_id, $order->id)) {
+			Application::$app->error->pushClientError("any", "Order bad status changewd");
+		}
+		return $this->redirect("profile");
+	}
 }

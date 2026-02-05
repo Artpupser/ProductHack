@@ -5,45 +5,35 @@ namespace ProductHack\controllers;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
 use ProductHack\core\Session;
-use ProductHack\models\LoginModel;
-use ProductHack\models\ProductModel;
-use ProductHack\models\SessionModel;
 
 class PagesController extends Controller
 {
-	public static PagesController $instance;
-
-	public function __construct()
-	{
-		if (empty(self::$instance)) {
-			self::$instance = $this;
-		}
-	}
-
-	public function test(Request $request): string
-	{
-		$this->layout = "empty_workflow";
-		$model = new LoginModel();
-		return $this->renderDump([]);
-	}
-
-	public function catalog(Request $request)
-	{
-		return $this->renderPage('catalog');
-	}
-	public function payment(Request $request)
-	{
-		return $this->renderPage('payment');
-	}
 	public function profile(Request $request)
 	{
-		$session = new SessionModel();
-		if ($session->loadFromPHPSESSID()) {
-			$user = $session->getUser();
-			if ($user->role_id != 0)
-				return $this->renderPage('profile');
-		}
+		if (Session::$CURRENT_USER?->isUser())
+			return $this->renderPage('profile');
 		return $this->redirect("authorization");
+	}
+
+	public function admin(Request $request)
+	{
+		if (Session::$CURRENT_USER?->isAdmin())
+			return $this->renderPage('admin');
+		return $this->redirect("authorization");
+	}
+
+	public function cart(Request $request)
+	{
+		if (Session::$CURRENT_USER?->isUser())
+			return $this->renderPage('cart');
+		return $this->redirect("authorization");
+	}
+
+	public function authorization(Request $request)
+	{
+		if (Session::$CURRENT_USER?->isUser())
+			return $this->redirect("profile");
+		return $this->renderPage('authorization');
 	}
 
 	public function contacts(Request $request)
@@ -51,29 +41,9 @@ class PagesController extends Controller
 		return $this->renderPage('contacts');
 	}
 
-	public function admin(Request $request)
-	{
-		if (Session::$CURRENT) {
-			$user = Session::$CURRENT->getUser();
-			if ($user->role_id == 2)
-				return $this->renderPage('admin');
-		}
-		return $this->redirect("authorization");
-	}
-
 	public function main(Request $request)
 	{
 		return $this->renderPage('main');
-	}
-
-	public function cart(Request $request)
-	{
-		if (Session::$CURRENT) {
-			$user = Session::$CURRENT->getUser();
-			if ($user->role_id > 0)
-				return $this->renderPage('cart');
-		}
-		return $this->redirect("authorization");
 	}
 
 	public function aboutus(Request $request)
@@ -81,13 +51,15 @@ class PagesController extends Controller
 		return $this->renderPage('aboutus');
 	}
 
-	public function authorization(Request $request)
+	public function catalog(Request $request)
 	{
-		if (Session::$CURRENT) {
-			$user = Session::$CURRENT->getUser();
-			if ($user->role_id > 0)
-				return $this->redirect("profile");
-		}
-		return $this->renderPage('authorization');
+		return $this->renderPage('catalog');
+	}
+
+	public function payment(Request $request)
+	{
+		if (Session::$CURRENT_USER?->isUser())
+			return $this->renderPage('payment');
+		return $this->redirect("authorization");
 	}
 }

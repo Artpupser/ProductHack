@@ -2,30 +2,18 @@
 
 namespace ProductHack\models;
 
+use ProductHack\core\IterableModel;
 use ProductHack\core\ModelDatabase;
 use ProductHack\core\ModelDatabaseAttribute;
 
 #[ModelDatabaseAttribute(table_name: "orders", table_collumn_names: [])]
-class OrdersModel extends ModelDatabase
+/**
+ * @template-extends IterableModel<OrderModel>
+ */
+class OrdersModel extends IterableModel
 {
-
-	/**
-	 * @var array<OrderModel>
-	 */
-	public array $pool = [];
-
-	public function loadAll(): void
+	public function createModel(): OrderModel
 	{
-		$result = $this->selectAll();
-		foreach ($result as $value) {
-			$model = new OrderModel();
-			$model->loadData($value);
-			array_push($this->pool, $model);
-		}
-	}
-
-	public function getFirst(): OrderModel
-	{
-		return $this->pool[0];
+		return new OrderModel();
 	}
 }
