@@ -103,7 +103,7 @@ const MESSAGE = 'Пусто';
 							<?php endforeach ?>
 							<?php
 							if ($orderModel->status == OrderStatus::CREATED) {
-								echo "<button class='btn'>Оплатить</button>";
+								echo "<a href='/payment' class='btn'>Оплатить</a>";
 							} else {
 								echo "<div class='order-info'>ОПЛАЧЕНО</div>";
 							}

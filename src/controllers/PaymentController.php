@@ -5,5 +5,8 @@ use ProductHack\core\Controller;
 
 class PaymentController extends Controller
 {
+	public function pay()
+	{
 
+	}
 }
