@@ -98,7 +98,7 @@ const MESSAGE = 'Пусто';
 									<div class="order-item-info"><?php echo $product->description ?></div>
 									<img class="order-item-info img" src='<?php /** @var ImageModel */
 									$image = $product->getImages()->getFirst();
-									echo $image->base64; ?>" /> ?>' />
+									echo $image->base64; ?>' />
 								</div>
 							<?php endforeach ?>
 							<?php

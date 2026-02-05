@@ -13,8 +13,8 @@ class CartModel extends Model
 	/**
 	 * @var array<CartItemModel>
 	 */
-	public array $cartItems { get => $_SESSION['cart']; }
 	public bool $isCorrect { get => isset($_SESSION['caart']); }
+	public ?array $cartItems { get => $_SESSION['cart']; }
 	public function loadCart()
 	{
 		if (!$this->cartItems) {
