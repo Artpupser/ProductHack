@@ -17,3 +17,5 @@ searchInput.addEventListener('input', function() {
         }
     });
 });
+
+

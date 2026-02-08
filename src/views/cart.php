@@ -18,10 +18,19 @@
 						<h2><?php echo $cart->priceProduct($key) ?>₽</h2>
 						<h2><?php echo $value->enable ?></h2>
 						<p class="small-text"><?php echo $cart->products[$key]->description ?></p>
-						<!-- change-enable здесь нужно привязать change(), см test.js -->
-						<button class="change-enable">Учесть/Не учитывать</button>
-						<!-- change-enable здесь нужно привязать remove(), см test.js -->
-						<button class="remove-item">Убрать из корзины</button>
+						
+						<button class="change-enable"
+							data-id="<?= $key ?>"
+							data-cost="<?= $value->cost ?>"
+							data-enable="<?= $value->enable ?>">
+							Учесть/Не учитывать
+						</button>
+
+						<button class="remove-item" data-id="<?= $key ?>">
+							Убрать из корзины
+						</button>
+
+
 					</div>
 				</div>
 			<?php endforeach ?>
@@ -35,3 +44,4 @@
 		<?php $form->end("Заказать") ?>
 	</div>
 </section>
+	<script src="/api/public/file/?name=js/test.js"></script>
