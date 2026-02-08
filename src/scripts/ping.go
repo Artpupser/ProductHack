@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func main() {
+func anotherfunc() {
 	hosts := []string{
 		"google.com",
 		"yandex.ru",
