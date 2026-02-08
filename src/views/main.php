@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <a href="/catalog" class="ssilka">Перейти в каталог</a>
+            
         </div>
 
         <div class="acii">
