@@ -5,13 +5,13 @@
 - Создайте папку под проект `mkdir <имя_директории>`, например, в домашней директории `cd ~`.
 - Проверьте успешность создания `ls -la | grep "<имя_директории>"`.
 - Перейдите в директорию `cd <имя_директории>`
-<img width="694" height="496" alt="image" src="https://github.com/user-attachments/assets/d46f9caa-f410-409e-b6a8-f80169a717b2" />
+<img width="694" height="496" alt="image" src="./meta/0.png" />
 
 - Склонируйте репозиторий _ProductHack_ в директорию `git clone https://github.com/Artpupser/ProductHack.git`.
 - Проверьте, что появилась одноимённая директория `ls -la`.
 - Перейдите в директорию репозитория `cd ProductHack`.
 - Проверьте, что директория склонирована успешно `git status`.
-<img width="732" height="344" alt="image" src="https://github.com/user-attachments/assets/2e314115-4545-4ab7-8436-4a620456ba58" />
+<img width="732" height="344" alt="image" src="./meta/1.png" />
 
 *Для получения обновлений репозитория используйте команду* `git pull`<br>
 *Для отправления обновлений в репозиторий выполните следующий набор команд*
@@ -33,24 +33,24 @@ git push origin <имя_ветки>
 # Шаг 2. Настройка сервера.
 _Подпункт 1: базовые команды Linux._
 - `ls` - отображение файлов в директориии. Ключ `-a` - отображение скрытых файлов (`.htaccess`). Ключ `-l` структурированное отображение с правами доступа и прочими данными.
-<img width="694" height="270" alt="image" src="https://github.com/user-attachments/assets/8eabea3a-aa0a-4e75-a27e-e0e99534ab1b" />
+<img width="694" height="270" alt="image" src="./meta/2.png" />
 
 - `cd` - смена директории. Можно переходить по относительному пути `./ | <ничего>`, или по абсолютному `/var/www/html/...`
-<img width="512" height="42" alt="image" src="https://github.com/user-attachments/assets/e15b0997-81e4-4308-9cdf-21fd03db624b" />
+<img width="512" height="42" alt="image" src="./meta/3.png" />
 
 - `touch <имя_файла>` - создание / изменение даты обновления указанного файла.
-<img width="761" height="163" alt="image" src="https://github.com/user-attachments/assets/b13d7191-ab8b-4d29-817e-171d662c628b" />
+<img width="761" height="163" alt="image" src="./meta/4.png" />
 
 - `chmod NNN <имя_файла>` - изменение прав доступа к файлу.
-<img width="755" height="184" alt="image" src="https://github.com/user-attachments/assets/358d681e-614e-42cc-9f37-da9532182ae6" />
+<img width="755" height="184" alt="image" src="./meta/5.png" />
 
 - `mkdir <имя_директории>` - создать директорию.
 - `mv /my/file/example.txt /new/file/pos/example.txt` - перемещение файла в другую директорию.
 - `cp /my/file/example.txt /copy/file/pos/example.txt` - копирование файла в новое место.
-<img width="754" height="345" alt="image" src="https://github.com/user-attachments/assets/f6b7b41b-4dc0-4faf-9e24-21bb48d4fd25" />
+<img width="754" height="345" alt="image" src="./meta/6.png" />
 
 - `rm -f <имя_директории>` - удалить директорию или файл. Тег `-r` - рекурсивное удаление (в основном для папок).
-<img width="567" height="136" alt="изображение" src="https://github.com/user-attachments/assets/ac168204-71f4-4d59-ac1f-3bb9614be717" />
+<img width="567" height="136" alt="изображение" src="./meta/7.png" />
 
 
 _Подпункт 2: Конфигурация сервера._
@@ -146,7 +146,7 @@ _Проектирование базы данных_
 3. Проектирование БД
 4. Создание БД
 
-<img width="337" height="187" alt="image" src="https://github.com/user-attachments/assets/6d1746a8-06b3-4045-ad11-70ede7a9879e" />
+<img width="337" height="187" alt="image" src="./meta/8.png" />
 
 ```
 create database WineShop;
