@@ -1,6 +1,7 @@
 # env files
 .env
-yookassa-go-demo/.env
+#nohup
+yookassa-go-demo/nohup.out
 # Yarn Classic
 /node_modules/
 .yarn-integrity

@@ -99,9 +99,6 @@ func main() {
 	shopID := os.Getenv("SHOP_ID")
 	secretKey := os.Getenv("SECRET_KEY")
 
-	log.Println("SHOP_ID:", shopID)
-	log.Println("SECRET_KEY:", secretKey)
-
 	http.HandleFunc("/create-payment", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
