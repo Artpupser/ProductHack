@@ -36,7 +36,9 @@
 		 * @var ProductModel
 		 */
 		foreach ($products->pool as $product): ?>
-			<div class="card">
+			<div class="card"
+				data-stock="<?php echo $product->stock ?>"
+				data-id="<?php echo $product->id ?>">
 				<img class="card_img" src="		
 				<?php /** @var ImageModel */
 				$image = $product->getImages()->getFirst();
@@ -55,7 +57,7 @@
 					</div>
 					<div class="price_card"><?php echo $product->price ?>₽</div>
 					<div class='btn-card'>
-						<a class='btn' href='#'>Добавить в корзину</a>
+						<button class='btn add-to-cart'>Добавить в корзину</button>
 					</div>
 				</div>
 			</div>

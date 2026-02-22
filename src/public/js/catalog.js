@@ -1,5 +1,3 @@
-
-
 /* Каталог поиск */
 const searchInput = document.getElementById('search');
 const cards = document.querySelectorAll('.card');
@@ -18,4 +16,26 @@ searchInput.addEventListener('input', function() {
     });
 });
 
+document.querySelectorAll('.card').forEach(card => {
+	const stock = parseInt(card.dataset.stock);
+	const qtyNumber = card.querySelector('.qty-number');
+	const plusBtn = card.querySelector('.plus');
+	const minusBtn = card.querySelector('.minus');
+
+	let current = 1;
+
+	plusBtn.addEventListener('click', () => {
+		if (current < stock) {
+			current++;
+			qtyNumber.textContent = current;
+		}
+	});
+
+	minusBtn.addEventListener('click', () => {
+		if (current > 1) {
+			current--;
+			qtyNumber.textContent = current;
+		}
+	});
+});
 
