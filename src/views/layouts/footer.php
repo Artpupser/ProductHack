@@ -17,13 +17,13 @@
 	</div>
 	<div class="right_foot">
 		<nav class="menu_foot">
-			<a href="/catalog">Pricing</a>
-			<a href="/aboutus">About us</a>
-			<a href="/contacts">Contact</a>
+			<a href="/catalog">Каталог</a>
+			<a href="/aboutus">О нас</a>
+			<a href="/contacts">Контакты</a>
 		</nav>
 		<div class="social">
-			<a href="https://web.telegram.org/a/" target="_blank" class="telegram">Telegram</a>
-			<a href="https://vk.com/" target="_blank" class="vk">Vk</a>
+			<a href="https://web.telegram.org/a/" target="_blank"><i class="fab fa-telegram"></i></a>
+			<a href="https://vk.com/" target="_blank"><i class="fab fa-vk"></i></a>
 		</div>
 	</div>
 </footer>
