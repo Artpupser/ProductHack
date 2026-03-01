@@ -44,6 +44,8 @@ $app->router->create_get_route(['/api/public/file/'], [FileController::class, 'f
 //post
 $app->router->create_post_route(['/api/order/create'], [OrderController::class, 'create']);
 $app->router->create_post_route(['/api/order/change_status'], [OrderController::class, 'change_status']);
+$app->router->create_post_route(['/api/order/get_price'], [OrderController::class, 'get_price']);
+
 
 $app->router->create_post_route(['/api/pay/create'], [OrderController::class, 'pay']);
 

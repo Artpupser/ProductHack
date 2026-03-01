@@ -5,12 +5,7 @@ namespace ProductHack\controllers;
 use ProductHack\core\Application;
 use ProductHack\core\Controller;
 use ProductHack\core\Request;
-use ProductHack\core\Session;
-use ProductHack\models\CartModel;
-use ProductHack\models\OrderItemModel;
 use ProductHack\models\OrderModel;
-use ProductHack\models\OrderStatus;
-use ProductHack\models\ProductModel;
 
 class OrderController extends Controller
 {
@@ -24,6 +19,17 @@ class OrderController extends Controller
 			}
 		}
 		return $this->redirect("profile");
+	}
+
+	public function get_price(Request $request)
+	{
+		$order = new OrderModel();
+		$order->loadFromWhere("id", $request->getData()["id"]);
+		if ($order->validate()) {
+			$this->renderJson(['value' => $order->total_price]);
+		}
+		Application::$app->error->pushServerError(400, "Order not found");
+		return $this->renderJson([]);
 	}
 
 	public function change_status(Request $request)
