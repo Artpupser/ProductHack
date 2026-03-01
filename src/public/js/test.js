@@ -53,12 +53,11 @@ function removeFromCart(id) {
 	.catch(err => console.error(err));
 }
 
-function changeCart(id, cost, enable = true, quantity = 1) {
+function changeCart(id, cost, enable = true) {
 	const formData = new FormData();
 	formData.append('id', id);
 	formData.append('cost', cost);
 	formData.append('enable', enable ? 1 : 0);
-	formData.append('quantity', quantity);
 
 	fetch('./api/cart/change', {
 		method: 'POST',
@@ -75,16 +74,17 @@ function changeCart(id, cost, enable = true, quantity = 1) {
 	.catch(err => console.error(err));
 }
 
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-	btn.addEventListener('click', () => {
-		const card = btn.closest('.card');
-		const id = card.dataset.id;
-		const priceText = card.querySelector('.price_card').textContent;
-		const cost = parseFloat(priceText.replace('₽','').trim());
-		const quantity = parseInt(card.querySelector('.qty-number').textContent);
+document.addEventListener('click', function(e) {
+	const btn = e.target.closest('.add-to-cart');
+	if (!btn) return;
 
-		changeCart(id, cost, true, quantity);
-	});
+	const card = btn.closest('.card');
+	const id = card.dataset.id;
+	const priceText = card.querySelector('.price_card').textContent;
+	const cost = parseFloat(priceText.replace('₽','').trim());
+	const quantity = parseInt(card.querySelector('.qty-number').textContent);
+
+	changeCart(id, cost, true, quantity);
 });
 
 document.querySelectorAll('.card').forEach(card => {
