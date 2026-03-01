@@ -14,7 +14,7 @@
 						alt="card" />
 					<div class="box_card_prod">
 						<h2><?php echo $cart->products[$key]->name ?></h2>
-						<h2><?php echo $value->cost ?>₽</h2>
+						<h2><?php echo $value->cost ?></h2>
 						<h2><?php echo $cart->priceProduct($value->id) ?>₽</h2>
 						<h2><?php echo $value->enable ?></h2>
 						<p class="small-text"><?php echo $cart->products[$key]->description ?></p>
