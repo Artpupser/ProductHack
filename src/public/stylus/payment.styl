@@ -44,3 +44,35 @@ body
 .pay-btn
   btn()
   width 100%
+  padding 20px 40px
+  font-size 1.3rem
+  min-height 70px
+  display flex
+  align-items center
+  justify-content center
+  gap 15px
+  position relative
+  
+  &::before
+    content ''
+    display inline-block
+    width 40px
+    height 40px
+    background-image url('https://yookassa.ru/files/guide/YooKassa-white.svg')
+    background-size contain
+    background-repeat no-repeat
+    background-position center
+    flex-shrink 0
+  
+  &:hover
+    transform scale(1.02)
+    opacity 1
+  
+  @media (max-width: bp-mobile)
+    font-size 1.1rem
+    padding 18px 30px
+    min-height 60px
+    
+    &::before
+      width 32px
+      height 32px

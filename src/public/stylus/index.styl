@@ -6,6 +6,7 @@ borderGray = #7E868E
 fontRegular = "bergamosco-regular", sans-serif
 
 radiusBtn = 20px
+radiusBigFrame = 100px
 transitionFast = 0.3s
 
 bp-mobile = 480px
@@ -99,7 +100,165 @@ body
       height 60px
       
     img
-      width 100%
+      width 100%l transitionFast
+    .profile
+      transform scale(1.1)
+    .cart
+      transform scale(1.3)
+    .admin
+      transform scale(1.1)
+
+  media(max = bp-tablet)
+    height 70px
+    padding 0 10px
+    .logo img
+      max-height 50px
+    .wineshop
+      font-size 26px
+    .contacts
+      gap 14px
+      .profile,
+      .cart,
+      .admin
+        width 40px
+        height 40px
+
+  media(max = bp-mobile)
+    height 60px
+    .logo img
+      max-height 40px
+    .wineshop
+      font-size 20px
+    .contacts
+      gap 10px
+      .profile,
+      .cart,
+      .admin
+        width 32px
+        height 32px
+
+.body_main
+  padding-top 100px
+
+  media(max = bp-tablet)
+    padding-top 70px
+  media(max = bp-mobile)
+    padding-top 60px
+
+.background-container
+  width 100%
+  position relative
+
+.bg-1,
+.bg-2
+  width 100%
+  height 100vh
+  background-size cover
+  background-position center
+  background-repeat no-repeat
+  position relative
+  flex()
+  justify-content center
+  align-items center
+
+.bg-1
+  background-image url('/api/public/file/?name=imgs/bg.webp')
+
+.bg-2
+  background-image url('/api/public/file/?name=imgs/slider.webp')
+
+.vinishko
+  abs(25%, 12%)
+  font-family fontRegular
+  color whiteColor
+  font-size clamp(22px, 5vw, 50px)
+  z-index 20
+
+.butcat
+  abs(50%, 12%)
+  btn()
+  font-size clamp(14px, 2.5vw, 18px)
+  padding clamp(10px, 2vw, 15px) clamp(18px, 4vw, 30px)
+  z-index 5
+
+
+.slider
+  width clamp(280px, 80vw, 500px)
+  height clamp(360px, 80vh, 650px)
+  position relative
+  overflow hidden
+  margin 10vh auto
+
+
+  media(max = bp-laptop)
+    max-width 700px
+  media(max = bp-tablet)
+    max-width 500px
+    width 90%
+  media(max = bp-mobile)
+    width 100%
+    max-width 400px
+    min-height 250px
+
+.slider-img
+  width 100%
+  height 100%
+  position absolute
+  top 0
+  left 0
+  opacity 0
+  transition opacity 0.5s ease
+
+.slider-img.active
+  opacity 1
+
+.slider .left_controlls,
+.slider .right_controlls
+  position absolute
+  top 50%
+  transform translateY(-50%)
+  height 800px
+  width 60px
+  cursor pointer
+  z-index 10
+
+.slider .left_controlls
+  left 10px
+  opacity 0
+
+.slider .right_controlls
+  right 10px
+  opacity 0
+
+.acii
+  width 100%
+  height auto
+
+.acii img
+  width 100%
+  height auto
+  object-fit contain
+
+.footer
+  background-color footerBg
+  color whiteColor
+  flex(space-between)
+  padding 20px 60px
+  height 250px
+  font-family fontRegular
+  margin-top auto
+  media(max = bp-tablet)
+    flex(direction column, align flex-start)
+    height auto
+    gap 20px
+    padding 20px
+  media(max = bp-mobile)
+    align-items center
+    text-align center
+
+.big-image-frame
+  round-frame(600px, 800px, radiusBigFrame)
+  margin 40px auto
       height 100%
       object-fit contain
       transition all transitionFast
@@ -257,3 +416,37 @@ body
   media(max = bp-mobile)
     align-items center
     text-align center
+
+.big-image-frame
+  round-frame(600px, 800px, radiusBigFrame)
+  margin 40px auto
+
+round-frame($width = 500px, $height = 650px, $radius = radiusBigFrame)
+  width $width
+  height $height
+  border-radius $radius
+  overflow hidden
+  position relative
+
+  img
+    width 100%
+    height 100%
+    object-fit cover
+    object-position center
+    display block
+
+.big-image-frame
+  round-frame(clamp(280px, 80vw, 500px), clamp(360px, 80vh, 650px), radiusBigFrame)
+  margin 0 auto
+  border 1px solid darkRed
+  
+
+  media(max = bp-laptop)
+    max-width 700px
+  media(max = bp-tablet)
+    max-width 500px
+    width 90%
+  media(max = bp-mobile)
+    width 100%
+    max-width 400px
+    min-height 250px

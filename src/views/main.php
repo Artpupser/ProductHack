@@ -15,13 +15,14 @@
             <h1 class="vinishko">Винишко на все <br> случаи жизни</h1>
             <button class="butcat" onclick="window.location.href='/catalog'">Перейти в каталог</button>
         </div>
-
         <div class="bg-2">
             <div class="slider">
                 <?php 
                 $slideCount = 4; 
                 for ($i = 1; $i <= $slideCount; $i++): ?>
-                    <img class="slider-img" src="/api/public/file/?name=imgs/<?= $i ?>.webp" alt="Слайд <?= $i ?>">
+                    <div class="big-image-frame">
+                        <img src="/api/public/file/?name=imgs/<?= $i ?>.webp" alt="Слайд <?= $i ?>">
+                    </div>
                 <?php endfor; ?>
 
                 <div class="controls">

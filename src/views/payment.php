@@ -10,7 +10,10 @@
 <section class="section_pay">
   <div class="pay-wrapper">
     <h2 class="pay-title">Оплата через ЮKassa</h2>
-    <button type="button" class="pay-btn" onclick="pay()">Оплатить 100 руб</button>
+    <button type="button" class="pay-btn" onclick="pay()">
+      <img src="https://yookassa.ru/files/guide/YooKassa-white.svg" alt="ЮKassa" class="pay-btn__logo">
+      <span>Оплатить 100 руб</span>
+    </button>
     <div id="payment-form"></div>
   </div>
 </section>
