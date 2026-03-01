@@ -40,7 +40,7 @@ class CartModel extends Model
 
 	public function priceProduct(string $id)
 	{
-		return $this->products[$id]->price * $this->cartItems[$id]->cost;
+		return $this->products[$id]->price * $this->cartItems[$id]->quantity;
 	}
 
 	public function total()

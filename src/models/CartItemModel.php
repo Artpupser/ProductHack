@@ -13,6 +13,6 @@ class CartItemModel extends Model
 	#[ModelPropRuleAttribute(ModelRule::NUMBER)]
 	#[ModelPropRuleAttribute(ModelRule::NUMBER_MIN, 1)]
 	#[ModelPropRuleAttribute(ModelRule::NUMBER_MAX, 512)]
-	public int $cost;
+	public int $quantity;
 	public bool $enable = false;
 }

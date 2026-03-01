@@ -27,7 +27,6 @@ document.querySelectorAll('.card').forEach(card => {
 	plusBtn.addEventListener('click', () => {
 		if (current < stock) {
 			current++;
-			
 		}
 		qtyNumber.textContent = current;
 	});
@@ -35,7 +34,6 @@ document.querySelectorAll('.card').forEach(card => {
 	minusBtn.addEventListener('click', () => {
 		if (current > 1) {
 			current--;
-			
 		}
 		qtyNumber.textContent = current;
 	});
