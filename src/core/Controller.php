@@ -10,7 +10,7 @@ abstract class Controller
 
 	public function renderPage($view, $params = [])
 	{
-		$params["pageTitle"] = "🍇 Винный магазин";
+		$params["pageTitle"] = "Винный магазин";
 		$params["clientErrors"] = Application::$app->error->getClientErrors();
 		return Application::$app->router->renderView($view, $params);
 	}
